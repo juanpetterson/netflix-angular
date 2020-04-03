@@ -54,6 +54,8 @@
       format('woff');
 }
 
+@import './assets/scss/variables.scss';
+
 * {
   margin: 0;
   padding: 0;
@@ -75,6 +77,11 @@ button {
   max-width: 100%;
   font-size: 16px;
 }
+
+body {
+  background-color: $color-black;
+}
+
 
 button,
 input {
