@@ -7,6 +7,27 @@
     />
   </div>
   <div class="form-container">
-    <app-login-form></app-login-form>
+    <div class="login-form">
+      <div class="login-form__container">
+        <h1 class="login-form__title">Sign In</h1>
+        <form class="login-form__form">
+          <input type="text" class="login-form__input" />
+          <input type="password" class="login-form__input" />
+          <button class="login-form__button" type="submit">Sign In</button>
+          <div class="login-form__container-footer">
+            <input
+              type="checkbox"
+              name="remember-check"
+              id="remember-check"
+              class="login-form__check"
+            />
+            <label for="remember-check" class="login-form__check-label"
+              >Remember me</label
+            >
+            <span>Need help?</span>
+          </div>
+        </form>
+      </div>
+    </div>
   </div>
 </div>
