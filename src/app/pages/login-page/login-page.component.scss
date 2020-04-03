@@ -1,0 +1,30 @@
+.container {
+  height: 100%;
+}
+
+.background {
+  position: absolute;
+  min-height: 100vh;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  background-size: cover;
+  z-index: -1;
+
+  &-image {
+    min-width: 100%;
+    min-height: 100%;
+  }
+}
+
+.form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+
+  app-login-form {
+    width: 100%;
+    max-width: 450px;
+  }
+}
