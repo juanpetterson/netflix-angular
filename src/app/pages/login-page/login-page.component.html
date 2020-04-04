@@ -1,21 +1,39 @@
 <app-header></app-header>
 <div class="container">
-
   <div class="backdrop">
-  <div class="background">
-    <img
-      src="../../../assets/login-background-large.jpg"
-      class="container__background-image"
-    />
+    <div class="background">
+      <img
+        src="../../../assets/login-background-large.jpg"
+        class="container__background-image"
+      />
+    </div>
   </div>
-  </div>
-  <div class="form-container">
+  <div class="teste" fxFill fxFlex fxLayoutAlign="center center">
     <div class="login-form">
       <div class="login-form__container">
         <h1 class="login-form__title">Sign In</h1>
-        <form class="login-form__form">
-          <input type="text" class="login-form__input" />
-          <input type="password" class="login-form__input" />
+        <form
+          (ngSubmit)="onSubmit()"
+          [formGroup]="form"
+          class="login-form__form"
+        >
+          <input
+            class="login-form__input"
+            id="email"
+            formControlName="email"
+            type="email"
+            placeholder="Email"
+            autocomplete="off"
+            autofocus
+          />
+          <input
+            class="login-form__input"
+            id="password"
+            formControlName="password"
+            type="password"
+            placeholder="Password"
+          />
+          <span *ngIf="!email.valid && email.dirty"></span>
           <button class="login-form__button" type="submit">Sign In</button>
           <div class="login-form__container-footer">
             <input
@@ -27,7 +45,7 @@
             <label for="remember-check" class="login-form__check-label"
               >Remember me</label
             >
-            <span>Need help?</span>
+            <a class="login-form__help">Need help?</a>
           </div>
         </form>
       </div>

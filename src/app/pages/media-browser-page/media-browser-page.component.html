@@ -1,0 +1,13 @@
+<app-header></app-header>
+<div class="media-browser">
+  <div class="media-browser__container">
+    <div class="media-browser__outdoor"></div>
+    <div class="media-browser__lists">
+      <app-media-slider
+        *ngFor="let mediaGroup of medias | async"
+        [mediaGroup]="mediaGroup"
+      ></app-media-slider>
+      <!-- <app-media-slider></app-media-slider> -->
+    </div>
+  </div>
+</div>

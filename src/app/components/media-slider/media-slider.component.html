@@ -1,0 +1,19 @@
+<app-media></app-media>
+<div class="wrapper" (window:resize)="onResize()">
+  <h1 class="pageHead">{{ mediaGroup.name }}</h1>
+  <div class="slider">
+    <div class="sliderMask" #slider>
+      <div class="sliderItem" *ngFor="let media of mediaGroup.medias">
+        <div class="sliderItemInner">
+          <img class="cover" [src]="media.thumbnail" />
+        </div>
+      </div>
+    </div>
+    <div class="leftArrow" ref="leftArrow" (click)="handlePrevious()">
+      <i class="fas fa-chevron-left"></i>
+    </div>
+    <div class="rightArrow" ref="rightArrow" (click)="handleNext()">
+      <i class="fas fa-chevron-right"></i>
+    </div>
+  </div>
+</div>
