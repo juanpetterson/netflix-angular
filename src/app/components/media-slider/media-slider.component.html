@@ -1,11 +1,30 @@
 <app-media></app-media>
-<div class="wrapper">
-  <h1 class="pageHead">{{ mediaGroup.name }}</h1>
+<div class="media-slider">
+  <div class="media-slider__header">
+    <span class="media-slider__title">{{ mediaGroup.name }}</span>
+    <div class="media-slider__pages-count">
+      <ul class="pages-count">
+        <li
+          class="pages-count__item"
+          *ngFor="let page of totalPages; let i = index"
+          [ngClass]="{
+            'pages-count__item--active': i === currentPage,
+            hide: hideSliderDetails
+          }"
+        ></li>
+      </ul>
+    </div>
+  </div>
   <div class="slider">
-    <div class="sliderMask" #slider>
-      <div class="sliderItem" #sliderItem *ngFor="let media of sliderItems">
-        <div class="sliderItemInner">
-          <img class="cover" [src]="media.thumbnail" />
+    <div
+      class="slider__container"
+      #slider
+      (mouseenter)="onEnterSlider()"
+      (mouseleave)="onLeaveSlider()"
+    >
+      <div class="slider__item" #sliderItem *ngFor="let media of sliderItems">
+        <div class="slider__item-inner">
+          <img class="slider__item-image" [src]="media.thumbnail" />
         </div>
       </div>
     </div>
@@ -14,16 +33,29 @@
       class="leftArrow"
       ref="leftArrow"
       (click)="handlePrevious()"
+      (mouseenter)="onEnterSlider()"
     >
-      <i class="fas fa-chevron-left"></i>
+      <i
+        class="fas fa-chevron-left"
+        [ngClass]="{
+          hide: hideSliderDetails
+        }"
+      ></i>
     </div>
     <div
       *ngIf="showNext"
       class="rightArrow"
       ref="rightArrow"
       (click)="handleNext()"
+      (mouseenter)="onEnterSlider()"
+      (mouseleave)="onLeaveSlider()"
     >
-      <i class="fas fa-chevron-right"></i>
+      <i
+        class="fas fa-chevron-right"
+        [ngClass]="{
+          hide: hideSliderDetails
+        }"
+      ></i>
     </div>
   </div>
 </div>

@@ -26,23 +26,31 @@ export class MediaSliderComponent implements OnInit, AfterViewInit {
   translateX = 0;
   showPrev = false;
   showNext = true;
+  totalPages = [];
+  currentPage = 0;
+  hideSliderDetails = true;
+
   @HostListener('window:resize', []) onResize() {
-    this.updateSliderState();
+    this.sliderItemWidth = this.sliderItem.nativeElement.clientWidth;
   }
 
   constructor() {}
 
   ngOnInit(): void {
+    this.updateSliderState();
+
     this.sliderItems = this.mediaGroup.medias;
+    this.totalPages = new Array(
+      Math.ceil(this.sliderItems.length / this.showItems)
+    ).fill(0);
   }
 
-  ngAfterViewInit() {
-    this.updateSliderState();
+  ngAfterViewInit(): void {
     this.sliderItemWidth = this.sliderItem.nativeElement.clientWidth;
     this.sliderTotalWidth = this.slider.nativeElement.scrollWidth;
   }
 
-  updateSliderState() {
+  updateSliderState(): void {
     const windowWidth = window.innerWidth;
     let showItems = 1;
 
@@ -61,14 +69,19 @@ export class MediaSliderComponent implements OnInit, AfterViewInit {
     }
 
     this.showItems = showItems;
-    this.sliderItemWidth = this.sliderItem.nativeElement.clientWidth;
   }
 
-  handlePrevious() {
+  handlePrevious(): void {
+    if (this.currentPage > 0) {
+      this.currentPage--;
+    }
     this.showNext = true;
     const toTranslate = this.sliderItemWidth * this.showItems;
 
-    if (this.translateX + toTranslate > 0) {
+    console.log(this.translateX);
+    console.log(toTranslate);
+
+    if (this.translateX + toTranslate >= 0) {
       this.translateX = 0;
       this.showPrev = false;
     } else {
@@ -78,7 +91,11 @@ export class MediaSliderComponent implements OnInit, AfterViewInit {
     this.slider.nativeElement.style.transform = `translateX(${this.translateX}px)`;
   }
 
-  handleNext() {
+  handleNext(): void {
+    if (this.currentPage < this.totalPages.length) {
+      this.currentPage++;
+    }
+
     this.showPrev = true;
     const toTranslate = this.sliderItemWidth * this.showItems;
     const sliderWidth = this.slider.nativeElement.clientWidth;
@@ -87,7 +104,8 @@ export class MediaSliderComponent implements OnInit, AfterViewInit {
       this.sliderTotalWidth - sliderWidth <
       Math.abs(this.translateX) + toTranslate
     ) {
-      this.translateX = (this.sliderTotalWidth - sliderWidth + 60) * -1;
+      this.translateX =
+        (this.sliderTotalWidth - sliderWidth + sliderWidth * 0.04) * -1;
       this.showNext = false;
     } else {
       this.translateX -= toTranslate;
@@ -95,4 +113,17 @@ export class MediaSliderComponent implements OnInit, AfterViewInit {
 
     this.slider.nativeElement.style.transform = `translateX(${this.translateX}px)`;
   }
+
+  onEnterSlider() {
+    this.hideSliderDetails = false;
+    console.log('enter');
+  }
+
+  onLeaveSlider() {
+    this.hideSliderDetails = true;
+    console.log('leave');
+  }
+
+  onMouseEnterItem(index: number) {}
+  onMouseLeaveItem() {}
 }
