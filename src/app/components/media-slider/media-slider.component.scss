@@ -1,5 +1,5 @@
 .pageHead {
-  padding: 15px 0 72px 0;
+  padding: 15px 0;
   min-height: 44px;
   display: inline-block;
   font-size: 26px;
@@ -42,10 +42,13 @@
   @media all and (min-width: 1800px) {
     width: calc(100% / 6);
   }
+  @media all and (min-width: 2200px) {
+    width: calc(100% / 7);
+  }
 }
 
 .sliderItemInner {
-  margin: 0 5px;
+  margin: 0 2px;
   border-radius: 2px;
   position: relative;
 }

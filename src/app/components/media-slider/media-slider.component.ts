@@ -5,6 +5,7 @@ import {
   ViewChild,
   ElementRef,
   AfterViewInit,
+  HostListener,
 } from '@angular/core';
 import { MediaGroup } from '../../models/media-group';
 
@@ -18,22 +19,25 @@ export class MediaSliderComponent implements OnInit, AfterViewInit {
   @ViewChild('sliderItem', { static: false }) sliderItem: ElementRef;
   @Input() mediaGroup: MediaGroup;
   showItems = 1;
+  sliderItems = [];
   sliderTotalWidth = 0;
   sliderItemWidth = 0;
   sliderTotalScroll = 0;
-  sliderItems = [];
   translateX = 0;
   showPrev = false;
   showNext = true;
+  @HostListener('window:resize', []) onResize() {
+    this.updateSliderState();
+  }
 
   constructor() {}
 
   ngOnInit(): void {
-    this.updateSliderState();
     this.sliderItems = this.mediaGroup.medias;
   }
 
   ngAfterViewInit() {
+    this.updateSliderState();
     this.sliderItemWidth = this.sliderItem.nativeElement.clientWidth;
     this.sliderTotalWidth = this.slider.nativeElement.scrollWidth;
   }
@@ -43,6 +47,8 @@ export class MediaSliderComponent implements OnInit, AfterViewInit {
     let showItems = 1;
 
     if (windowWidth > 1800) {
+      showItems = 7;
+    } else if (windowWidth > 1800) {
       showItems = 6;
     } else if (windowWidth > 1260) {
       showItems = 5;
@@ -55,13 +61,7 @@ export class MediaSliderComponent implements OnInit, AfterViewInit {
     }
 
     this.showItems = showItems;
-    if (this.sliderItem) {
-      this.sliderItemWidth = this.sliderItem.nativeElement.clientWidth;
-    }
-  }
-
-  onResize() {
-    this.updateSliderState();
+    this.sliderItemWidth = this.sliderItem.nativeElement.clientWidth;
   }
 
   handlePrevious() {
@@ -77,6 +77,7 @@ export class MediaSliderComponent implements OnInit, AfterViewInit {
 
     this.slider.nativeElement.style.transform = `translateX(${this.translateX}px)`;
   }
+
   handleNext() {
     this.showPrev = true;
     const toTranslate = this.sliderItemWidth * this.showItems;
