@@ -534,12 +534,12 @@ const medias: Media[] = [
   {
     id: 25,
     title: 'Unorthodox',
-    thumbnail: 'assets/medias/the-decline/thumbnail.jpg',
-    thumbnailLogo: 'assets/medias/the-decline/thumbnail-logo.webp',
-    poster: 'assets/medias/the-decline/poster.jpg',
+    thumbnail: 'assets/medias/unorthodox/thumbnail.jpg',
+    thumbnailLogo: 'assets/medias/unorthodox/thumbnail-logo.webp',
+    poster: 'assets/medias/unorthodox/poster.jpg',
     topPoster: '',
-    billboard: 'assets/medias/the-decline/billboard.webp',
-    media: 'assets/medias/the-decline/media.mp4',
+    billboard: 'assets/medias/unorthodox/billboard.webp',
+    media: 'assets/medias/unorthodox/media.mp4',
     synopsis:
       'A Hasidic Jewish woman in Brooklyn flees to Berlin from an arranged marriage and is taken in by a group of musicians — until her past comes calling.',
     maturity: 14,

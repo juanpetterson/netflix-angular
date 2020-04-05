@@ -1,5 +1,11 @@
-import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import {
+  Component,
+  OnInit,
+  Input,
+  ViewChild,
+  ElementRef,
+  AfterViewInit,
+} from '@angular/core';
 import { MediaGroup } from '../../models/media-group';
 
 @Component({
@@ -7,23 +13,29 @@ import { MediaGroup } from '../../models/media-group';
   templateUrl: './media-slider.component.html',
   styleUrls: ['./media-slider.component.scss'],
 })
-export class MediaSliderComponent implements OnInit {
-  // @Input()
-  // public mediaGroup = new BehaviorSubject<MediaGroup>(null);
+export class MediaSliderComponent implements OnInit, AfterViewInit {
   @ViewChild('slider', { static: false }) slider: ElementRef;
+  @ViewChild('sliderItem', { static: false }) sliderItem: ElementRef;
   @Input() mediaGroup: MediaGroup;
-  moving = false;
-  mv = 0;
-  startId = 0;
   showItems = 1;
-  totalItems = 0;
+  sliderTotalWidth = 0;
+  sliderItemWidth = 0;
+  sliderTotalScroll = 0;
   sliderItems = [];
-  click = false;
+  translateX = 0;
+  showPrev = false;
+  showNext = true;
 
   constructor() {}
 
   ngOnInit(): void {
     this.updateSliderState();
+    this.sliderItems = this.mediaGroup.medias;
+  }
+
+  ngAfterViewInit() {
+    this.sliderItemWidth = this.sliderItem.nativeElement.clientWidth;
+    this.sliderTotalWidth = this.slider.nativeElement.scrollWidth;
   }
 
   updateSliderState() {
@@ -42,102 +54,44 @@ export class MediaSliderComponent implements OnInit {
       showItems = 2;
     }
 
-    const mv = 100 / showItems;
-
     this.showItems = showItems;
-    this.mv = mv;
+    if (this.sliderItem) {
+      this.sliderItemWidth = this.sliderItem.nativeElement.clientWidth;
+    }
   }
 
   onResize() {
     this.updateSliderState();
   }
 
-  updateSliderItems(baseShowItem = this.showItems) {
-    const centerDataId = [];
-
-    for (let i = 0; i < baseShowItem; i++) {
-      const x = this.startId + i;
-
-      if (x < this.totalItems) {
-        centerDataId.push(x);
-      } else {
-        centerDataId.push(x - this.totalItems);
-      }
-    }
-
-    const leftDataId = [];
-    for (let i = 0; i < baseShowItem; i++) {
-      const x = this.startId - i - 1;
-
-      if (x >= 0) {
-        leftDataId.push(x);
-      } else {
-        leftDataId.push(this.totalItems + x);
-      }
-    }
-
-    leftDataId.reverse();
-
-    const rightDataId = [];
-    for (let i = 0; i <= baseShowItem; i++) {
-      const x = this.startId + baseShowItem + i;
-
-      if (x < this.totalItems) {
-        rightDataId.push(x);
-      } else {
-        rightDataId.push(x - this.totalItems);
-      }
-    }
-
-    console.log('left', leftDataId);
-    console.log('center', centerDataId);
-    console.log('right', rightDataId);
-
-    let selectIds = [...leftDataId, ...centerDataId, ...rightDataId];
-    let sliderItem = [];
-
-    if (this.mediaGroup.medias.length) {
-      selectIds.map((itemId) => {
-        this.sliderItems.push(this.mediaGroup.medias[itemId]);
-      });
-    }
-  }
-
   handlePrevious() {
-    console.log('prev');
-    const reducePrev = this.startId - this.showItems;
-    let resetStartId = 0;
+    this.showNext = true;
+    const toTranslate = this.sliderItemWidth * this.showItems;
 
-    if (reducePrev < 0) {
-      resetStartId = this.totalItems + reducePrev;
+    if (this.translateX + toTranslate > 0) {
+      this.translateX = 0;
+      this.showPrev = false;
     } else {
-      resetStartId = reducePrev;
+      this.translateX += toTranslate;
     }
 
-    this.startId = resetStartId;
-    this.moving = true;
-
-    this.slider.nativeElement.style.transform = 'translate3d(0%, 0, 0)';
-
-    this.updateSliderItems();
+    this.slider.nativeElement.style.transform = `translateX(${this.translateX}px)`;
   }
   handleNext() {
-    const plusNext = this.startId + this.showItems;
-    let resetStartId = 0;
+    this.showPrev = true;
+    const toTranslate = this.sliderItemWidth * this.showItems;
+    const sliderWidth = this.slider.nativeElement.clientWidth;
 
-    if (plusNext >= this.totalItems) {
-      resetStartId = plusNext - this.totalItems;
+    if (
+      this.sliderTotalWidth - sliderWidth <
+      Math.abs(this.translateX) + toTranslate
+    ) {
+      this.translateX = (this.sliderTotalWidth - sliderWidth + 60) * -1;
+      this.showNext = false;
     } else {
-      resetStartId = plusNext;
+      this.translateX -= toTranslate;
     }
 
-    this.startId = resetStartId;
-    this.moving = true;
-
-    console.dir(this.slider);
-
-    this.slider.nativeElement.style.transform = `translate3d(-1${this.mv}%, 0, 0)`;
-
-    this.updateSliderItems();
+    this.slider.nativeElement.style.transform = `translateX(${this.translateX}px)`;
   }
 }
