@@ -19,13 +19,12 @@
       </ul>
     </div>
   </div>
-  <div class="slider">
-    <div
-      class="slider__container"
-      #slider
-      (mouseenter)="onEnterSlider()"
-      (mouseleave)="onLeaveSlider()"
-    >
+  <div
+    class="slider"
+    (mouseenter)="onEnterSlider()"
+    (mouseleave)="onLeaveSlider()"
+  >
+    <div class="slider__container" #slider>
       <div
         class="slider__item"
         #sliderItem
@@ -68,7 +67,6 @@
       class="leftArrow"
       ref="leftArrow"
       (click)="handlePrevious()"
-      (mouseenter)="onEnterSlider()"
     >
       <i
         class="fas fa-chevron-left"
@@ -82,8 +80,6 @@
       class="rightArrow"
       ref="rightArrow"
       (click)="handleNext()"
-      (mouseenter)="onEnterSlider()"
-      (mouseleave)="onLeaveSlider()"
     >
       <i
         class="fas fa-chevron-right"
