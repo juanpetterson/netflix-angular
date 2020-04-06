@@ -30,8 +30,8 @@
         #sliderItem
         *ngFor="let media of sliderItems; let i = index"
         [style.transform]="getTranformStyle(i)"
-        (mouseenter)="onMouseEnterItem(i)"
-        (mouseleave)="onMouseLeaveItem()"
+        (mouseenter)="onHoverItem(i)"
+        (mouseleave)="onLeaveItem()"
       >
         <div class="slider__item-content">
           <div class="media-content">

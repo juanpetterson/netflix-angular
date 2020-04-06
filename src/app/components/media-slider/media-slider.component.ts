@@ -144,10 +144,10 @@ export class MediaSliderComponent implements OnInit, AfterViewInit {
     this.hideSliderDetails = true;
   }
 
-  onMouseEnterItem(index: number): void {
+  onHoverItem(index: number): void {
     this.hoverItemIndex = index;
   }
-  onMouseLeaveItem(): void {
+  onLeaveItem(): void {
     this.hoverItemIndex = -1;
   }
 
