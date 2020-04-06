@@ -10,9 +10,18 @@ import { HeaderComponent } from './components/header/header.component';
 import { MediaComponent } from './components/media/media.component';
 import { MediaBrowserPageComponent } from './pages/media-browser-page/media-browser-page.component';
 import { MediaSliderComponent } from './components/media-slider/media-slider.component';
+import { MaturityStyleDirective } from './shared/directives/maturity-style.directive';
 
 @NgModule({
-  declarations: [AppComponent, LoginPageComponent, HeaderComponent, MediaComponent, MediaBrowserPageComponent, MediaSliderComponent],
+  declarations: [
+    AppComponent,
+    LoginPageComponent,
+    HeaderComponent,
+    MediaComponent,
+    MediaBrowserPageComponent,
+    MediaSliderComponent,
+    MaturityStyleDirective,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
