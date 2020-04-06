@@ -3,13 +3,17 @@
   <div class="media-slider__header">
     <span class="media-slider__title">{{ mediaGroup.name }}</span>
     <div class="media-slider__pages-count">
-      <ul class="pages-count">
+      <ul
+        class="pages-count"
+        [ngClass]="{
+          hide: hideSliderDetails
+        }"
+      >
         <li
           class="pages-count__item"
           *ngFor="let page of totalPages; let i = index"
           [ngClass]="{
-            'pages-count__item--active': i === currentPage,
-            hide: hideSliderDetails
+            'pages-count__item--active': i === currentPage
           }"
         ></li>
       </ul>
@@ -22,7 +26,14 @@
       (mouseenter)="onEnterSlider()"
       (mouseleave)="onLeaveSlider()"
     >
-      <div class="slider__item" #sliderItem *ngFor="let media of sliderItems">
+      <div
+        class="slider__item"
+        #sliderItem
+        *ngFor="let media of sliderItems; let i = index"
+        [style.transform]="getTranformStyle(i)"
+        (mouseenter)="onMouseEnterItem(i)"
+        (mouseleave)="onMouseLeaveItem()"
+      >
         <div class="slider__item-inner">
           <img class="slider__item-image" [src]="media.thumbnail" />
         </div>

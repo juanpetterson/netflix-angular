@@ -1,27 +1,28 @@
 .media-slider {
+  margin-top: 30px;
+
   &__header {
     display: flex;
     justify-content: space-between;
   }
 
   &__title {
-    padding-top: 15px;
     display: inline-block;
-    font-size: 22px;
+    font-size: 1.4vw;
     font-weight: bold;
-    color: #999;
-    margin: 0 4%;
+    color: white;
+    margin: 0 calc(4% + 4px);
   }
 
   &__pages-count {
     display: flex;
-    align-items: flex-end;
     margin-right: 4%;
   }
 }
 
 .pages-count {
   list-style-type: none;
+  height: 1.4vw;
 
   &__item {
     display: inline-block;
@@ -54,30 +55,22 @@
     position: relative;
     z-index: 1;
     cursor: pointer;
+    transition: all 500ms ease;
+    width: calc(100% / 3);
 
-    @media all and (min-width: 600px) {
-      width: calc(100% / 2);
-    }
-    @media all and (min-width: 768px) {
-      width: calc(100% / 3);
-    }
-    @media all and (min-width: 980px) {
+    @media all and (min-width: 800px) {
       width: calc(100% / 4);
     }
-    @media all and (min-width: 1260px) {
+    @media all and (min-width: 1100px) {
       width: calc(100% / 5);
     }
-    @media all and (min-width: 1800px) {
+    @media all and (min-width: 1400px) {
       width: calc(100% / 6);
-    }
-    @media all and (min-width: 2200px) {
-      width: calc(100% / 7);
     }
   }
 
   &__item-inner {
     margin: 0 2px;
-    border-radius: 2px;
     position: relative;
   }
 
