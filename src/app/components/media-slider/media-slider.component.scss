@@ -46,7 +46,7 @@
   &__container {
     white-space: nowrap;
     padding: 0 4%;
-    transition: all 300ms ease;
+    transition: all 500ms ease;
   }
 
   &__item {
@@ -77,6 +77,25 @@
   &__item-image {
     max-width: 100%;
     height: auto;
+    transition: opacity 500ms ease;
+    opacity: 1;
+
+    &:hover {
+      opacity: 0;
+    }
+  }
+
+  &__item-content {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    opacity: 1;
+    transition: opacity 500ms ease;
+    background: red;
+
+    &:hover {
+      opacity: 1;
+    }
   }
 }
 
@@ -123,4 +142,32 @@
 .hide {
   display: none;
   color: transparent;
+}
+
+.media-content {
+  &__container {
+    display: flex;
+    margin: 20px 10px;
+  }
+
+  &__infos {
+    flex: 1;
+  }
+
+  &__play {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid white;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    font-size: 10px;
+    background: rgba(0, 0, 0, 0.5);
+  }
+
+  &__buttons {
+    display: flex;
+    flex-direction: column;
+  }
 }

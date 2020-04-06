@@ -163,6 +163,7 @@ export class MediaSliderComponent implements OnInit, AfterViewInit {
     // current item
     if (itemIndex === this.hoverItemIndex) {
       if (firstItemHover) {
+        console.log(this.sliderItems[itemIndex]);
         return `scale(${baseScale}) translateX(${baseMultiplier / 2}%)`;
       }
       if (lastItemHover) {

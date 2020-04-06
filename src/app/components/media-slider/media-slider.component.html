@@ -34,6 +34,30 @@
         (mouseenter)="onMouseEnterItem(i)"
         (mouseleave)="onMouseLeaveItem()"
       >
+        <div class="slider__item-content">
+          <div class="media-content">
+            <div class="media-content__container">
+              <div class="media-content__infos">
+                <div class="media-content__play">
+                  <i class="fas fa-play"></i>
+                </div>
+                <span class="media-content__title">{{ media.title }}</span>
+                <div class="mediacontent__maturity">
+                  {{ media.maturity }} {{ media.duration }}
+                </div>
+                <div class="media-content__tags">
+                  <span *ngFor="let tag of media.tags">{{ tag }}</span>
+                </div>
+              </div>
+              <div class="media-content__buttons">
+                <i class="far fa-thumbs-up"></i>
+                <i class="far fa-thumbs-down"></i>
+                <i class="fas fa-check"></i>
+                <i class="fas fa-plus"></i>
+              </div>
+            </div>
+          </div>
+        </div>
         <div class="slider__item-inner">
           <img class="slider__item-image" [src]="media.thumbnail" />
         </div>
