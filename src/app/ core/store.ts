@@ -3,16 +3,16 @@ export class Storage {
 
   public set = (key: string, data: any) => {
     const newKey = this.name.concat('_').concat(key);
-    localStorage.set(newKey, data);
+    localStorage.setItem(newKey, JSON.stringify(data));
   };
 
   public get = (key: string) => {
     const newKey = this.name.concat('_').concat(key);
-    return localStorage.get(newKey);
+    return JSON.parse(localStorage.getItem(newKey));
   };
 
   public remove = (key: string) => {
     const newKey = this.name.concat('_').concat(key);
-    return localStorage.remove(newKey);
+    return localStorage.removeItem(newKey);
   };
 }

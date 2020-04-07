@@ -65,12 +65,18 @@
 
   &__input {
     height: 45px;
-    margin: 5px 0;
+    margin-top: 15px;
     padding: 0 10px;
     border-radius: 4px;
     background-color: $color-gray4;
     color: $color-gray2;
     font-weight: 300;
+  }
+
+  &__error {
+    color: #e87c03;
+    padding: 6px 3px;
+    font-size: 13px;
   }
 
   &__check {
@@ -97,4 +103,11 @@
   &__help:hover {
     text-decoration: underline;
   }
+}
+
+.error-box {
+  background-color: #e87c03;
+  border-radius: 4px;
+  padding: 10px 20px;
+  font-size: 14px;
 }
