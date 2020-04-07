@@ -6,23 +6,24 @@ import {
   ElementRef,
   AfterViewInit,
   HostListener,
-  OnChanges,
+  AfterViewChecked,
 } from '@angular/core';
 import { MediaGroup } from '../../models/media-group';
+import { Observable, Subscription, fromEvent } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
 
 @Component({
   selector: 'app-media-slider',
   templateUrl: './media-slider.component.html',
   styleUrls: ['./media-slider.component.scss'],
 })
-export class MediaSliderComponent implements OnInit, AfterViewInit {
+export class MediaSliderComponent implements OnInit, AfterViewChecked {
   @ViewChild('slider', { static: false }) slider: ElementRef;
   @ViewChild('sliderItem', { static: false }) sliderItem: ElementRef;
   @Input() mediaGroup: MediaGroup;
   showItems = 1;
   sliderItems = [];
   sliderTotalScroll = 0;
-  sliderItemWidth = 0;
   sliderTotalWidth = 0;
   hoverItemIndex = -1;
   translateX = 0;
@@ -33,9 +34,12 @@ export class MediaSliderComponent implements OnInit, AfterViewInit {
   totalMoved = 0;
   hideSliderDetails = true;
 
-  @HostListener('window:resize', []) onResize() {
-    this.onWindowResize();
-  }
+  resizeObservable$: Observable<Event>;
+  resizeSubscription$: Subscription;
+
+  // @HostListener('window:resize', []) onResize() {
+  //   this.onWindowResize();
+  // }
 
   constructor() {}
 
@@ -43,21 +47,26 @@ export class MediaSliderComponent implements OnInit, AfterViewInit {
     this.sliderItems = this.mediaGroup.medias;
     this.updateSliderState();
     this.updateTotalPages();
+
+    this.resizeObservable$ = fromEvent(window, 'resize');
+    this.resizeSubscription$ = this.resizeObservable$
+      .pipe(debounceTime(500))
+      .subscribe((evt) => {
+        this.onWindowResize();
+      });
   }
 
-  ngAfterViewInit(): void {
-    this.sliderItemWidth = this.sliderItem.nativeElement.offsetWidth;
+  ngAfterViewChecked(): void {
     this.sliderTotalScroll = this.slider.nativeElement.scrollWidth;
-    this.sliderTotalWidth = this.slider.nativeElement.offsetWidth;
+    this.sliderTotalWidth = this.slider.nativeElement.clientWidth;
   }
 
   onWindowResize() {
     this.updateSliderState();
     this.updateTotalPages();
 
-    this.sliderItemWidth = this.sliderItem.nativeElement.clientWidth;
     this.sliderTotalScroll = this.slider.nativeElement.scrollWidth;
-    this.sliderTotalWidth = this.slider.nativeElement.offsetWidth;
+    this.sliderTotalWidth = this.slider.nativeElement.clientWidth;
 
     this.currentPage = 0;
     this.translateX = 0;
@@ -67,11 +76,11 @@ export class MediaSliderComponent implements OnInit, AfterViewInit {
     this.showPrev = false;
     this.showNext = true;
 
-    console.log(
-      'sliderItem' + this.sliderItemWidth,
-      'totalwidth' + this.sliderTotalScroll,
-      'totalScrol' + this.sliderTotalWidth
-    );
+    // AJUSTAR SLIDER hover E COLOCAR OZARK COMO BILLBOARD?
+    //fazer os calculos com this.sliderTotalWidth - this.sliderTotalWidth * 0.08
+    // para tamanhos dos slider
+    // this.sliderTotalWidth - this.sliderTotalWidth * 0.08 / this.showItems igual slidewith
+    // ainda tem problema no resize e quando passa pra ultima pagina
   }
 
   updateSliderState(): void {
@@ -100,13 +109,20 @@ export class MediaSliderComponent implements OnInit, AfterViewInit {
   }
 
   handlePrevious(): void {
-    if (this.currentPage > 0) {
-      this.totalMoved -= this.showItems;
-      this.updateCurrentPage();
-    }
     this.showNext = true;
-    const toTranslate =
-      this.sliderItemWidth * this.showItems + this.currentPage;
+    let toTranslate = this.sliderTotalWidth - this.sliderTotalWidth * 0.08;
+
+    const exceededPerPage = this.sliderItems.length % this.showItems;
+
+    if (
+      this.currentPage === this.totalPages.length - 1 &&
+      exceededPerPage !== 0
+    ) {
+      toTranslate =
+        ((this.sliderTotalWidth - this.sliderTotalWidth * 0.08) /
+          this.showItems) *
+        exceededPerPage;
+    }
 
     if (this.translateX + toTranslate >= 0) {
       this.translateX = 0;
@@ -116,17 +132,16 @@ export class MediaSliderComponent implements OnInit, AfterViewInit {
     }
 
     this.slider.nativeElement.style.transform = `translateX(${this.translateX}px)`;
+
+    if (this.currentPage > 0) {
+      this.totalMoved -= this.showItems;
+      this.updateCurrentPage();
+    }
   }
 
   handleNext(): void {
-    if (this.currentPage < this.totalPages.length) {
-      this.totalMoved += this.showItems;
-      this.updateCurrentPage();
-    }
-
     this.showPrev = true;
-    const toTranslate =
-      this.sliderItemWidth * this.showItems + this.currentPage;
+    const toTranslate = this.sliderTotalWidth - this.sliderTotalWidth * 0.08;
 
     if (
       this.sliderTotalScroll - this.sliderTotalWidth <
@@ -143,6 +158,11 @@ export class MediaSliderComponent implements OnInit, AfterViewInit {
     }
 
     this.slider.nativeElement.style.transform = `translateX(${this.translateX}px)`;
+
+    if (this.currentPage < this.totalPages.length) {
+      this.totalMoved += this.showItems;
+      this.updateCurrentPage();
+    }
   }
 
   onEnterSlider(): void {
@@ -206,6 +226,9 @@ export class MediaSliderComponent implements OnInit, AfterViewInit {
   }
 
   private isFirstItemIndex(): boolean {
+    if (this.currentPage === this.totalPages.length - 1) {
+      return this.hoverItemIndex === this.sliderItems.length - this.showItems;
+    }
     return this.currentPage * this.showItems === this.hoverItemIndex;
   }
 
