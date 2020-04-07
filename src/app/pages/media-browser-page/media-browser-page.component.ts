@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import { MediaGroup } from '../../models/media-group';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subscription } from 'rxjs';
 import { MediaService } from './services/media.service';
 import { Media } from 'app/models/media';
 
@@ -10,8 +10,10 @@ import { Media } from 'app/models/media';
   templateUrl: './media-browser-page.component.html',
   styleUrls: ['./media-browser-page.component.scss'],
 })
-export class MediaBrowserPageComponent implements OnInit {
+export class MediaBrowserPageComponent implements OnInit, OnDestroy {
   public medias = new BehaviorSubject<MediaGroup[]>([]);
+  subscription: Subscription;
+  billboardMedia: Media;
 
   constructor(private mediaService: MediaService) {}
 
@@ -38,17 +40,31 @@ export class MediaBrowserPageComponent implements OnInit {
     //   this.medias.next(result);
     // });
 
-    this.mediaService.getMediasAsync().then((response) => {
-      const result = new Array<MediaGroup>();
+    this.subscription = this.mediaService
+      .getMediasAsync()
+      .subscribe((response) => {
+        const result = new Array<MediaGroup>();
 
-      response.forEach((media) => {
-        const mediaGroup = new MediaGroup();
-        mediaGroup.name = media.title;
-        mediaGroup.medias = response;
-        result.push(mediaGroup);
+        response.forEach((media) => {
+          const mediaGroup = new MediaGroup();
+          mediaGroup.name = media.title;
+          mediaGroup.medias = response;
+          while (result.length < 5) {
+            result.push(mediaGroup);
+          }
+        });
+
+        this.medias.next(result);
       });
 
-      this.medias.next(result);
-    });
+    this.loadBillboardMedia();
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
+
+  private loadBillboardMedia(): void {
+    this.billboardMedia = this.mediaService.getBillboardMedia();
   }
 }

@@ -1,7 +1,6 @@
 .media-browser {
   height: 100%;
   width: 100%;
-  // background-color: rgba(255, 0, 0, 0.1);
 
   &__container {
     display: flex;
@@ -9,13 +8,11 @@
     height: 100%;
   }
 
-  &__outdoor {
-    min-height: 55vh;
-    background: rgba(0, 0, 255, 0.1);
+  &__billboard {
+    min-height: 43vw;
   }
 
   &__lists {
     height: 100%;
-    // background: rgba(0, 255, 0, 0.1);
   }
 }

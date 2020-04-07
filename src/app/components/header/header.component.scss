@@ -1,8 +1,6 @@
 .header {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 90px;
+  position: fixed;
+  height: 65px;
   width: 100%;
   background: linear-gradient(
     to bottom,
@@ -10,17 +8,20 @@
     rgba(0, 0, 0, 0) 100%
   );
   z-index: 100;
+  transition: background 500ms ease-out;
 
-  background-color: transparent;
+  &--solid {
+    background: #121212;
+  }
 
   &__logo-wrapper {
     display: inline-block;
-    line-height: 90px;
-    margin-left: 3%;
+    line-height: 65px;
+    margin-left: 4%;
   }
 
   &__logo {
-    height: 45px;
+    width: 92px;
     vertical-align: middle;
   }
 }

@@ -11,6 +11,7 @@ import { MediaComponent } from './components/media/media.component';
 import { MediaBrowserPageComponent } from './pages/media-browser-page/media-browser-page.component';
 import { MediaSliderComponent } from './components/media-slider/media-slider.component';
 import { MaturityStyleDirective } from './shared/directives/maturity-style.directive';
+import { BillboardComponent } from './components/billboard/billboard.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { MaturityStyleDirective } from './shared/directives/maturity-style.direc
     MediaBrowserPageComponent,
     MediaSliderComponent,
     MaturityStyleDirective,
+    BillboardComponent,
   ],
   imports: [
     BrowserModule,

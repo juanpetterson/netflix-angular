@@ -71,8 +71,6 @@ button {
   font-family: 'Netflix Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   color: #ffffff;
-  // background: #141414;
-  overflow-x: hidden;
   height: 100%;
   max-width: 100%;
   font-size: 16px;
@@ -80,10 +78,15 @@ button {
 
 body {
   background-color: #141414;
+  overflow-x: hidden;
 }
 
 button,
 input {
   outline: none;
   border: none;
+}
+
+img {
+  border: 0;
 }

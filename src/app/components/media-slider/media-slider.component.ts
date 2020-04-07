@@ -6,6 +6,7 @@ import {
   ElementRef,
   AfterViewInit,
   HostListener,
+  OnChanges,
 } from '@angular/core';
 import { MediaGroup } from '../../models/media-group';
 
@@ -20,9 +21,9 @@ export class MediaSliderComponent implements OnInit, AfterViewInit {
   @Input() mediaGroup: MediaGroup;
   showItems = 1;
   sliderItems = [];
-  sliderTotalWidth = 0;
-  sliderItemWidth = 0;
   sliderTotalScroll = 0;
+  sliderItemWidth = 0;
+  sliderTotalWidth = 0;
   hoverItemIndex = -1;
   translateX = 0;
   showPrev = false;
@@ -45,9 +46,9 @@ export class MediaSliderComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.sliderItemWidth = this.sliderItem.nativeElement.clientWidth;
-    this.sliderTotalWidth = this.slider.nativeElement.scrollWidth;
-    this.sliderTotalScroll = this.slider.nativeElement.clientWidth;
+    this.sliderItemWidth = this.sliderItem.nativeElement.offsetWidth;
+    this.sliderTotalScroll = this.slider.nativeElement.scrollWidth;
+    this.sliderTotalWidth = this.slider.nativeElement.offsetWidth;
   }
 
   onWindowResize() {
@@ -55,8 +56,8 @@ export class MediaSliderComponent implements OnInit, AfterViewInit {
     this.updateTotalPages();
 
     this.sliderItemWidth = this.sliderItem.nativeElement.clientWidth;
-    this.sliderTotalWidth = this.slider.nativeElement.scrollWidth;
-    this.sliderTotalScroll = this.slider.nativeElement.clientWidth;
+    this.sliderTotalScroll = this.slider.nativeElement.scrollWidth;
+    this.sliderTotalWidth = this.slider.nativeElement.offsetWidth;
 
     this.currentPage = 0;
     this.translateX = 0;
@@ -65,6 +66,12 @@ export class MediaSliderComponent implements OnInit, AfterViewInit {
 
     this.showPrev = false;
     this.showNext = true;
+
+    console.log(
+      'sliderItem' + this.sliderItemWidth,
+      'totalwidth' + this.sliderTotalScroll,
+      'totalScrol' + this.sliderTotalWidth
+    );
   }
 
   updateSliderState(): void {
@@ -98,7 +105,8 @@ export class MediaSliderComponent implements OnInit, AfterViewInit {
       this.updateCurrentPage();
     }
     this.showNext = true;
-    const toTranslate = this.sliderItemWidth * this.showItems;
+    const toTranslate =
+      this.sliderItemWidth * this.showItems + this.currentPage;
 
     if (this.translateX + toTranslate >= 0) {
       this.translateX = 0;
@@ -117,16 +125,17 @@ export class MediaSliderComponent implements OnInit, AfterViewInit {
     }
 
     this.showPrev = true;
-    const toTranslate = this.sliderItemWidth * this.showItems;
+    const toTranslate =
+      this.sliderItemWidth * this.showItems + this.currentPage;
 
     if (
-      this.sliderTotalWidth - this.sliderTotalScroll <
+      this.sliderTotalScroll - this.sliderTotalWidth <
       Math.abs(this.translateX) + toTranslate
     ) {
       this.translateX =
-        (this.sliderTotalWidth -
-          this.sliderTotalScroll +
-          this.sliderTotalScroll * 0.04) *
+        (this.sliderTotalScroll -
+          this.sliderTotalWidth +
+          this.sliderTotalWidth * 0.04) *
         -1;
       this.showNext = false;
     } else {
@@ -163,7 +172,6 @@ export class MediaSliderComponent implements OnInit, AfterViewInit {
     // current item
     if (itemIndex === this.hoverItemIndex) {
       if (firstItemHover) {
-        console.log(this.sliderItems[itemIndex]);
         return `scale(${baseScale}) translateX(${baseMultiplier / 2}%)`;
       }
       if (lastItemHover) {
@@ -198,10 +206,13 @@ export class MediaSliderComponent implements OnInit, AfterViewInit {
   }
 
   private isFirstItemIndex(): boolean {
-    return this.hoverItemIndex % this.showItems === 0;
+    return this.currentPage * this.showItems === this.hoverItemIndex;
   }
 
   private isLastItemIndex(): boolean {
-    return (this.hoverItemIndex + 1) % this.showItems === 0;
+    if (this.hoverItemIndex === this.sliderItems.length - 1) {
+      return true;
+    }
+    return (this.currentPage + 1) * this.showItems - 1 === this.hoverItemIndex;
   }
 }
