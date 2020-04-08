@@ -45,10 +45,10 @@
     margin-right: 10px;
     height: 1.5vw;
     // width: 80px;
-    padding: 1.2vw 2vw;
+    padding: 1.5vw 2vw;
     background: rgba(51, 51, 51, 0.4);
     border-radius: 2px;
-    transition: scale 500ms ease;
+    transition: transform 500ms ease;
     cursor: pointer;
 
     &:hover {

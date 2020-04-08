@@ -11,6 +11,6 @@ export class MediaApiClient {
   }
 
   public getBillboardMedia(): Media {
-    return medias.find((media) => media.title === 'Pandemic');
+    return medias.find((media) => media.title === 'Money Heist');
   }
 }

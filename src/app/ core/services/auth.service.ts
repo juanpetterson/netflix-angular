@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import users from '../../../api/user/users';
+import { Router } from '@angular/router';
 import { BehaviorSubject, Observable, throwError, of } from 'rxjs';
 import { User } from 'app/models/user';
 import { Storage } from '../store';
+import users from '../../../api/user/users';
 
 @Injectable({
   providedIn: 'root',
@@ -11,7 +12,7 @@ export class AuthService {
   isAuthenticated$ = new BehaviorSubject<User>(null);
   private store = new Storage('@netflix');
 
-  constructor() {}
+  constructor(private router: Router) {}
 
   public signIn(username: string, password: string): Observable<User> {
     return new Observable((subscriber) => {
@@ -41,8 +42,17 @@ export class AuthService {
     }
   }
 
-  public handleAuthentication(user: any) {
+  public logout() {
+    this.handleAuthentication(null);
+    this.router.navigate(['/']);
+  }
+
+  private handleAuthentication(user: any) {
     this.isAuthenticated$.next(user);
-    this.store.set('user', user);
+    if (user) {
+      this.store.set('user', user);
+    } else {
+      this.store.remove('user');
+    }
   }
 }

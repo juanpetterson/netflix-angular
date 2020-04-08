@@ -5,6 +5,7 @@ import {
   ViewChild,
   ElementRef,
 } from '@angular/core';
+import { AuthService } from 'app/ core/services/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -12,7 +13,11 @@ import {
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
+  constructor(public authService: AuthService) {}
   @ViewChild('header', { static: false }) headerEl: ElementRef;
+  @ViewChild('dropdown', { static: false }) dropdown: ElementRef;
+
+  hoverDropdown = false;
   @HostListener('window:scroll')
   onWindowScroll() {
     if (window.pageYOffset > 0) {
@@ -22,7 +27,19 @@ export class HeaderComponent implements OnInit {
     }
   }
 
-  constructor() {}
-
   ngOnInit() {}
+
+  onLogout() {
+    this.authService.logout();
+  }
+
+  onShowDropdown() {
+    // this.hoverDropdown = true;
+    // this.dropdown.nativeElement.classList.add('dropdown--active');
+  }
+
+  onHideDropdown() {
+    // this.hoverDropdown = false;
+    // this.dropdown.nativeElement.classList.remove('dropdown--active');
+  }
 }

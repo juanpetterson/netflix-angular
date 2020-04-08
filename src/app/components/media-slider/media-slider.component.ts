@@ -120,17 +120,16 @@ export class MediaSliderComponent implements OnInit, AfterViewChecked {
 
     if (this.translateX + toTranslate >= 0) {
       this.translateX = 0;
-      this.showPrev = false;
     } else {
       this.translateX += toTranslate;
     }
 
     this.slider.nativeElement.style.transform = `translateX(${this.translateX}px)`;
 
-    if (this.currentPage > 0) {
-      this.totalMoved -= this.showItems;
-      this.updateCurrentPage();
-    }
+    this.totalMoved -= this.showItems;
+    this.updateCurrentPage();
+
+    this.showPrev = this.currentPage > 0;
   }
 
   handleNext(): void {
@@ -146,17 +145,16 @@ export class MediaSliderComponent implements OnInit, AfterViewChecked {
           this.sliderTotalWidth +
           this.sliderTotalWidth * 0.04) *
         -1;
-      this.showNext = false;
     } else {
       this.translateX -= toTranslate;
     }
 
     this.slider.nativeElement.style.transform = `translateX(${this.translateX}px)`;
 
-    if (this.currentPage < this.totalPages.length) {
-      this.totalMoved += this.showItems;
-      this.updateCurrentPage();
-    }
+    this.totalMoved += this.showItems;
+    this.updateCurrentPage();
+
+    this.showNext = this.currentPage < this.totalPages.length - 1;
   }
 
   onEnterSlider(): void {
