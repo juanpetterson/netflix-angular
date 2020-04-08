@@ -75,12 +75,6 @@ export class MediaSliderComponent implements OnInit, AfterViewChecked {
 
     this.showPrev = false;
     this.showNext = true;
-
-    // AJUSTAR SLIDER hover E COLOCAR OZARK COMO BILLBOARD?
-    //fazer os calculos com this.sliderTotalWidth - this.sliderTotalWidth * 0.08
-    // para tamanhos dos slider
-    // this.sliderTotalWidth - this.sliderTotalWidth * 0.08 / this.showItems igual slidewith
-    // ainda tem problema no resize e quando passa pra ultima pagina
   }
 
   updateSliderState(): void {

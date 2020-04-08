@@ -1,5 +1,41 @@
 <div class="header" #header>
-  <a href="/" class="header__logo-wrapper">
-    <img src="../../../assets/logo.svg" class="header__logo" />
-  </a>
+  <div class="header__container">
+    <a href="/" class="header__logo-wrapper">
+      <img src="../../../assets/logo.svg" class="header__logo" />
+    </a>
+    <div class="header__navigation">
+      <ul class="header__navigation-items">
+        <li class="header__navigation-item header__navigation-item--active">
+          Home
+        </li>
+        <li class="header__navigation-item">TV Shows</li>
+        <li class="header__navigation-item">Movies</li>
+        <li class="header__navigation-item">Latest</li>
+        <li class="header__navigation-item">My List</li>
+      </ul>
+      <div class="header__actions">
+        <div class="header__action">
+          <button class="header__action-button">
+            <i class="fas fa-search"></i>
+          </button>
+        </div>
+        <div class="header__action">
+          <button class="header__action-button">
+            <i class="fas fa-gift"></i>
+          </button>
+        </div>
+        <div class="header__action">
+          <button class="header__action-button">
+            <i class="fas fa-bell"></i>
+          </button>
+        </div>
+        <div class="header__action">
+          <button class="header__action-button">
+            <i class="fas fa-user"></i
+            ><i class="fas fa-caret-down dropdown"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
