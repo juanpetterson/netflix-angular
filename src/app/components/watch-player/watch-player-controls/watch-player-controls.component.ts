@@ -1,6 +1,5 @@
 import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
 import { MediaState } from '../models/media-state';
-import { Media } from 'app/models/media';
 
 @Component({
   selector: 'app-watch-player-controls',
@@ -15,34 +14,39 @@ export class WatchPlayerControlsComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  onPlayPause() {
+  onTogglePlaying() {
     this.mediaState.playing = !this.mediaState.playing;
+    this.mediaState.eventType = 'Playing';
     this.mediaStateEvent.next(this.mediaState);
   }
 
   onSeekBack() {
     this.mediaState.seekTime = -10;
+    this.mediaState.eventType = 'Seeking';
     this.mediaStateEvent.next(this.mediaState);
     this.mediaState.seekTime = 0;
   }
 
   onSeekForward() {
     this.mediaState.seekTime = 10;
+    this.mediaState.eventType = 'Seeking';
     this.mediaStateEvent.next(this.mediaState);
     this.mediaState.seekTime = 0;
   }
 
   onMute() {
     this.mediaState.muted = !this.mediaState.muted;
+    this.mediaState.eventType = 'Muting';
     this.mediaStateEvent.next(this.mediaState);
   }
 
-  onExpandCompress() {
+  onToggleFullscreen() {
     this.mediaState.expanded = !this.mediaState.expanded;
+    this.mediaState.eventType = 'Fullscreen';
     this.mediaStateEvent.next(this.mediaState);
   }
 
   onClickVideo() {
-    this.onPlayPause();
+    this.onTogglePlaying();
   }
 }

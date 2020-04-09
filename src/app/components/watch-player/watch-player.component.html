@@ -8,9 +8,19 @@
     <source [src]="media.media" type="video/mp4" />
   </video>
 
-  <app-watch-player-controls
-    class="watch-player-controls"
-    (mediaStateEvent)="onMediaStateChange($event)"
-    [mediaState]="mediaState"
-  ></app-watch-player-controls>
+  <div #footer class="watch-player__footer">
+    <div class="progress-bar">
+      <div class="progress-bar__container" (click)="onProgressClick($event)">
+        <div class="progress-bar__current" [style.width]="progress + '%'"></div>
+      </div>
+      <div class="progress-bar__duration">
+        {{ (player.duration - player.currentTime) * 1000 | date: 'mm:ss' }}
+      </div>
+    </div>
+    <app-watch-player-controls
+      class="watch-player-controls"
+      (mediaStateEvent)="onMediaStateChange($event)"
+      [mediaState]="mediaState"
+    ></app-watch-player-controls>
+  </div>
 </div>

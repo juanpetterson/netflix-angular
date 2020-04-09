@@ -21,18 +21,22 @@ import { MediaService } from 'app/pages/media-browser-page/services/media.servic
 })
 export class WatchPlayerComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('player') playerEl: ElementRef;
+  @ViewChild('footer') footerEl: ElementRef;
   private subscriptions: Subscription[] = [];
   private player: HTMLVideoElement;
   public media: Media;
   public mediaState: MediaState = {
     title: '',
     playing: true,
-    muted: false,
+    muted: true,
     expanded: false,
+    duration: 0,
     currentTime: 0,
     seekTime: 0,
     error: false,
+    eventType: undefined,
   };
+  public progress = 0;
 
   constructor(
     private mediaService: MediaService,
@@ -53,23 +57,60 @@ export class WatchPlayerComponent implements OnInit, AfterViewInit, OnDestroy {
     });
   }
 
+  onMouseStop() {
+    const onmousestop = () => {
+      this.footerEl.nativeElement.style.opacity = 0;
+      this.footerEl.nativeElement.style.zIndex = '-1';
+      this.player.style.cursor = 'none';
+    };
+
+    let thread;
+
+    return () => {
+      this.footerEl.nativeElement.style.opacity = 1;
+      this.footerEl.nativeElement.style.zIndex = '0';
+      this.player.style.cursor = 'default';
+      clearTimeout(thread);
+      thread = setTimeout(onmousestop, 3000);
+    };
+  }
+
   ngAfterViewInit() {
     this.player = this.playerEl.nativeElement;
-    this.player.play();
+    this.player.onmousemove = this.onMouseStop();
+
     this.subscriptions.push(
       fromEvent(this.player, 'timeupdate')
-        .pipe(throttleTime(2000))
+        .pipe(throttleTime(500))
         .subscribe((event: Event) => {
           this.mediaState.currentTime = (event.target as HTMLVideoElement).currentTime;
+          this.progress =
+            (this.player.currentTime / this.player.duration) * 100;
+          // setar no slider e no storage pelo mediaservice e por throttleTime no mediaservice
         })
     );
     this.subscriptions.push(
-      fromEvent(document, 'fullscreenchange').subscribe((event: Event) => {
+      fromEvent(this.player, 'ended').subscribe((_) => {
+        this.mediaState.playing = false;
+        this.progress = 100;
+      })
+    );
+
+    this.subscriptions.push(
+      fromEvent(this.player, 'mousemove').subscribe((_) => {
+        this.footerEl.nativeElement.style.opacity = 1;
+      })
+    );
+    this.subscriptions.push(
+      fromEvent(document, 'fullscreenchange').subscribe((_) => {
         if (!document.fullscreenElement) {
           this.mediaState.expanded = false;
         }
       })
     );
+
+    this.player.muted = true;
+    this.player.play();
   }
 
   ngOnDestroy() {
@@ -101,6 +142,13 @@ export class WatchPlayerComponent implements OnInit, AfterViewInit, OnDestroy {
     this.onTogglePlaying();
   }
 
+  onProgressClick(event: MouseEvent) {
+    this.progress = event.clientX / (event.target as HTMLElement).offsetWidth;
+    this.mediaState.currentTime = this.player.duration * this.progress;
+    this.player.currentTime = this.mediaState.currentTime;
+    this.player.play();
+  }
+
   onDoubleClickVideo() {
     this.mediaState.expanded = !this.mediaState.expanded;
     this.onToggleFullscreen();
@@ -108,11 +156,22 @@ export class WatchPlayerComponent implements OnInit, AfterViewInit, OnDestroy {
 
   onMediaStateChange(mediaState: MediaState) {
     this.mediaState = mediaState;
-    this.player.muted = mediaState.muted;
-    if (mediaState.seekTime !== 0) {
-      this.player.currentTime += mediaState.seekTime;
+
+    switch (mediaState.eventType) {
+      case 'Playing':
+        this.onTogglePlaying();
+        break;
+      case 'Muting':
+        this.player.muted = mediaState.muted;
+        break;
+      case 'Seeking':
+        this.player.currentTime += mediaState.seekTime;
+        break;
+      case 'Fullscreen':
+        this.onToggleFullscreen();
+        break;
+      default:
+        break;
     }
-    this.onToggleFullscreen();
-    this.onTogglePlaying();
   }
 }

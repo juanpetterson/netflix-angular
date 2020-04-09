@@ -1,7 +1,7 @@
 <div class="controls">
   <div class="controls__container">
     <div class="controls__left">
-      <button class="controls__button" (click)="onPlayPause()">
+      <button class="controls__button" (click)="onTogglePlaying()">
         <i
           class="fas fa-play controls__button-icon"
           *ngIf="!mediaState.playing"
@@ -35,7 +35,7 @@
       <button class="controls__button">
         <i class="far fa-question-circle controls__button-icon"></i>
       </button>
-      <button class="controls__button" (click)="onExpandCompress()">
+      <button class="controls__button" (click)="onToggleFullscreen()">
         <i
           class="fas fa-expand controls__button-icon"
           *ngIf="!mediaState.expanded"
