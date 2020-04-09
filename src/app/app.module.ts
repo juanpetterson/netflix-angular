@@ -12,6 +12,9 @@ import { MediaBrowserPageComponent } from './pages/media-browser-page/media-brow
 import { MediaSliderComponent } from './components/media-slider/media-slider.component';
 import { MaturityStyleDirective } from './shared/directives/maturity-style.directive';
 import { BillboardComponent } from './components/billboard/billboard.component';
+import { WatchPlayerComponent } from './components/watch-player/watch-player.component';
+import { WatchPageComponent } from './pages/watch-page/watch-page.component';
+import { WatchPlayerControlsComponent } from './components/watch-player/watch-player-controls/watch-player-controls.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +26,9 @@ import { BillboardComponent } from './components/billboard/billboard.component';
     MediaSliderComponent,
     MaturityStyleDirective,
     BillboardComponent,
+    WatchPlayerComponent,
+    WatchPageComponent,
+    WatchPlayerControlsComponent,
   ],
   imports: [
     BrowserModule,

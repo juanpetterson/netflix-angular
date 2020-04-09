@@ -14,8 +14,8 @@ import { AuthService } from 'app/ core/services/auth.service';
 })
 export class HeaderComponent implements OnInit {
   constructor(public authService: AuthService) {}
-  @ViewChild('header', { static: false }) headerEl: ElementRef;
-  @ViewChild('dropdown', { static: false }) dropdown: ElementRef;
+  @ViewChild('header') headerEl: ElementRef;
+  @ViewChild('dropdown') dropdown: ElementRef;
 
   hoverDropdown = false;
   @HostListener('window:scroll')

@@ -18,8 +18,8 @@ import { debounceTime } from 'rxjs/operators';
   styleUrls: ['./media-slider.component.scss'],
 })
 export class MediaSliderComponent implements OnInit, AfterViewChecked {
-  @ViewChild('slider', { static: false }) slider: ElementRef;
-  @ViewChild('sliderItem', { static: false }) sliderItem: ElementRef;
+  @ViewChild('slider') slider: ElementRef;
+  @ViewChild('sliderItem') sliderItem: ElementRef;
   @Input() mediaGroup: MediaGroup;
   showItems = 1;
   sliderItems = [];

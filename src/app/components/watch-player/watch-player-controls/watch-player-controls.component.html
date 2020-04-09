@@ -1,0 +1,33 @@
+<div class="controls">
+  <div class="controls__container">
+    <div class="controls__left">
+      <button class="controls__button" (click)="onPlayPause()">
+        <i class="fas fa-play controls__button-icon" *ngIf="paused"></i>
+        <i class="fas fa-pause controls__button-icon" *ngIf="!paused"></i>
+      </button>
+      <button class="controls__button" (click)="onSeekBack()">
+        <i class="fas fa-undo-alt controls__button-icon"></i>
+      </button>
+      <button class="controls__button" (click)="onSeekForward()">
+        <i class="fas fa-redo controls__button-icon"></i>
+      </button>
+      <button class="controls__button">
+        <i class="fas fa-volume-up controls__button-icon" *ngIf="!muted"></i>
+        <i class="fas fa-volume-mute controls__button-icon" *ngIf="muted"></i>
+      </button>
+    </div>
+    <div class="controls__center">
+      <span>Freud</span>
+      <span>S1:E1 Hysteria</span>
+    </div>
+    <div class="controls__right">
+      <button class="controls__button">
+        <i class="far fa-question-circle controls__button-icon"></i>
+      </button>
+      <button class="controls__button">
+        <i class="fas fa-expand controls__button-icon" *ngIf="!expanded"></i>
+        <i class="fas fa-compress controls__button-icon" *ngIf="expanded"></i>
+      </button>
+    </div>
+  </div>
+</div>
