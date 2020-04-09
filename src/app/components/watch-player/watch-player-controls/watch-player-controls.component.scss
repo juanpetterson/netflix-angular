@@ -7,12 +7,19 @@
   &__left {
     display: flex;
   }
+
   &__center {
     display: flex;
     align-items: center;
     justify-content: flex-start;
     flex: 1;
+
+    &-title {
+      font-size: 20px;
+      font-weight: bold;
+    }
   }
+
   &__right {
     display: flex;
   }

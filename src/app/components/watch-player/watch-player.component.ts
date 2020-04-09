@@ -25,7 +25,8 @@ export class WatchPlayerComponent implements OnInit, AfterViewInit, OnDestroy {
   private player: HTMLVideoElement;
   public media: Media;
   public mediaState: MediaState = {
-    playing: false,
+    title: '',
+    playing: true,
     muted: false,
     expanded: false,
     currentTime: 0,
@@ -46,18 +47,28 @@ export class WatchPlayerComponent implements OnInit, AfterViewInit, OnDestroy {
 
       if (!this.media) {
         this.router.navigate(['/not-found']);
+      } else {
+        this.mediaState.title = this.media.title;
       }
     });
   }
 
   ngAfterViewInit() {
     this.player = this.playerEl.nativeElement;
+    this.player.play();
     this.subscriptions.push(
       fromEvent(this.player, 'timeupdate')
         .pipe(throttleTime(2000))
         .subscribe((event: Event) => {
           this.mediaState.currentTime = (event.target as HTMLVideoElement).currentTime;
         })
+    );
+    this.subscriptions.push(
+      fromEvent(document, 'fullscreenchange').subscribe((event: Event) => {
+        if (!document.fullscreenElement) {
+          this.mediaState.expanded = false;
+        }
+      })
     );
   }
 
@@ -67,7 +78,7 @@ export class WatchPlayerComponent implements OnInit, AfterViewInit, OnDestroy {
     });
   }
 
-  onPlayPause() {
+  onTogglePlaying() {
     if (this.mediaState.playing) {
       this.player.play();
     } else {
@@ -75,23 +86,33 @@ export class WatchPlayerComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
-  onExpandCompress() {
+  onToggleFullscreen() {
     if (this.mediaState.expanded) {
       document.documentElement.requestFullscreen();
     } else {
-      document.exitFullscreen();
+      if (document.exitFullscreen) {
+        document.exitFullscreen();
+      }
     }
   }
 
   onClickVideo() {
     this.mediaState.playing = !this.mediaState.playing;
+    this.onTogglePlaying();
+  }
+
+  onDoubleClickVideo() {
+    this.mediaState.expanded = !this.mediaState.expanded;
+    this.onToggleFullscreen();
   }
 
   onMediaStateChange(mediaState: MediaState) {
     this.mediaState = mediaState;
     this.player.muted = mediaState.muted;
-    this.player.currentTime += mediaState.seekTime;
-    this.onExpandCompress();
-    this.onPlayPause();
+    if (mediaState.seekTime !== 0) {
+      this.player.currentTime += mediaState.seekTime;
+    }
+    this.onToggleFullscreen();
+    this.onTogglePlaying();
   }
 }

@@ -1,14 +1,6 @@
-import {
-  Component,
-  OnInit,
-  AfterViewInit,
-  OnDestroy,
-  EventEmitter,
-  Output,
-  Input,
-} from '@angular/core';
-import { Subscription, fromEvent } from 'rxjs';
+import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
 import { MediaState } from '../models/media-state';
+import { Media } from 'app/models/media';
 
 @Component({
   selector: 'app-watch-player-controls',

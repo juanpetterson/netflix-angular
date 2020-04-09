@@ -11,6 +11,7 @@ import {
 import { MediaGroup } from '../../models/media-group';
 import { Observable, Subscription, fromEvent } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-media-slider',
@@ -37,11 +38,7 @@ export class MediaSliderComponent implements OnInit, AfterViewChecked {
   resizeObservable$: Observable<Event>;
   resizeSubscription$: Subscription;
 
-  // @HostListener('window:resize', []) onResize() {
-  //   this.onWindowResize();
-  // }
-
-  constructor() {}
+  constructor(private router: Router) {}
 
   ngOnInit(): void {
     this.sliderItems = this.mediaGroup.medias;
@@ -75,6 +72,10 @@ export class MediaSliderComponent implements OnInit, AfterViewChecked {
 
     this.showPrev = false;
     this.showNext = true;
+  }
+
+  onPlayMedia(mediaId: number) {
+    this.router.navigate(['/watch', mediaId]);
   }
 
   updateSliderState(): void {

@@ -1,4 +1,5 @@
 export interface MediaState {
+  title: string;
   playing: boolean;
   muted: boolean;
   expanded: boolean;
