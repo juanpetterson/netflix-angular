@@ -60,7 +60,10 @@ export class WatchPlayerComponent implements OnInit, AfterViewInit, OnDestroy {
   onMouseStop() {
     const onmousestop = () => {
       this.footerEl.nativeElement.style.opacity = 0;
-      this.footerEl.nativeElement.style.zIndex = '-1';
+
+      setTimeout(() => {
+        this.footerEl.nativeElement.style.zIndex = '-1';
+      }, 500);
       this.player.style.cursor = 'none';
     };
 

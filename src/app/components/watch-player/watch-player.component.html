@@ -1,12 +1,11 @@
 <div class="watch-player">
   <video
     #player
+    [src]="media.media"
     class="watch-player-video"
     (click)="onClickVideo()"
     (dblclick)="onDoubleClickVideo()"
-  >
-    <source [src]="media.media" type="video/mp4" />
-  </video>
+  ></video>
 
   <div #footer class="watch-player__footer">
     <div class="progress-bar">
