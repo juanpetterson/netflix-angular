@@ -22,6 +22,10 @@ export class MediaService {
     );
   }
 
+  public getMedia(mediaId: number): Media {
+    return this.mediaApiClient.getMedia(mediaId);
+  }
+
   public getBillboardMedia(): Media {
     return this.mediaApiClient.getBillboardMedia();
   }

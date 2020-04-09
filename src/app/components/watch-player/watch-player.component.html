@@ -1,16 +1,9 @@
 <div class="watch-player">
-  <video
-    #player
-    src="../../../assets//medias//freud/media.mp4"
-    muted
-    autoplay
-    (click)="onClickVideo()"
-    class="watch-player-video"
-  ></video>
+  <video #player [src]="media.media" class="watch-player-video"></video>
 
   <app-watch-player-controls
     class="watch-player-controls"
-    (playing)="onPlaying($event)"
-    (seeking)="onSeeking($event)"
+    (mediaStateEvent)="onMediaStateChange($event)"
+    [mediaState]="mediaState"
   ></app-watch-player-controls>
 </div>

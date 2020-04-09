@@ -5,8 +5,10 @@ import {
   OnDestroy,
   EventEmitter,
   Output,
+  Input,
 } from '@angular/core';
 import { Subscription, fromEvent } from 'rxjs';
+import { MediaState } from '../models/media-state';
 
 @Component({
   selector: 'app-watch-player-controls',
@@ -14,27 +16,41 @@ import { Subscription, fromEvent } from 'rxjs';
   styleUrls: ['./watch-player-controls.component.scss'],
 })
 export class WatchPlayerControlsComponent implements OnInit {
-  @Output() playing: EventEmitter<any> = new EventEmitter();
-  @Output() seeking: EventEmitter<number> = new EventEmitter<number>();
-
-  paused = false;
-  muted = false;
-  expanded = false;
+  @Output() mediaStateEvent = new EventEmitter<MediaState>();
+  @Input() mediaState: MediaState;
 
   constructor() {}
 
   ngOnInit(): void {}
 
   onPlayPause() {
-    this.playing.next(null);
-    this.paused = !this.paused;
+    this.mediaState.playing = !this.mediaState.playing;
+    this.mediaStateEvent.next(this.mediaState);
   }
 
   onSeekBack() {
-    this.seeking.next(-10);
+    this.mediaState.seekTime = -10;
+    this.mediaStateEvent.next(this.mediaState);
+    this.mediaState.seekTime = 0;
   }
 
   onSeekForward() {
-    this.seeking.next(10);
+    this.mediaState.seekTime = 10;
+    this.mediaStateEvent.next(this.mediaState);
+    this.mediaState.seekTime = 0;
+  }
+
+  onMute() {
+    this.mediaState.muted = !this.mediaState.muted;
+    this.mediaStateEvent.next(this.mediaState);
+  }
+
+  onExpandCompress() {
+    this.mediaState.expanded = !this.mediaState.expanded;
+    this.mediaStateEvent.next(this.mediaState);
+  }
+
+  onClickVideo() {
+    this.onPlayPause();
   }
 }

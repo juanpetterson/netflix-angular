@@ -10,6 +10,10 @@ export class MediaApiClient {
     return of(medias);
   }
 
+  public getMedia(mediaId: number): Media {
+    return medias.find((media) => media.id === mediaId);
+  }
+
   public getBillboardMedia(): Media {
     return medias.find((media) => media.title === 'Money Heist');
   }
