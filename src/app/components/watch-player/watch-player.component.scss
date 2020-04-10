@@ -10,6 +10,39 @@
     left: 0;
     transition: opacity 500ms ease;
   }
+
+  &__header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 40px;
+
+    &-icon {
+      margin-right: 15px;
+      font-size: 30px;
+      transition: transform 0.25s cubic-bezier(0.5, 0, 0.1, 1), opacity 0.25s;
+
+      &:hover {
+        transform: scale(1.2);
+      }
+    }
+
+    &-icon:hover ~ &-tooltip {
+      opacity: 1;
+      transform: scale(1.2) translateX(20px);
+    }
+
+    &-tooltip {
+      font-size: 16px;
+      font-weight: 300;
+      opacity: 0;
+      transition: transform 0.25s cubic-bezier(0.5, 0, 0.1, 1);
+    }
+  }
 }
 
 .watch-player-video {
@@ -53,5 +86,30 @@
   &__current {
     height: 100%;
     background-color: #e50914;
+  }
+}
+
+.loading-spinner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+
+  &__icon {
+    height: 80px;
+    animation: spin 500ms infinite linear;
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
   }
 }

@@ -32,13 +32,12 @@
         [style.transform]="getTranformStyle(i)"
         (mouseenter)="onHoverItem(i)"
         (mouseleave)="onLeaveItem()"
-        (click)="onPlayMedia(i + 1)"
       >
         <div class="slider__item-content">
           <div class="media-content">
             <div class="media-content__container">
               <div class="media-content__wrapper">
-                <div class="media-content__infos">
+                <div class="media-content__infos" (click)="onPlayMedia(i + 1)">
                   <div class="media-content__button media-content__button--big">
                     <i class="fas fa-play"></i>
                   </div>
