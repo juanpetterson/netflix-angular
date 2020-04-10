@@ -17,7 +17,7 @@
       <button class="controls__button" (click)="onSeekForward()">
         <i class="fas fa-redo controls__button-icon"></i>
       </button>
-      <button class="controls__button" (click)="onMute()">
+      <button class="controls__button" (click)="onToggleMute()">
         <i
           class="fas fa-volume-up controls__button-icon"
           *ngIf="!mediaState.muted"

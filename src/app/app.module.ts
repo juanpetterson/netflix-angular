@@ -7,7 +7,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { HeaderComponent } from './components/header/header.component';
-import { MediaComponent } from './components/media/media.component';
 import { MediaBrowserPageComponent } from './pages/media-browser-page/media-browser-page.component';
 import { MediaSliderComponent } from './components/media-slider/media-slider.component';
 import { MaturityStyleDirective } from './shared/directives/maturity-style.directive';
@@ -15,13 +14,13 @@ import { BillboardComponent } from './components/billboard/billboard.component';
 import { WatchPlayerComponent } from './components/watch-player/watch-player.component';
 import { WatchPageComponent } from './pages/watch-page/watch-page.component';
 import { WatchPlayerControlsComponent } from './components/watch-player/watch-player-controls/watch-player-controls.component';
+import { MediaSliderItemComponent } from './components/media-slider/media-slider-item/media-slider-item.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginPageComponent,
     HeaderComponent,
-    MediaComponent,
     MediaBrowserPageComponent,
     MediaSliderComponent,
     MaturityStyleDirective,
@@ -29,6 +28,7 @@ import { WatchPlayerControlsComponent } from './components/watch-player/watch-pl
     WatchPlayerComponent,
     WatchPageComponent,
     WatchPlayerControlsComponent,
+    MediaSliderItemComponent,
   ],
   imports: [
     BrowserModule,

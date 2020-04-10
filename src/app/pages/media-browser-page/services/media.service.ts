@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { Media } from '../../../models/media';
 import { MediaApiClient } from 'api/media/media-api-client';
 import { MediaAdapter } from '../../../models/media-adapter';
-import { Observable, of } from 'rxjs';
-import { map, tap, filter, take } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Injectable({ providedIn: 'root' })
 export class MediaService {
@@ -11,6 +11,10 @@ export class MediaService {
     private readonly mediaApiClient: MediaApiClient,
     private readonly mediaAdapter: MediaAdapter
   ) {}
+
+  //criar media atual aqui e injetar o service onde for usado para nao impactar
+  // quando abrir varias abas, testar varias abas com videos
+  // controlar as medias pelo service e dai é possivel controlar o load tbm
 
   public getMediasAsync(): Observable<Media[]> {
     return this.mediaApiClient.queryAsync().pipe(

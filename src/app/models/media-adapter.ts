@@ -13,7 +13,7 @@ export class MediaAdapter {
     media.poster = response.poster;
     media.topPoster = response.topPoster;
     media.billboard = response.billboard;
-    media.media = response.media;
+    media.mediaPath = response.mediaPath;
     media.synopsis = response.synopsis;
     media.maturity = response.maturity;
     media.match = response.match;

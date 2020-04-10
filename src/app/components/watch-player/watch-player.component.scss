@@ -21,6 +21,15 @@
     justify-content: flex-start;
     padding: 40px;
 
+    &-exit {
+      display: flex;
+      align-items: center;
+    }
+
+    &-title {
+      font-size: 30px;
+    }
+
     &-icon {
       margin-right: 15px;
       font-size: 30px;

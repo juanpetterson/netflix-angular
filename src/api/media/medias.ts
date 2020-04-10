@@ -10,7 +10,7 @@ const medias: Media[] = [
     poster: 'assets/medias/all-the-bright-places/poster.jpg',
     topPoster: '',
     billboard: 'assets/medias/all-the-bright-places/billboard.webp',
-    media: 'assets/medias/all-the-bright-places/media.mp4',
+    mediaPath: 'assets/medias/all-the-bright-places/media.mp4',
     synopsis:
       'Two teens facing personal struggles form a powerful bond as they embark on a cathartic journey chronicling the wonders of Indiana.',
     maturity: 12,
@@ -31,7 +31,7 @@ const medias: Media[] = [
     poster: 'assets/medias/anne-with-an-e/poster.jpg',
     topPoster: '',
     billboard: 'assets/medias/anne-with-an-e/billboard.webp',
-    media: 'assets/medias/anne-with-an-e/media.mp4',
+    mediaPath: 'assets/medias/anne-with-an-e/media.mp4',
     synopsis:
       'A bungled message brings spirited orphan Anne Shirley to Green Gables, where unmarried siblings Matthew and Marilla Cuthbert are waiting for a boy.',
     maturity: 16,
@@ -56,7 +56,7 @@ const medias: Media[] = [
     poster: 'assets/medias/ares/poster.jpg',
     topPoster: '',
     billboard: 'assets/medias/ares/billboard.webp',
-    media: 'assets/medias/ares/media.mp4',
+    mediaPath: 'assets/medias/ares/media.mp4',
     synopsis:
       "Aiming to become part of Amsterdam's elite, an ambitious college student joins an exclusive society, unaware it's hiding a horrifying secret.",
     maturity: 16,
@@ -77,7 +77,7 @@ const medias: Media[] = [
     poster: 'assets/medias/dare-me/poster.jpg',
     topPoster: 'assets/medias/dare-me/top-poster.jpg',
     billboard: 'assets/medias/dare-me/billboard.webp',
-    media: 'assets/medias/dare-me/media.mp4',
+    mediaPath: 'assets/medias/dare-me/media.mp4',
     synopsis:
       'Relationships topple and loyalties flip when an icy new cheerleading coach takes over the high school squad ruled by Beth and her devoted BFF, Addy.',
     maturity: 14,
@@ -98,7 +98,7 @@ const medias: Media[] = [
     poster: 'assets/medias/elite/poster.jpg',
     topPoster: '',
     billboard: 'assets/medias/elite/billboard.webp',
-    media: 'assets/medias/elite/media.mp4',
+    mediaPath: 'assets/medias/elite/media.mp4',
     synopsis:
       'After a public high school collapses, the builder tries to repair its image by paying for three impacted students to attend an exclusive private school.',
     maturity: 18,
@@ -119,7 +119,7 @@ const medias: Media[] = [
     poster: 'assets/medias/freud/poster.jpg',
     topPoster: 'assets/medias/freud/top-poster.jpg',
     billboard: 'assets/medias/freud/billboard.webp',
-    media: 'assets/medias/freud/media.mp4',
+    mediaPath: 'assets/medias/freud/media.mp4',
     synopsis:
       'Eager to make his name in 19th-century Vienna, a hungry young Sigmund Freud joins a psychic and an inspector to solve a string of bloody mysteries.',
     maturity: 16,
@@ -141,7 +141,7 @@ const medias: Media[] = [
     poster: 'assets/medias/how-to-fix-a-drug-scandal/poster.jpg',
     topPoster: '',
     billboard: 'assets/medias/how-to-fix-a-drug-scandal/billboard.webp',
-    media: 'assets/medias/how-to-fix-a-drug-scandal/media.mp4',
+    mediaPath: 'assets/medias/how-to-fix-a-drug-scandal/media.mp4',
     synopsis:
       "Two drug lab chemists' shocking crimes cripple a state's judicial system and blur the lines of justice for lawyers, officials and thousands of inmates.",
     maturity: 18,
@@ -166,7 +166,7 @@ const medias: Media[] = [
     poster: 'assets/medias/interior-design-masters/poster.jpg',
     topPoster: '',
     billboard: 'assets/medias/interior-design-masters/billboard.webp',
-    media: 'assets/medias/interior-design-masters/media.mp4',
+    mediaPath: 'assets/medias/interior-design-masters/media.mp4',
     synopsis:
       'Aspiring interior designers transform a variety of spaces from dowdy to delightful as they vie for a life-changing contract with a top London hotel.',
     maturity: 14,
@@ -191,7 +191,7 @@ const medias: Media[] = [
     poster: 'assets/medias/locke-and-key/poster.jpg',
     topPoster: '',
     billboard: 'assets/medias/locke-and-key/billboard.webp',
-    media: 'assets/medias/locke-and-key/media.mp4',
+    mediaPath: 'assets/medias/locke-and-key/media.mp4',
     synopsis:
       "After their dad's murder, three siblings move with their mom to his ancestral estate, where they discover magical keys that unlock powers — and secrets.",
     maturity: 16,
@@ -212,7 +212,7 @@ const medias: Media[] = [
     poster: 'assets/medias/love-death-robots/poster.jpg',
     topPoster: '',
     billboard: 'assets/medias/love-death-robots/billboard.webp',
-    media: 'assets/medias/love-death-robots/media.mp4',
+    mediaPath: 'assets/medias/love-death-robots/media.mp4',
     synopsis:
       'After seeing a brutal murder, a woman flees from the killer through the streets of a surreal city.',
     maturity: 18,
@@ -233,7 +233,7 @@ const medias: Media[] = [
     poster: 'assets/medias/love-is-blind/poster.jpg',
     topPoster: '',
     billboard: 'assets/medias/love-is-blind/billboard.webp',
-    media: 'assets/medias/love-is-blind/media.mp4',
+    mediaPath: 'assets/medias/love-is-blind/media.mp4',
     synopsis:
       'Nick and Vanessa reunite with this season’s past and present couples and revisit their highs and lows. Plus, get an update on where they are now.',
     maturity: 16,
@@ -258,7 +258,7 @@ const medias: Media[] = [
     poster: 'assets/medias/money-heist/poster.jpg',
     topPoster: '',
     billboard: 'assets/medias/money-heist/billboard.webp',
-    media: 'assets/medias/money-heist/media.mp4',
+    mediaPath: 'assets/medias/money-heist/media.mp4',
     synopsis:
       'The Professor recruits a young female robber and seven other criminals for a grand heist, targeting the Royal Mint of Spain.',
     maturity: 16,
@@ -279,7 +279,7 @@ const medias: Media[] = [
     poster: 'assets/medias/pandemic/poster.jpg',
     topPoster: '',
     billboard: 'assets/medias/pandemic/billboard.webp',
-    media: 'assets/medias/pandemic/media.mp4',
+    mediaPath: 'assets/medias/pandemic/media.mp4',
     synopsis:
       'In this docuseries, meet the heroes on the front lines of the battle against influenza and learn about their efforts to stop the next global outbreak.',
     maturity: 12,
@@ -304,7 +304,7 @@ const medias: Media[] = [
     poster: 'assets/medias/ragnarok/poster.jpg',
     topPoster: '',
     billboard: 'assets/medias/ragnarok/billboard.webp',
-    media: 'assets/medias/ragnarok/media.mp4',
+    mediaPath: 'assets/medias/ragnarok/media.mp4',
     synopsis:
       'In a Norwegian town poisoned by pollution and rattled by melting glaciers, the End Times feel all too real. It’ll take a legend to battle an old evil.',
     maturity: 16,
@@ -325,7 +325,7 @@ const medias: Media[] = [
     poster: 'assets/medias/self-made/poster.jpg',
     topPoster: '',
     billboard: 'assets/medias/self-made/billboard.webp',
-    media: 'assets/medias/self-made/media.mp4',
+    mediaPath: 'assets/medias/self-made/media.mp4',
     synopsis:
       "Aspiring to be more than a washerwoman, Sarah grows determined to sell Addie's hair product. But when she's cruelly rebuffed, the gloves come off.",
     maturity: 16,
@@ -346,7 +346,7 @@ const medias: Media[] = [
     poster: 'assets/medias/sniper/poster.jpg',
     topPoster: '',
     billboard: 'assets/medias/sniper/billboard.webp',
-    media: 'assets/medias/sniper/media.mp4',
+    mediaPath: 'assets/medias/sniper/media.mp4',
     synopsis:
       'When a Colombian drug kingpin takes over the smuggling routes to the U.S., a Marine sniper teams with a federal agent to take him and his cartel down.',
     maturity: 16,
@@ -367,7 +367,7 @@ const medias: Media[] = [
     poster: 'assets/medias/the-circle/poster.jpg',
     topPoster: '',
     billboard: 'assets/medias/the-circle/billboard.webp',
-    media: 'assets/medias/the-circle/media.mp4',
+    mediaPath: 'assets/medias/the-circle/media.mp4',
     synopsis:
       'Be yourself or someone else? In this fun reality competition, online players try their best to flirt, bond and catfish their way to a R$300,000 prize.',
     maturity: 12,
@@ -388,7 +388,7 @@ const medias: Media[] = [
     poster: 'assets/medias/the-decline/poster.jpg',
     topPoster: '',
     billboard: 'assets/medias/the-decline/billboard.webp',
-    media: 'assets/medias/the-decline/media.mp4',
+    mediaPath: 'assets/medias/the-decline/media.mp4',
     synopsis:
       'An accident at a remote training camp leaves a group of survivalists bitterly divided — and caught in a brutal fight for their lives.',
     maturity: 14,
@@ -409,7 +409,7 @@ const medias: Media[] = [
     poster: 'assets/medias/the-letter-for-the-king/poster.jpg',
     topPoster: '',
     billboard: 'assets/medias/the-letter-for-the-king/billboard.webp',
-    media: 'assets/medias/the-letter-for-the-king/media.mp4',
+    mediaPath: 'assets/medias/the-letter-for-the-king/media.mp4',
     synopsis:
       'A young knight in training contends with ancient prophecies, magical powers and fickle companions as he sets out on an epic quest to save his kingdom.',
     maturity: 12,
@@ -434,7 +434,7 @@ const medias: Media[] = [
     poster: 'assets/medias/the-occupant/poster.jpg',
     topPoster: 'assets/medias/the-occupant/top-poster.jpg',
     billboard: 'assets/medias/the-occupant/billboard.webp',
-    media: 'assets/medias/the-occupant/media.mp4',
+    mediaPath: 'assets/medias/the-occupant/media.mp4',
     synopsis:
       'An unemployed advertising executive begins stalking the new tenants of his former home and his motives toward the family turn sinister.',
     maturity: 14,
@@ -455,7 +455,7 @@ const medias: Media[] = [
     poster: 'assets/medias/the-platform/poster.jpg',
     topPoster: 'assets/medias/the-platform/top-poster.jpg',
     billboard: 'assets/medias/the-platform/billboard.webp',
-    media: 'assets/medias/the-platform/media.mp4',
+    mediaPath: 'assets/medias/the-platform/media.mp4',
     synopsis:
       'A slab of food descends floor by floor in a prison. The inmates above eat heartily, leaving those below starving and desperate. A rebellion is imminent.',
     maturity: 16,
@@ -476,7 +476,7 @@ const medias: Media[] = [
     poster: 'assets/medias/the-stranger/poster.jpg',
     topPoster: '',
     billboard: 'assets/medias/the-stranger/billboard.webp',
-    media: 'assets/medias/the-stranger/media.mp4',
+    mediaPath: 'assets/medias/the-stranger/media.mp4',
     synopsis:
       'When a stranger makes a shocking claim about his wife, family man Adam Price becomes entangled in a mystery as he desperately searches for answers.',
     maturity: 16,
@@ -497,7 +497,7 @@ const medias: Media[] = [
     poster: 'assets/medias/the-witcher/poster.jpg',
     topPoster: '',
     billboard: 'assets/medias/the-witcher/billboard.webp',
-    media: 'assets/medias/the-witcher/media.mp4',
+    mediaPath: 'assets/medias/the-witcher/media.mp4',
     synopsis:
       'A bungled message brings spirited orphan Anne Shirley to Green Gables, where unmarried siblings Matthew and Marilla Cuthbert are waiting for a boy.',
     maturity: 16,
@@ -518,7 +518,7 @@ const medias: Media[] = [
     poster: 'assets/medias/the-decline/poster.jpg',
     topPoster: 'assets/medias/the-decline/top-poster.jpg',
     billboard: 'assets/medias/the-decline/billboard.webp',
-    media: 'assets/medias/the-decline/media.mp4',
+    mediaPath: 'assets/medias/the-decline/media.mp4',
     synopsis:
       "After seven years in a Málaga prison, a male stripper is released pending retrial and sets out to prove his lover framed him for her husband's murder.",
     maturity: 18,
@@ -539,7 +539,7 @@ const medias: Media[] = [
     poster: 'assets/medias/unorthodox/poster.jpg',
     topPoster: '',
     billboard: 'assets/medias/unorthodox/billboard.webp',
-    media: 'assets/medias/unorthodox/media.mp4',
+    mediaPath: 'assets/medias/unorthodox/media.mp4',
     synopsis:
       'A Hasidic Jewish woman in Brooklyn flees to Berlin from an arranged marriage and is taken in by a group of musicians — until her past comes calling.',
     maturity: 14,
@@ -564,7 +564,7 @@ const medias: Media[] = [
     poster: 'assets/medias/virgin-river/poster.jpg',
     topPoster: '',
     billboard: 'assets/medias/virgin-river/billboard.webp',
-    media: 'assets/medias/virgin-river/media.mp4',
+    mediaPath: 'assets/medias/virgin-river/media.mp4',
     synopsis:
       'Searching for a fresh start, a nurse practitioner moves from LA to a remote northern California town and is surprised by what -- and who -- she finds.',
     maturity: 14,
@@ -585,7 +585,7 @@ const medias: Media[] = [
     poster: 'assets/medias/when-they-see-us/poster.jpg',
     topPoster: '',
     billboard: 'assets/medias/when-they-see-us/billboard.webp',
-    media: 'assets/medias/when-they-see-us/media.mp4',
+    mediaPath: 'assets/medias/when-they-see-us/media.mp4',
     synopsis:
       'As the jogger case stirs tensions nationwide, the families of the boys and their lawyers prepare for a bitter legal fight against the city of New York.',
     maturity: 16,

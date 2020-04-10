@@ -7,18 +7,23 @@
 <div class="watch-player">
   <video
     #player
-    [src]="media.media"
+    [src]="media.mediaPath"
     class="watch-player-video"
-    (click)="onClickVideo()"
-    (dblclick)="onDoubleClickVideo()"
+    (click)="onTogglePlaying()"
+    (dblclick)="onToggleFullscreen()"
   ></video>
 
   <div #headerIcon class="watch-player__header">
-    <i
-      routerLink="/browse"
-      class="fas fa-arrow-left watch-player__header-icon"
-    ></i>
-    <span class="watch-player__header-tooltip">Back to Browse</span>
+    <div class="watch-player__header-title" *ngIf="loading">
+      {{ media.title }}
+    </div>
+    <div *ngIf="!loading" class="watch-player__header-exit">
+      <i
+        routerLink="/browse"
+        class="fas fa-arrow-left watch-player__header-icon"
+      ></i>
+      <span class="watch-player__header-tooltip">Back to Browse</span>
+    </div>
   </div>
   <div #footer class="watch-player__footer">
     <div class="progress-bar">
@@ -32,7 +37,6 @@
     <app-watch-player-controls
       class="watch-player-controls"
       (mediaStateEvent)="onMediaStateChange($event)"
-      [mediaState]="mediaState"
     ></app-watch-player-controls>
   </div>
 </div>

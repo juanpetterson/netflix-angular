@@ -6,7 +6,7 @@ export class Media {
   poster: string;
   topPoster: string;
   billboard: string;
-  media: string;
+  mediaPath: string;
   synopsis: string;
   maturity: number;
   match: string;

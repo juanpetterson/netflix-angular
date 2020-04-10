@@ -1,5 +1,6 @@
 import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
 import { MediaState } from '../models/media-state';
+import { MediaStateService } from '../services/media-state.service';
 
 @Component({
   selector: 'app-watch-player-controls',
@@ -7,46 +8,46 @@ import { MediaState } from '../models/media-state';
   styleUrls: ['./watch-player-controls.component.scss'],
 })
 export class WatchPlayerControlsComponent implements OnInit {
-  @Output() mediaStateEvent = new EventEmitter<MediaState>();
-  @Input() mediaState: MediaState;
+  @Output() mediaStateEvent = new EventEmitter<string>();
+  mediaState: MediaState;
 
-  constructor() {}
+  constructor(private mediaStateService: MediaStateService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.mediaStateService.mediaStateChanged.subscribe((state) => {
+      this.mediaState = state;
+    });
+  }
 
   onTogglePlaying() {
-    this.mediaState.playing = !this.mediaState.playing;
-    this.mediaState.eventType = 'Playing';
-    this.mediaStateEvent.next(this.mediaState);
+    if (this.mediaState.playing) {
+      this.mediaStateService.pause();
+    } else {
+      this.mediaStateService.play();
+    }
   }
 
   onSeekBack() {
-    this.mediaState.seekTime = -10;
-    this.mediaState.eventType = 'Seeking';
-    this.mediaStateEvent.next(this.mediaState);
-    this.mediaState.seekTime = 0;
+    this.mediaStateService.seekBack();
   }
 
   onSeekForward() {
-    this.mediaState.seekTime = 10;
-    this.mediaState.eventType = 'Seeking';
-    this.mediaStateEvent.next(this.mediaState);
-    this.mediaState.seekTime = 0;
+    this.mediaStateService.seekForward();
   }
 
-  onMute() {
-    this.mediaState.muted = !this.mediaState.muted;
-    this.mediaState.eventType = 'Muting';
-    this.mediaStateEvent.next(this.mediaState);
+  onToggleMute() {
+    if (this.mediaState.muted) {
+      this.mediaStateService.unmute();
+    } else {
+      this.mediaStateService.mute();
+    }
   }
 
   onToggleFullscreen() {
-    this.mediaState.expanded = !this.mediaState.expanded;
-    this.mediaState.eventType = 'Fullscreen';
-    this.mediaStateEvent.next(this.mediaState);
-  }
-
-  onClickVideo() {
-    this.onTogglePlaying();
+    if (!this.mediaState.expanded) {
+      this.mediaStateService.fullscreen();
+    } else {
+      this.mediaStateService.fullscreenExit();
+    }
   }
 }

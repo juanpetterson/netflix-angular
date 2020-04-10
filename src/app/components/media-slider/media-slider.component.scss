@@ -53,7 +53,6 @@
     display: inline-block;
     position: relative;
     width: calc(100% / 3);
-    transition: all 500ms ease;
     z-index: 1;
     cursor: pointer;
 
@@ -66,9 +65,18 @@
     @media all and (min-width: 1400px) {
       width: calc(100% / 6);
     }
+
+    // &:hover {
+    //   border: 3px solid white;
+    // }
+
+    // &--active {
+    //   border: 3px solid white;
+    // }
   }
 
   &__item-background {
+    display: flex;
     width: 100%;
 
     &:hover {
@@ -78,7 +86,11 @@
 
   &__item-background-image {
     max-width: 100%;
-    height: auto;
+  }
+
+  &__item-container {
+    margin: 0 2px;
+    transition: all 500ms ease;
   }
 
   &__item-content {

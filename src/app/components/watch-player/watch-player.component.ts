@@ -9,9 +9,20 @@ import {
 import { fromEvent, Subscription } from 'rxjs';
 import { throttleTime, delay } from 'rxjs/operators';
 import { Media } from 'app/models/media';
-import { MediaState } from './models/media-state';
+import {
+  MediaState,
+  EVENT_PLAY,
+  EVENT_MUTE,
+  EVENT_SEEKBACK,
+  EVENT_SEEKFORWARD,
+  EVENT_FULLSCREEN,
+  EVENT_PAUSE,
+  EVENT_UNMUTE,
+  EVENT_FULLSCREEN_EXIT,
+} from './models/media-state';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { MediaService } from 'app/pages/media-browser-page/services/media.service';
+import { MediaStateService } from './services/media-state.service';
 
 @Component({
   selector: 'app-watch-player',
@@ -23,25 +34,15 @@ export class WatchPlayerComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('footer') footerEl: ElementRef;
   @ViewChild('headerIcon') headerIconEl: ElementRef;
   public media: Media;
-  public mediaState: MediaState = {
-    title: '',
-    playing: true,
-    muted: true,
-    expanded: false,
-    duration: 0,
-    currentTime: 0,
-    seekTime: 0,
-    error: false,
-    eventType: undefined,
-  };
   public progress = 0;
   public loading = true;
+  private mediaState: MediaState;
   private subscriptions: Subscription[] = [];
   private player: HTMLVideoElement;
-  private userInteract = false;
 
   constructor(
     private mediaService: MediaService,
+    private mediaStateService: MediaStateService,
     private route: ActivatedRoute,
     private router: Router
   ) {}
@@ -53,16 +54,35 @@ export class WatchPlayerComponent implements OnInit, AfterViewInit, OnDestroy {
 
       if (!this.media) {
         this.router.navigate(['/not-found']);
-      } else {
-        this.mediaState.title = this.media.title;
       }
     });
+
+    this.subscriptions.push(
+      this.mediaStateService.mediaStateChanged.subscribe((state) => {
+        this.mediaState = state;
+        this.mediaState.title = this.media.title;
+      })
+    );
+
+    this.subscriptions.push(
+      this.mediaStateService.mediaStateEvent.subscribe((stateEvent) => {
+        this.onMediaStateChange(stateEvent);
+      })
+    );
+
+    this.subscriptions.push(
+      fromEvent(document, 'fullscreenchange').subscribe((_) => {
+        if (!document.fullscreenElement) {
+          this.mediaState.expanded = false;
+        }
+      })
+    );
   }
 
-  ngAfterViewInit() {
+  ngAfterViewInit(): void {
     this.player = this.playerEl.nativeElement;
-    this.player.onmousemove = this.onMouseStop();
-    this.player.muted = true;
+    // this.player.onmousemove = this.onMouseStop();
+    // this.player.muted = true;
 
     this.subscriptions.push(
       fromEvent(this.player, 'timeupdate')
@@ -81,78 +101,66 @@ export class WatchPlayerComponent implements OnInit, AfterViewInit, OnDestroy {
       })
     );
     this.subscriptions.push(
-      fromEvent(this.player, 'canplay').subscribe((event) => {
-        this.loading = false;
-        this.player.play();
-      })
-    );
-    this.subscriptions.push(
-      fromEvent(this.player, 'mousemove').subscribe((_) => {
-        this.userInteract = true;
-        this.footerEl.nativeElement.style.opacity = 1;
-      })
-    );
-    this.subscriptions.push(
-      fromEvent(document, 'fullscreenchange').subscribe((_) => {
-        if (!document.fullscreenElement) {
-          this.mediaState.expanded = false;
-        }
-      })
+      fromEvent(this.player, 'canplay')
+        .pipe(delay(2000))
+        .subscribe((_) => {
+          this.loading = false;
+          // this.player.play();
+        })
     );
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.subscriptions.forEach((subscription) => {
       subscription.unsubscribe();
     });
   }
 
+  showComponents(): void {
+    this.footerEl.nativeElement.style.opacity = 1;
+    this.footerEl.nativeElement.style.zIndex = '0';
+    this.headerIconEl.nativeElement.style.opacity = 1;
+    this.headerIconEl.nativeElement.style.zIndex = '0';
+    this.player.style.cursor = 'default';
+  }
+
+  hideComponents(): void {
+    this.footerEl.nativeElement.style.opacity = 0;
+    this.headerIconEl.nativeElement.style.opacity = 0;
+    this.player.style.cursor = 'none';
+
+    setTimeout(() => {
+      this.footerEl.nativeElement.style.zIndex = '-1';
+      this.headerIconEl.nativeElement.style.zIndex = '-1';
+    }, 500);
+  }
+
   onMouseStop() {
-    const onMouseStop = () => {
-      this.footerEl.nativeElement.style.opacity = 0;
-      this.headerIconEl.nativeElement.style.opacity = 0;
-
-      setTimeout(() => {
-        this.footerEl.nativeElement.style.zIndex = '-1';
-        this.headerIconEl.nativeElement.style.zIndex = '-1';
-      }, 500);
-      this.player.style.cursor = 'none';
-    };
-
     let thread;
 
     return () => {
-      this.footerEl.nativeElement.style.opacity = 1;
-      this.footerEl.nativeElement.style.zIndex = '0';
-      this.headerIconEl.nativeElement.style.opacity = 1;
-      this.headerIconEl.nativeElement.style.zIndex = '0';
-      this.player.style.cursor = 'default';
+      this.showComponents();
       clearTimeout(thread);
-      thread = setTimeout(onMouseStop, 3000);
+      thread = setTimeout(() => this.hideComponents(), 3000);
     };
   }
 
-  onTogglePlaying() {
-    if (this.mediaState.playing) {
-      this.player.play();
+  onTogglePlaying(): void {
+    if (!this.mediaState.playing) {
+      this.mediaStateService.play();
     } else {
-      this.player.pause();
+      this.mediaStateService.pause();
     }
   }
 
-  onToggleFullscreen() {
-    if (this.mediaState.expanded) {
-      document.documentElement.requestFullscreen();
+  onToggleFullscreen(): void {
+    if (!this.mediaState.expanded) {
+      this.mediaStateService.fullscreen();
     } else {
       if (document.exitFullscreen) {
-        document.exitFullscreen();
+        this.mediaStateService.fullscreenExit();
       }
     }
-  }
-
-  onClickVideo() {
-    this.mediaState.playing = !this.mediaState.playing;
-    this.onTogglePlaying();
   }
 
   onProgressClick(event: MouseEvent) {
@@ -162,26 +170,33 @@ export class WatchPlayerComponent implements OnInit, AfterViewInit, OnDestroy {
     this.player.play();
   }
 
-  onDoubleClickVideo() {
-    this.mediaState.expanded = !this.mediaState.expanded;
-    this.onToggleFullscreen();
-  }
-
-  onMediaStateChange(mediaState: MediaState) {
-    this.mediaState = mediaState;
-
-    switch (mediaState.eventType) {
-      case 'Playing':
-        this.onTogglePlaying();
+  onMediaStateChange(eventType: string) {
+    switch (eventType) {
+      case EVENT_PLAY:
+        this.player.play();
         break;
-      case 'Muting':
-        this.player.muted = mediaState.muted;
+      case EVENT_PAUSE:
+        this.player.pause();
         break;
-      case 'Seeking':
-        this.player.currentTime += mediaState.seekTime;
+      case EVENT_SEEKBACK:
+        this.player.currentTime -= 10;
         break;
-      case 'Fullscreen':
-        this.onToggleFullscreen();
+      case EVENT_SEEKFORWARD:
+        this.player.currentTime += 10;
+        break;
+      case EVENT_MUTE:
+        this.player.muted = true;
+        break;
+      case EVENT_UNMUTE:
+        this.player.muted = false;
+        break;
+      case EVENT_FULLSCREEN:
+        document.documentElement.requestFullscreen();
+        break;
+      case EVENT_FULLSCREEN_EXIT:
+        if (document.exitFullscreen) {
+          document.exitFullscreen();
+        }
         break;
       default:
         break;
