@@ -167,7 +167,7 @@ export class MediaSliderComponent implements OnInit, AfterViewChecked {
     this.hoverItemIndex = -1;
   }
 
-  onActiveMedia(activeMedia): void {
+  onActiveMediaChange(activeMedia): void {
     this.activeMedia = activeMedia;
   }
 
