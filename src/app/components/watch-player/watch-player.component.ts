@@ -81,8 +81,6 @@ export class WatchPlayerComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngAfterViewInit(): void {
     this.player = this.playerEl.nativeElement;
-    // this.player.onmousemove = this.onMouseStop();
-    // this.player.muted = true;
 
     this.subscriptions.push(
       fromEvent(this.player, 'timeupdate')
@@ -105,7 +103,6 @@ export class WatchPlayerComponent implements OnInit, AfterViewInit, OnDestroy {
         .pipe(delay(2000))
         .subscribe((_) => {
           this.loading = false;
-          // this.player.play();
         })
     );
   }
@@ -135,7 +132,7 @@ export class WatchPlayerComponent implements OnInit, AfterViewInit, OnDestroy {
     }, 500);
   }
 
-  onMouseStop() {
+  onMouseStop(): () => void {
     let thread;
 
     return () => {
@@ -157,9 +154,7 @@ export class WatchPlayerComponent implements OnInit, AfterViewInit, OnDestroy {
     if (!this.mediaState.expanded) {
       this.mediaStateService.fullscreen();
     } else {
-      if (document.exitFullscreen) {
-        this.mediaStateService.fullscreenExit();
-      }
+      this.mediaStateService.fullscreenExit();
     }
   }
 

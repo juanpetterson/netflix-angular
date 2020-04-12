@@ -4,14 +4,12 @@ import {
   Input,
   ViewChild,
   ElementRef,
-  AfterViewInit,
-  HostListener,
   AfterViewChecked,
 } from '@angular/core';
-import { MediaGroup } from '../../models/media-group';
-import { Observable, Subscription, fromEvent } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
-import { Router } from '@angular/router';
+import { Observable, Subscription, fromEvent } from 'rxjs';
+import { Media } from 'app/models/media';
+import { MediaGroup } from '../../models/media-group';
 
 @Component({
   selector: 'app-media-slider',
@@ -20,25 +18,25 @@ import { Router } from '@angular/router';
 })
 export class MediaSliderComponent implements OnInit, AfterViewChecked {
   @ViewChild('slider') slider: ElementRef;
-  @ViewChild('sliderItem') sliderItem: ElementRef;
   @Input() mediaGroup: MediaGroup;
+  activeMedia: Media;
   showItems = 1;
   sliderItems = [];
   sliderTotalScroll = 0;
   sliderTotalWidth = 0;
   hoverItemIndex = -1;
+  hoverSlide = false;
   translateX = 0;
   showPrev = false;
   showNext = true;
   totalPages = [];
   currentPage = 0;
   totalMoved = 0;
-  hideSliderDetails = true;
 
   resizeObservable$: Observable<Event>;
   resizeSubscription$: Subscription;
 
-  constructor(private router: Router) {}
+  constructor() {}
 
   ngOnInit(): void {
     this.sliderItems = this.mediaGroup.medias;
@@ -58,7 +56,7 @@ export class MediaSliderComponent implements OnInit, AfterViewChecked {
     this.sliderTotalWidth = this.slider.nativeElement.clientWidth;
   }
 
-  onWindowResize() {
+  onWindowResize(): void {
     this.updateSliderState();
     this.updateTotalPages();
 
@@ -72,10 +70,6 @@ export class MediaSliderComponent implements OnInit, AfterViewChecked {
 
     this.showPrev = false;
     this.showNext = true;
-  }
-
-  onPlayMedia(mediaId: number) {
-    this.router.navigate(['/watch', mediaId]);
   }
 
   updateSliderState(): void {
@@ -159,11 +153,11 @@ export class MediaSliderComponent implements OnInit, AfterViewChecked {
   }
 
   onEnterSlider(): void {
-    this.hideSliderDetails = false;
+    this.hoverSlide = true;
   }
 
   onLeaveSlider(): void {
-    this.hideSliderDetails = true;
+    this.hoverSlide = false;
   }
 
   onHoverItem(index: number): void {
@@ -173,22 +167,30 @@ export class MediaSliderComponent implements OnInit, AfterViewChecked {
     this.hoverItemIndex = -1;
   }
 
+  onActiveMedia(activeMedia): void {
+    this.activeMedia = activeMedia;
+  }
+
+  onCloseMedia(): void {
+    this.activeMedia = null;
+  }
+
   getTranformStyle(itemIndex: number): string {
-    if (this.hoverItemIndex === -1) {
+    if (this.hoverItemIndex === -1 || this.activeMedia) {
       return '';
     }
     const firstItemHover = this.isFirstItemIndex();
     const lastItemHover = this.isLastItemIndex();
     const baseScale = 2;
-    const baseMultiplier = (25 * this.showItems * baseScale) / this.showItems;
+    const baseTranslate = 50;
 
     // current item
     if (itemIndex === this.hoverItemIndex) {
       if (firstItemHover) {
-        return `scale(${baseScale}) translateX(${baseMultiplier / 2}%)`;
+        return `scale(${baseScale}) translateX(${baseTranslate / 2}%)`;
       }
       if (lastItemHover) {
-        return `scale(${baseScale}) translateX(-${baseMultiplier / 2}%)`;
+        return `scale(${baseScale}) translateX(-${baseTranslate / 2}%)`;
       }
       return `scale(${baseScale})`;
     }
@@ -199,20 +201,20 @@ export class MediaSliderComponent implements OnInit, AfterViewChecked {
         return 'translateX(0)';
       }
       if (lastItemHover) {
-        return `translateX(-${baseMultiplier * 2}%)`;
+        return `translateX(-${baseTranslate * 2}%)`;
       }
-      return `translateX(-${baseMultiplier}%)`;
+      return `translateX(-${baseTranslate}%)`;
     }
 
     // item after
     if (itemIndex > this.hoverItemIndex) {
       if (firstItemHover) {
-        return `translateX(${baseMultiplier * 2}%)`;
+        return `translateX(${baseTranslate * 2}%)`;
       }
       if (lastItemHover) {
         return 'translateX(0)';
       }
-      return `translateX(${baseMultiplier}%)`;
+      return `translateX(${baseTranslate}%)`;
     }
 
     return '';
