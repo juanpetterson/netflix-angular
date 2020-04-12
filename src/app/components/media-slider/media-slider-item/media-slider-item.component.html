@@ -15,7 +15,7 @@
         <div
           routerLink="/watch/{{ media.id }}"
           class="media-content__play-container"
-          [style.visibility]="active && 'visible'"
+          [style.visibility]="active ? 'visible' : 'hidden'"
         >
           <div class="media-content__play">
             <i class="fas fa-play"></i>
@@ -63,7 +63,7 @@
         <div
           class="media-content__details"
           (click)="onShowDetails()"
-          [style.visibility]="activeMedia && active && 'hidden'"
+          [style.visibility]="activeMedia && active ? 'hidden' : 'visible'"
         >
           <i class="fas fa-chevron-down"></i>
         </div>
