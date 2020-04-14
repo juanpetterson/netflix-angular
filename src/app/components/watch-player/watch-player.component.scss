@@ -8,8 +8,9 @@
     width: 100%;
     bottom: 0;
     left: 0;
-    transition: opacity 500ms ease;
     opacity: var(--player-opacity);
+    z-index: var(--player-z-index);
+    transition: opacity 500ms ease;
   }
 
   &__header {
@@ -21,6 +22,9 @@
     align-items: center;
     justify-content: flex-start;
     padding: 40px;
+    opacity: var(--player-opacity);
+    z-index: var(--player-z-index);
+    transition: opacity 500ms ease;
 
     &-exit {
       display: flex;

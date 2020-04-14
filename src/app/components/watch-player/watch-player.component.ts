@@ -32,8 +32,6 @@ import { MediaStorageService } from './services/media-storage.service';
 })
 export class WatchPlayerComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('player') playerEl: ElementRef;
-  // @ViewChild('footer') footerEl: ElementRef;
-  // @ViewChild('headerIcon') headerIconEl: ElementRef;
   public media: Media;
   public progress = 0;
   public loading = true;
@@ -130,23 +128,15 @@ export class WatchPlayerComponent implements OnInit, AfterViewInit, OnDestroy {
   showComponents(): void {
     document.documentElement.style.setProperty('--player-opacity', '1');
     document.documentElement.style.setProperty('--player-z-index', '0');
-    // this.footerEl.nativeElement.style.opacity = 1;
-    // this.footerEl.nativeElement.style.zIndex = '0';
-    // this.headerIconEl.nativeElement.style.opacity = 1;
-    // this.headerIconEl.nativeElement.style.zIndex = '0';
     this.player.style.cursor = 'default';
   }
 
   hideComponents(): void {
     document.documentElement.style.setProperty('--player-opacity', '0');
-    // this.footerEl.nativeElement.style.opacity = 0;
-    // this.headerIconEl.nativeElement.style.opacity = 0;
     this.player.style.cursor = 'none';
 
     setTimeout(() => {
       document.documentElement.style.setProperty('--player-z-index', '-1');
-      // this.footerEl.nativeElement.style.zIndex = '-1';
-      // this.headerIconEl.nativeElement.style.zIndex = '-1';
     }, 500);
   }
 
