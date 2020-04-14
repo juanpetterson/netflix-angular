@@ -23,26 +23,45 @@ export class AuthGuard implements CanActivate {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    return this.authService.isAuthenticated$.pipe(
-      take(1),
-      map((user) => {
-        const isAuthenticated = !!user;
-        const isLogin = next.data.isLogin;
+    const loggedUser = this.authService.getLoggedUser();
 
-        if (isLogin && isAuthenticated) {
-          return this.router.createUrlTree(['/browse']);
-        }
+    const isAuthenticated = !!loggedUser;
+    const isLogin = next.data.isLogin;
 
-        if (isLogin && !isAuthenticated) {
-          return true;
-        }
+    if (isLogin && isAuthenticated) {
+      return this.router.createUrlTree(['/browse']);
+    }
 
-        if (isAuthenticated) {
-          return true;
-        }
+    if (isLogin && !isAuthenticated) {
+      return true;
+    }
 
-        return this.router.createUrlTree(['/']);
-      })
-    );
+    if (isAuthenticated) {
+      return true;
+    }
+
+    return this.router.createUrlTree(['/']);
+
+    // return this.authService.isAuthenticated$.pipe(
+    //   take(1),
+    //   map((user) => {
+    //     const isAuthenticated = !!user;
+    //     const isLogin = next.data.isLogin;
+
+    //     if (isLogin && isAuthenticated) {
+    //       return this.router.createUrlTree(['/browse']);
+    //     }
+
+    //     if (isLogin && !isAuthenticated) {
+    //       return true;
+    //     }
+
+    //     if (isAuthenticated) {
+    //       return true;
+    //     }
+
+    //     return this.router.createUrlTree(['/']);
+    //   })
+    // );
   }
 }

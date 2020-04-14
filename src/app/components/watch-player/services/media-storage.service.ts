@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Storage } from '../../../core/store';
 import { MediaState } from '../models/media-state';
 import { MediaService } from 'app/core/services/media.service';
+import { AuthService } from 'app/core/services/auth.service';
 
 @Injectable({
   providedIn: 'root',
@@ -9,21 +10,25 @@ import { MediaService } from 'app/core/services/media.service';
 export class MediaStorageService {
   private store = new Storage('@netflix');
 
-  constructor(private mediaService: MediaService) {}
+  constructor(
+    private mediaService: MediaService,
+    private authService: AuthService
+  ) {}
 
   getStoredMedias() {
-    const userMedias = this.store.get('userMedias');
-    if (userMedias) {
-      userMedias.map((media) => {
-        return this.mediaService.getMedia(media.mediaId);
-      });
-    }
+    const loggedUser = this.authService.getLoggedUser();
+    const userMedias = this.store.get(loggedUser.email) || [];
+
+    userMedias.map((media) => {
+      return this.mediaService.getMedia(media.mediaId);
+    });
 
     return userMedias;
   }
 
   getStoredMedia(mediaId: number) {
-    const userMedias = this.store.get('userMedias');
+    const loggedUser = this.authService.getLoggedUser();
+    const userMedias = this.store.get(loggedUser.email) || [];
 
     const storedMedia = userMedias.find((media) => {
       return media.mediaId === mediaId;
@@ -33,9 +38,8 @@ export class MediaStorageService {
   }
 
   updateStoredMedias(mediaState: MediaState): void {
-    const userMedias = this.store.get('userMedias') || [];
-
-    // console.log(userMedias);
+    const loggedUser = this.authService.getLoggedUser();
+    const userMedias = this.store.get(loggedUser.email) || [];
 
     const storedMedia = userMedias.find((media) => {
       return media.mediaId === mediaState.id;
@@ -50,6 +54,6 @@ export class MediaStorageService {
       };
       userMedias.push(userMedia);
     }
-    this.store.set('userMedias', userMedias);
+    this.store.set(loggedUser.email, userMedias);
   }
 }

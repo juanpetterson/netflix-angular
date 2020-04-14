@@ -3,10 +3,7 @@
     <a href="/browse" class="header__logo-wrapper">
       <img src="../../../assets/logo.svg" class="header__logo" />
     </a>
-    <div
-      class="header__navigation"
-      *ngIf="authService.isAuthenticated$ | async as user"
-    >
+    <div class="header__navigation" *ngIf="loggedUser">
       <ul class="header__navigation-items">
         <li class="header__navigation-item header__navigation-item--active">
           Home
@@ -38,7 +35,7 @@
             (mouseenter)="onShowDropdown()"
             (mouseleave)="onHideDropdown()"
           >
-            <img [src]="user.avatar" class="header__action-avatar" />
+            <img [src]="loggedUser.avatar" class="header__action-avatar" />
             <i class="fas fa-caret-down header__action-dropdown"></i>
             <div class="dropdown" #dropdown (mouseleave)="onHideDropdown()">
               <div class="dropdown__arrow"></div>

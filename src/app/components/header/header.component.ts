@@ -6,6 +6,7 @@ import {
   ElementRef,
 } from '@angular/core';
 import { AuthService } from 'app/core/services/auth.service';
+import { User } from 'app/models/user';
 
 @Component({
   selector: 'app-header',
@@ -13,11 +14,11 @@ import { AuthService } from 'app/core/services/auth.service';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
-  constructor(public authService: AuthService) {}
   @ViewChild('header') headerEl: ElementRef;
   @ViewChild('dropdown') dropdown: ElementRef;
+  public loggedUser: User;
+  public hoverDropdown = false;
 
-  hoverDropdown = false;
   @HostListener('window:scroll')
   onWindowScroll() {
     if (window.pageYOffset > 0) {
@@ -27,7 +28,11 @@ export class HeaderComponent implements OnInit {
     }
   }
 
-  ngOnInit() {}
+  constructor(private authService: AuthService) {}
+
+  ngOnInit() {
+    this.loggedUser = this.authService.getLoggedUser();
+  }
 
   onLogout() {
     this.authService.logout();

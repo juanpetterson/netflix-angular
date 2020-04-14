@@ -10,6 +10,7 @@ import users from '../../../assets/data/users.json';
 })
 export class AuthService {
   isAuthenticated$ = new BehaviorSubject<User>(null);
+  private loggedUser: User;
   private store = new Storage('@netflix');
   // users = JSON.parse(usersJson);
 
@@ -44,12 +45,22 @@ export class AuthService {
   }
 
   public logout() {
+    this.store.remove('user');
     this.handleAuthentication(null);
     this.router.navigate(['/']);
   }
 
+  public getLoggedUser(): User {
+    const storedUser = this.store.get('user');
+    if (storedUser) {
+      return this.loggedUser;
+    } else {
+      return null;
+    }
+  }
+
   private handleAuthentication(user: any) {
-    this.isAuthenticated$.next(user);
+    this.loggedUser = user;
     if (user) {
       this.store.set('user', user);
     } else {
