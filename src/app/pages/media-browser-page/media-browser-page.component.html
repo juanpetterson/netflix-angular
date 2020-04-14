@@ -6,8 +6,9 @@
     </div>
     <div class="media-browser__lists">
       <app-media-slider
-        [listTitle]="'Trending Now'"
-        [medias]="medias"
+        *ngIf="myMedias"
+        [listTitle]="'Continue Watching'"
+        [medias]="myMedias"
       ></app-media-slider>
       <app-media-slider
         [listTitle]="'Trending Now'"

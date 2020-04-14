@@ -19,11 +19,9 @@ export class MediaStorageService {
     const loggedUser = this.authService.getLoggedUser();
     const userMedias = this.store.get(loggedUser.email) || [];
 
-    userMedias.map((media) => {
+    return userMedias.map((media) => {
       return this.mediaService.getMedia(media.mediaId);
     });
-
-    return userMedias;
   }
 
   getStoredMedia(mediaId: number) {
