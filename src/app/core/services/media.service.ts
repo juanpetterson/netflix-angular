@@ -21,6 +21,12 @@ export class MediaService {
     return medias.filter((media) => mediasIds.includes(media.id));
   }
 
+  public getMediasOriginals() {
+    return medias.filter((media) => {
+      return media.originals === true;
+    });
+  }
+
   public getBillboardMedia(): any {
     return medias.find((media) => media.title === 'Money Heist');
   }

@@ -23,7 +23,7 @@
         </div>
         <div
           class="media-content__wrapper"
-          [style.visibility]="activeMedia ? 'hidden' : 'visible'"
+          [style.visibility]="activeMedia || isOriginals ? 'hidden' : 'visible'"
         >
           <div class="media-content__infos" (click)="onPlayMedia()">
             <div class="media-content__button media-content__button--big">
@@ -71,7 +71,10 @@
     </div>
   </div>
   <div class="slider-item__background">
-    <img class="slider-item__background-image" [src]="media.thumbnail" />
+    <img
+      class="slider-item__background-image"
+      [src]="isOriginals ? media.poster : media.thumbnail"
+    />
   </div>
 </div>
 <div

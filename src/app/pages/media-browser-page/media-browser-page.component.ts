@@ -14,6 +14,7 @@ export class MediaBrowserPageComponent implements OnInit, OnDestroy {
   // medias$ = new BehaviorSubject<Media[]>([]);
   medias: Media[];
   myMedias: Media[];
+  mediasOriginals: Media[];
   subscription: Subscription;
   billboardMedia: Media;
 
@@ -23,6 +24,7 @@ export class MediaBrowserPageComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
+    //deixas todos fetchs iguais
     this.subscription = this.mediaService
       .getMediasAsync()
       .subscribe((response) => {
@@ -31,8 +33,9 @@ export class MediaBrowserPageComponent implements OnInit, OnDestroy {
 
     this.loadBillboardMedia();
     this.myMedias = this.storageService.getStoredMedias();
+    this.mediasOriginals = this.mediaService.getMediasOriginals();
 
-    console.log(this.myMedias);
+    console.log(this.mediasOriginals);
   }
 
   ngOnDestroy() {

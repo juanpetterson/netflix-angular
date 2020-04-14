@@ -173,6 +173,10 @@
     background-size: cover;
   }
 
+  &__thumbnail-logo {
+    height: 7vw;
+  }
+
   &__infos {
     width: 40%;
     position: relative;
@@ -309,6 +313,12 @@
     color: #828282;
     font-weight: bold;
     white-space: pre;
+    font-size: 1.4vw;
+    transition: opacity 200ms ease;
+
+    @media all and (max-width: 550px) {
+      opacity: 0;
+    }
   }
 
   &__starring-item,
@@ -317,5 +327,6 @@
     color: #828282;
     font-weight: 400;
     white-space: pre;
+    font-size: 1.4vw;
   }
 }

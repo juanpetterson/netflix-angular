@@ -19,6 +19,7 @@ export class MediaSliderComponent implements OnInit, AfterViewChecked {
   @ViewChild('slider') slider: ElementRef;
   @Input() medias: Media[];
   @Input() listTitle: string;
+  @Input() isOriginals: boolean;
   activeMedia: Media;
   showItems = 1;
   sliderItems = [];
@@ -177,7 +178,7 @@ export class MediaSliderComponent implements OnInit, AfterViewChecked {
   }
 
   getTranformStyle(itemIndex: number): string {
-    if (this.hoverItemIndex === -1 || this.activeMedia) {
+    if (this.hoverItemIndex === -1 || this.activeMedia || this.isOriginals) {
       return '';
     }
     const firstItemHover = this.isFirstItemIndex();
