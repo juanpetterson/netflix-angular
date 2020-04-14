@@ -42,6 +42,7 @@ export class MediaSliderComponent implements OnInit, AfterViewChecked {
     this.sliderItems = this.medias;
     this.updateSliderState();
     this.updateTotalPages();
+    this.showNext = this.totalPages.length > 1;
 
     this.resizeObservable$ = fromEvent(window, 'resize');
     this.resizeSubscription$ = this.resizeObservable$
@@ -221,14 +222,20 @@ export class MediaSliderComponent implements OnInit, AfterViewChecked {
   }
 
   private isFirstItemIndex(): boolean {
-    if (this.currentPage === this.totalPages.length - 1) {
+    if (
+      this.currentPage === this.totalPages.length - 1 &&
+      this.totalPages.length > 1
+    ) {
       return this.hoverItemIndex === this.sliderItems.length - this.showItems;
     }
     return this.currentPage * this.showItems === this.hoverItemIndex;
   }
 
   private isLastItemIndex(): boolean {
-    if (this.hoverItemIndex === this.sliderItems.length - 1) {
+    if (
+      this.hoverItemIndex === this.sliderItems.length - 1 &&
+      this.sliderItems.length - 1 > this.showItems
+    ) {
       return true;
     }
     return (this.currentPage + 1) * this.showItems - 1 === this.hoverItemIndex;

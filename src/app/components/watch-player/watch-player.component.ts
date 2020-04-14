@@ -152,7 +152,9 @@ export class WatchPlayerComponent implements OnInit, AfterViewInit, OnDestroy {
 
   onTogglePlaying(): void {
     if (!this.mediaState.playing) {
-      this.mediaStateService.play();
+      if (!this.loading) {
+        this.mediaStateService.play();
+      }
     } else {
       this.mediaStateService.pause();
     }
