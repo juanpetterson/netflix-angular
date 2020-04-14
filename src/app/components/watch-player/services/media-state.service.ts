@@ -11,12 +11,14 @@ import {
   EVENT_PAUSE,
   EVENT_UNMUTE,
 } from '../models/media-state';
+import { Media } from 'app/models/media';
 
 @Injectable({
   providedIn: 'root',
 })
 export class MediaStateService {
   private mediaState: MediaState = {
+    id: 0,
     title: '',
     playing: false,
     muted: false,
@@ -28,7 +30,9 @@ export class MediaStateService {
   mediaStateChanged = new BehaviorSubject<MediaState>(this.mediaState);
   mediaStateEvent = new Subject<string>();
 
-  constructor() {}
+  constructor() {
+    // this.mediaState.id = media.id;
+  }
 
   play() {
     this.mediaState.playing = true;

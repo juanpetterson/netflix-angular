@@ -2,12 +2,28 @@
 <div class="media-browser">
   <div class="media-browser__container">
     <div class="media-browser__billboard">
-      <app-billboard [media]="billboardMedia"></app-billboard>
+      <app-billboard listTitle [media]="billboardMedia"></app-billboard>
     </div>
     <div class="media-browser__lists">
       <app-media-slider
-        *ngFor="let mediaGroup of medias | async"
-        [mediaGroup]="mediaGroup"
+        [listTitle]="'Trending Now'"
+        [medias]="medias"
+      ></app-media-slider>
+      <app-media-slider
+        [listTitle]="'Trending Now'"
+        [medias]="medias"
+      ></app-media-slider>
+      <app-media-slider
+        [listTitle]="'Trending Now'"
+        [medias]="medias"
+      ></app-media-slider>
+      <app-media-slider
+        [listTitle]="'Trending Now'"
+        [medias]="medias"
+      ></app-media-slider>
+      <app-media-slider
+        [listTitle]="'Trending Now'"
+        [medias]="medias"
       ></app-media-slider>
     </div>
   </div>

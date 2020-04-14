@@ -4,6 +4,7 @@ import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { MediaBrowserPageComponent } from './pages/media-browser-page/media-browser-page.component';
 import { AuthGuard } from './core/guards/auth.guard';
 import { WatchPageComponent } from './pages/watch-page/watch-page.component';
+import { WatchPlayerComponent } from './components/watch-player/watch-player.component';
 
 const routes: Routes = [
   {
@@ -19,7 +20,7 @@ const routes: Routes = [
   },
   {
     path: 'watch/:id',
-    component: WatchPageComponent,
+    component: WatchPlayerComponent,
     canActivate: [AuthGuard],
   },
   { path: '**', redirectTo: '/', canActivate: [AuthGuard] },

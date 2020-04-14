@@ -27,7 +27,7 @@
   </div>
   <div #footer class="watch-player__footer">
     <div class="progress-bar">
-      <div class="progress-bar__container" (click)="onProgressClick($event)">
+      <div class="progress-bar__container">
         <div class="progress-bar__current" [style.width]="progress + '%'"></div>
       </div>
       <div class="progress-bar__duration">
@@ -36,6 +36,7 @@
     </div>
     <app-watch-player-controls
       class="watch-player-controls"
+      [media]="media"
       (mediaStateEvent)="onMediaStateChange($event)"
     ></app-watch-player-controls>
   </div>

@@ -21,8 +21,9 @@ import {
   EVENT_FULLSCREEN_EXIT,
 } from './models/media-state';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { MediaService } from 'app/pages/media-browser-page/services/media.service';
+import { MediaService } from 'app/core/services/media.service';
 import { MediaStateService } from './services/media-state.service';
+import { MediaStorageService } from './services/media-storage.service';
 
 @Component({
   selector: 'app-watch-player',
@@ -31,8 +32,8 @@ import { MediaStateService } from './services/media-state.service';
 })
 export class WatchPlayerComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('player') playerEl: ElementRef;
-  @ViewChild('footer') footerEl: ElementRef;
-  @ViewChild('headerIcon') headerIconEl: ElementRef;
+  // @ViewChild('footer') footerEl: ElementRef;
+  // @ViewChild('headerIcon') headerIconEl: ElementRef;
   public media: Media;
   public progress = 0;
   public loading = true;
@@ -43,6 +44,7 @@ export class WatchPlayerComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(
     private mediaService: MediaService,
     private mediaStateService: MediaStateService,
+    private storageService: MediaStorageService,
     private route: ActivatedRoute,
     private router: Router
   ) {}
@@ -60,6 +62,7 @@ export class WatchPlayerComponent implements OnInit, AfterViewInit, OnDestroy {
     this.subscriptions.push(
       this.mediaStateService.mediaStateChanged.subscribe((state) => {
         this.mediaState = state;
+        this.mediaState.id = this.media.id;
         this.mediaState.title = this.media.title;
       })
     );
@@ -81,6 +84,8 @@ export class WatchPlayerComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngAfterViewInit(): void {
     this.player = this.playerEl.nativeElement;
+    this.player.onmousemove = this.onMouseStop();
+    this.loadStoredMedia();
 
     this.subscriptions.push(
       fromEvent(this.player, 'timeupdate')
@@ -89,6 +94,7 @@ export class WatchPlayerComponent implements OnInit, AfterViewInit, OnDestroy {
           this.mediaState.currentTime = (event.target as HTMLVideoElement).currentTime;
           this.progress =
             (this.player.currentTime / this.player.duration) * 100;
+          this.storageService.updateStoredMedias(this.mediaState);
           // setar no slider e no storage pelo mediaservice e por throttleTime no mediaservice
         })
     );
@@ -113,22 +119,34 @@ export class WatchPlayerComponent implements OnInit, AfterViewInit, OnDestroy {
     });
   }
 
+  loadStoredMedia() {
+    const storedMedia = this.storageService.getStoredMedia(this.media.id);
+    if (storedMedia) {
+      this.mediaState.currentTime = storedMedia.currentTime;
+      this.player.currentTime = storedMedia.currentTime;
+    }
+  }
+
   showComponents(): void {
-    this.footerEl.nativeElement.style.opacity = 1;
-    this.footerEl.nativeElement.style.zIndex = '0';
-    this.headerIconEl.nativeElement.style.opacity = 1;
-    this.headerIconEl.nativeElement.style.zIndex = '0';
+    document.documentElement.style.setProperty('--player-opacity', '1');
+    document.documentElement.style.setProperty('--player-z-index', '0');
+    // this.footerEl.nativeElement.style.opacity = 1;
+    // this.footerEl.nativeElement.style.zIndex = '0';
+    // this.headerIconEl.nativeElement.style.opacity = 1;
+    // this.headerIconEl.nativeElement.style.zIndex = '0';
     this.player.style.cursor = 'default';
   }
 
   hideComponents(): void {
-    this.footerEl.nativeElement.style.opacity = 0;
-    this.headerIconEl.nativeElement.style.opacity = 0;
+    document.documentElement.style.setProperty('--player-opacity', '0');
+    // this.footerEl.nativeElement.style.opacity = 0;
+    // this.headerIconEl.nativeElement.style.opacity = 0;
     this.player.style.cursor = 'none';
 
     setTimeout(() => {
-      this.footerEl.nativeElement.style.zIndex = '-1';
-      this.headerIconEl.nativeElement.style.zIndex = '-1';
+      document.documentElement.style.setProperty('--player-z-index', '-1');
+      // this.footerEl.nativeElement.style.zIndex = '-1';
+      // this.headerIconEl.nativeElement.style.zIndex = '-1';
     }, 500);
   }
 
@@ -158,12 +176,12 @@ export class WatchPlayerComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
-  onProgressClick(event: MouseEvent) {
-    this.progress = event.clientX / (event.target as HTMLElement).offsetWidth;
-    this.mediaState.currentTime = this.player.duration * this.progress;
-    this.player.currentTime = this.mediaState.currentTime;
-    this.player.play();
-  }
+  // onProgressClick(event: MouseEvent) {
+  //   this.progress = event.clientX / (event.target as HTMLElement).offsetWidth;
+  //   this.mediaState.currentTime = this.player.duration * this.progress;
+  //   this.player.currentTime = this.mediaState.currentTime;
+  //   this.player.play();
+  // }
 
   onMediaStateChange(eventType: string) {
     switch (eventType) {

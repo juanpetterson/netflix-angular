@@ -1,5 +1,5 @@
 /* tslint:disable max-line-length */
-import { Media } from '../../app/models/media';
+import { Media } from '../../models/media';
 
 const medias: Media[] = [
   {

@@ -9,7 +9,6 @@ import {
 import { debounceTime } from 'rxjs/operators';
 import { Observable, Subscription, fromEvent } from 'rxjs';
 import { Media } from 'app/models/media';
-import { MediaGroup } from '../../models/media-group';
 
 @Component({
   selector: 'app-media-slider',
@@ -18,7 +17,8 @@ import { MediaGroup } from '../../models/media-group';
 })
 export class MediaSliderComponent implements OnInit, AfterViewChecked {
   @ViewChild('slider') slider: ElementRef;
-  @Input() mediaGroup: MediaGroup;
+  @Input() medias: Media[];
+  @Input() listTitle: string;
   activeMedia: Media;
   showItems = 1;
   sliderItems = [];
@@ -39,7 +39,7 @@ export class MediaSliderComponent implements OnInit, AfterViewChecked {
   constructor() {}
 
   ngOnInit(): void {
-    this.sliderItems = this.mediaGroup.medias;
+    this.sliderItems = this.medias;
     this.updateSliderState();
     this.updateTotalPages();
 

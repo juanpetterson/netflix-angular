@@ -1,5 +1,5 @@
 /* tslint:disable max-line-length */
-import { User } from '../../app/models/user';
+import { User } from '../../models/user';
 
 const users: User[] = [
   {

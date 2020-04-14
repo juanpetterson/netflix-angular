@@ -8,6 +8,7 @@ export const EVENT_FULLSCREEN = 'fullscreen';
 export const EVENT_FULLSCREEN_EXIT = 'fullscreenExit';
 
 export interface MediaState {
+  id: number;
   title: string;
   playing: boolean;
   muted: boolean;

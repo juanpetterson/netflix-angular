@@ -1,6 +1,7 @@
 import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
 import { MediaState } from '../models/media-state';
 import { MediaStateService } from '../services/media-state.service';
+import { Media } from 'app/models/media';
 
 @Component({
   selector: 'app-watch-player-controls',
@@ -9,6 +10,7 @@ import { MediaStateService } from '../services/media-state.service';
 })
 export class WatchPlayerControlsComponent implements OnInit {
   @Output() mediaStateEvent = new EventEmitter<string>();
+  @Input() media: Media;
   mediaState: MediaState;
 
   constructor(private mediaStateService: MediaStateService) {}

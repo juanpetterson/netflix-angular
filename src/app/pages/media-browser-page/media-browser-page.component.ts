@@ -1,8 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
-import { MediaGroup } from '../../models/media-group';
 import { BehaviorSubject, Subscription } from 'rxjs';
-import { MediaService } from './services/media.service';
+import { MediaService } from '../../core/services/media.service';
 import { Media } from 'app/models/media';
 
 @Component({
@@ -11,7 +10,8 @@ import { Media } from 'app/models/media';
   styleUrls: ['./media-browser-page.component.scss'],
 })
 export class MediaBrowserPageComponent implements OnInit, OnDestroy {
-  public medias = new BehaviorSubject<MediaGroup[]>([]);
+  // medias$ = new BehaviorSubject<Media[]>([]);
+  medias: Media[];
   subscription: Subscription;
   billboardMedia: Media;
 
@@ -43,18 +43,7 @@ export class MediaBrowserPageComponent implements OnInit, OnDestroy {
     this.subscription = this.mediaService
       .getMediasAsync()
       .subscribe((response) => {
-        const result = new Array<MediaGroup>();
-
-        response.forEach((media) => {
-          const mediaGroup = new MediaGroup();
-          mediaGroup.name = media.title;
-          mediaGroup.medias = response;
-          while (result.length < 5) {
-            result.push(mediaGroup);
-          }
-        });
-
-        this.medias.next(result);
+        this.medias = response;
       });
 
     this.loadBillboardMedia();

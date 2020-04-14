@@ -3,14 +3,15 @@ import { Router } from '@angular/router';
 import { BehaviorSubject, Observable, throwError, of } from 'rxjs';
 import { User } from 'app/models/user';
 import { Storage } from '../store';
-import users from '../../../api/user/users';
-
+// import users from '../models/users';
+import users from '../../../assets/data/users.json';
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   isAuthenticated$ = new BehaviorSubject<User>(null);
   private store = new Storage('@netflix');
+  // users = JSON.parse(usersJson);
 
   constructor(private router: Router) {}
 
