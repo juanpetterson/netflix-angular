@@ -5,6 +5,7 @@ import {
   ViewChild,
   ElementRef,
   AfterViewChecked,
+  OnDestroy,
 } from '@angular/core';
 import { debounceTime } from 'rxjs/operators';
 import { Observable, Subscription, fromEvent } from 'rxjs';
@@ -15,7 +16,8 @@ import { Media } from 'app/models/media';
   templateUrl: './media-slider.component.html',
   styleUrls: ['./media-slider.component.scss'],
 })
-export class MediaSliderComponent implements OnInit, AfterViewChecked {
+export class MediaSliderComponent
+  implements OnInit, AfterViewChecked, OnDestroy {
   @ViewChild('slider') slider: ElementRef;
   @Input() medias: Media[];
   @Input() listTitle: string;
@@ -56,6 +58,10 @@ export class MediaSliderComponent implements OnInit, AfterViewChecked {
   ngAfterViewChecked(): void {
     this.sliderTotalScroll = this.slider.nativeElement.scrollWidth;
     this.sliderTotalWidth = this.slider.nativeElement.clientWidth;
+  }
+
+  ngOnDestroy() {
+    this.resizeSubscription$.unsubscribe();
   }
 
   onWindowResize(): void {
@@ -175,6 +181,16 @@ export class MediaSliderComponent implements OnInit, AfterViewChecked {
 
   onCloseMedia(): void {
     this.activeMedia = null;
+  }
+
+  getHoverClass() {
+    if (this.hoverItemIndex === -1 || this.activeMedia || this.isOriginals) {
+      return '';
+    }
+
+    return {
+      'slider__item--hover': true,
+    };
   }
 
   getTranformStyle(itemIndex: number): string {

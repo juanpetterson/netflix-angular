@@ -38,6 +38,7 @@ export class WatchPlayerComponent implements OnInit, AfterViewInit, OnDestroy {
   private mediaState: MediaState;
   private subscriptions: Subscription[] = [];
   private player: HTMLVideoElement;
+  private thread;
 
   constructor(
     private mediaService: MediaService,
@@ -78,11 +79,18 @@ export class WatchPlayerComponent implements OnInit, AfterViewInit, OnDestroy {
         }
       })
     );
+
+    this.subscriptions.push(
+      fromEvent(window, 'mousemove').subscribe(() => this.onMouseStop())
+    );
+
+    this.subscriptions.push(
+      fromEvent(window, 'mousedown').subscribe(() => this.onMouseStop())
+    );
   }
 
   ngAfterViewInit(): void {
     this.player = this.playerEl.nativeElement;
-    this.player.onmousemove = this.onMouseStop();
     this.loadStoredMedia();
 
     this.subscriptions.push(
@@ -93,7 +101,6 @@ export class WatchPlayerComponent implements OnInit, AfterViewInit, OnDestroy {
           this.progress =
             (this.player.currentTime / this.player.duration) * 100;
           this.storageService.updateStoredMedias(this.mediaState);
-          // setar no slider e no storage pelo mediaservice e por throttleTime no mediaservice
         })
     );
     this.subscriptions.push(
@@ -140,14 +147,10 @@ export class WatchPlayerComponent implements OnInit, AfterViewInit, OnDestroy {
     }, 500);
   }
 
-  onMouseStop(): () => void {
-    let thread;
-
-    return () => {
-      this.showComponents();
-      clearTimeout(thread);
-      thread = setTimeout(() => this.hideComponents(), 3000);
-    };
+  onMouseStop(): void {
+    this.showComponents();
+    clearTimeout(this.thread);
+    this.thread = setTimeout(() => this.hideComponents(), 3000);
   }
 
   onTogglePlaying(): void {

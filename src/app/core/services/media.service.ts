@@ -22,9 +22,7 @@ export class MediaService {
   }
 
   public getMediasOriginals() {
-    return medias.filter((media) => {
-      return media.originals === true;
-    });
+    return medias.filter((media) => media.originals);
   }
 
   public getBillboardMedia(): any {

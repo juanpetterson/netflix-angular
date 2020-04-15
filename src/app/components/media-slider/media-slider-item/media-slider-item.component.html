@@ -7,20 +7,21 @@
   <div
     class="slider-item__content"
     [ngClass]="{
-      'slider-item__content--transparent': activeMedia
+      'slider-item__content--transparent': activeMedia,
+      'slider-item__content--no-delay': activeMedia
     }"
   >
     <div class="media-content">
-      <div class="media-content__container">
-        <div
-          routerLink="/watch/{{ media.id }}"
-          class="media-content__play-container"
-          [style.visibility]="active ? 'visible' : 'hidden'"
-        >
-          <div class="media-content__play">
-            <i class="fas fa-play"></i>
-          </div>
+      <div
+        routerLink="/watch/{{ media.id }}"
+        class="media-content__play-container"
+        [style.visibility]="active ? 'visible' : 'hidden'"
+      >
+        <div class="media-content__play">
+          <i class="fas fa-play"></i>
         </div>
+      </div>
+      <div class="media-content__container">
         <div
           class="media-content__wrapper"
           [style.visibility]="activeMedia || isOriginals ? 'hidden' : 'visible'"
