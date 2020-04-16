@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Storage } from '../../../core/store';
-import { MediaState } from '../models/media-state';
+import { Storage } from '../store';
+import { MediaState } from '../../components/watch-player/models/media-state';
 import { MediaService } from 'app/core/services/media.service';
 import { AuthService } from 'app/core/services/auth.service';
 
@@ -15,7 +15,7 @@ export class MediaStorageService {
     private authService: AuthService
   ) {}
 
-  getStoredMedias() {
+  getStoredMedias(): [] {
     const loggedUser = this.authService.getLoggedUser();
     const userMedias = this.store.get(loggedUser.email) || [];
 

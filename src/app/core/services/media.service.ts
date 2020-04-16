@@ -8,11 +8,11 @@ import medias from '../../../assets/data/medias.json';
 export class MediaService {
   public constructor() {}
 
-  public getMedias(): any {
+  public getMedias(): Media[] {
     return medias.sort(() => Math.random() - 0.5);
   }
 
-  public getMedia(mediaId: number): any {
+  public getMedia(mediaId: number): Media {
     return medias.find((media) => media.id === mediaId);
   }
 
@@ -24,7 +24,7 @@ export class MediaService {
     return medias.filter((media) => media.originals);
   }
 
-  public getBillboardMedia(): any {
+  public getBillboardMedia(): Media {
     return medias[Math.floor(Math.random() * medias.length)];
   }
 }

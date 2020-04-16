@@ -23,7 +23,7 @@ import {
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { MediaService } from 'app/core/services/media.service';
 import { MediaStateService } from './services/media-state.service';
-import { MediaStorageService } from './services/media-storage.service';
+import { MediaStorageService } from '../../core/services/media-storage.service';
 
 @Component({
   selector: 'app-watch-player',
@@ -32,6 +32,8 @@ import { MediaStorageService } from './services/media-storage.service';
 })
 export class WatchPlayerComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('player') playerEl: ElementRef;
+  @ViewChild('header') headerEl: ElementRef;
+  @ViewChild('footer') footerEl: ElementRef;
   public media: Media;
   public progress = 0;
   public loading = true;
@@ -133,17 +135,21 @@ export class WatchPlayerComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   showComponents(): void {
-    document.documentElement.style.setProperty('--player-opacity', '1');
-    document.documentElement.style.setProperty('--player-z-index', '0');
+    this.footerEl.nativeElement.style.opacity = 1;
+    this.footerEl.nativeElement.style.zIndex = '0';
+    this.headerEl.nativeElement.style.opacity = 1;
+    this.headerEl.nativeElement.style.zIndex = '0';
     this.player.style.cursor = 'default';
   }
 
   hideComponents(): void {
-    document.documentElement.style.setProperty('--player-opacity', '0');
+    this.footerEl.nativeElement.style.opacity = 0;
+    this.headerEl.nativeElement.style.opacity = 0;
     this.player.style.cursor = 'none';
 
     setTimeout(() => {
-      document.documentElement.style.setProperty('--player-z-index', '-1');
+      this.footerEl.nativeElement.style.zIndex = '-1';
+      this.headerEl.nativeElement.style.zIndex = '-1';
     }, 500);
   }
 
@@ -170,13 +176,6 @@ export class WatchPlayerComponent implements OnInit, AfterViewInit, OnDestroy {
       this.mediaStateService.fullscreenExit();
     }
   }
-
-  // onProgressClick(event: MouseEvent) {
-  //   this.progress = event.clientX / (event.target as HTMLElement).offsetWidth;
-  //   this.mediaState.currentTime = this.player.duration * this.progress;
-  //   this.player.currentTime = this.mediaState.currentTime;
-  //   this.player.play();
-  // }
 
   onMediaStateChange(eventType: string) {
     switch (eventType) {

@@ -1,4 +1,4 @@
-<div class="header" #header>
+<div class="header" #header [ngClass]="{ 'header--solid': isSolid }">
   <div class="header__container">
     <a href="/browse" class="header__logo-wrapper">
       <img src="../../../assets/logo.svg" class="header__logo" />
@@ -30,14 +30,10 @@
           </button>
         </div>
         <div class="header__action">
-          <button
-            class="header__action-button"
-            (mouseenter)="onShowDropdown()"
-            (mouseleave)="onHideDropdown()"
-          >
+          <button class="header__action-button">
             <img [src]="loggedUser.avatar" class="header__action-avatar" />
             <i class="fas fa-caret-down header__action-dropdown"></i>
-            <div class="dropdown" #dropdown (mouseleave)="onHideDropdown()">
+            <div class="dropdown" #dropdown>
               <div class="dropdown__arrow"></div>
               <ul class="dropdown__items">
                 <li class="dropdown__item">

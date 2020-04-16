@@ -1,4 +1,4 @@
-import { Directive, ElementRef, OnInit, AfterViewInit } from '@angular/core';
+import { Directive, ElementRef, AfterViewInit } from '@angular/core';
 
 @Directive({
   selector: '[appMaturityStyle]',

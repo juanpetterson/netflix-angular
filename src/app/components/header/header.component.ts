@@ -18,6 +18,7 @@ export class HeaderComponent implements OnInit {
   @ViewChild('dropdown') dropdown: ElementRef;
   public loggedUser: User;
   public hoverDropdown = false;
+  public isSolid: boolean;
 
   @HostListener('window:scroll')
   onWindowScroll() {
@@ -36,15 +37,5 @@ export class HeaderComponent implements OnInit {
 
   onLogout() {
     this.authService.logout();
-  }
-
-  onShowDropdown() {
-    // this.hoverDropdown = true;
-    // this.dropdown.nativeElement.classList.add('dropdown--active');
-  }
-
-  onHideDropdown() {
-    // this.hoverDropdown = false;
-    // this.dropdown.nativeElement.classList.remove('dropdown--active');
   }
 }

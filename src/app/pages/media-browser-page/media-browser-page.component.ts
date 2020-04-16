@@ -1,10 +1,8 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
-import { BehaviorSubject, Subscription } from 'rxjs';
 import { MediaService } from '../../core/services/media.service';
 import { Media } from 'app/models/media';
-import { MediaStorageService } from 'app/components/watch-player/services/media-storage.service';
-import { take } from 'rxjs/operators';
+import { MediaStorageService } from 'app/core/services/media-storage.service';
 
 @Component({
   selector: 'app-media-browser-page',
@@ -12,11 +10,10 @@ import { take } from 'rxjs/operators';
   styleUrls: ['./media-browser-page.component.scss'],
 })
 export class MediaBrowserPageComponent implements OnInit {
-  // medias$ = new BehaviorSubject<Media[]>([]);
-  medias: Media[];
-  myMedias: Media[];
-  mediasOriginals: Media[];
-  billboardMedia: Media;
+  public medias: Media[];
+  public myMedias: Media[];
+  public mediasOriginals: Media[];
+  public billboardMedia: Media;
 
   constructor(
     private mediaService: MediaService,

@@ -3,16 +3,6 @@
   height: 100%;
   background: black;
 
-  &__footer {
-    position: absolute;
-    width: 100%;
-    bottom: 0;
-    left: 0;
-    opacity: var(--player-opacity);
-    z-index: var(--player-z-index);
-    transition: opacity 500ms ease;
-  }
-
   &__header {
     position: absolute;
     top: 0;
@@ -22,8 +12,6 @@
     align-items: center;
     justify-content: flex-start;
     padding: 40px;
-    opacity: var(--player-opacity);
-    z-index: var(--player-z-index);
     transition: opacity 500ms ease;
 
     &-exit {
@@ -56,6 +44,14 @@
       opacity: 0;
       transition: transform 0.25s cubic-bezier(0.5, 0, 0.1, 1);
     }
+  }
+
+  &__footer {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    transition: opacity 500ms ease;
   }
 }
 

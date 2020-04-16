@@ -11,7 +11,7 @@ import { Media } from 'app/models/media';
 export class WatchPlayerControlsComponent implements OnInit {
   @Output() mediaStateEvent = new EventEmitter<string>();
   @Input() media: Media;
-  mediaState: MediaState;
+  public mediaState: MediaState;
 
   constructor(private mediaStateService: MediaStateService) {}
 
@@ -21,7 +21,7 @@ export class WatchPlayerControlsComponent implements OnInit {
     });
   }
 
-  onTogglePlaying() {
+  onTogglePlaying(): void {
     if (this.mediaState.playing) {
       this.mediaStateService.pause();
     } else {
@@ -29,15 +29,15 @@ export class WatchPlayerControlsComponent implements OnInit {
     }
   }
 
-  onSeekBack() {
+  onSeekBack(): void {
     this.mediaStateService.seekBack();
   }
 
-  onSeekForward() {
+  onSeekForward(): void {
     this.mediaStateService.seekForward();
   }
 
-  onToggleMute() {
+  onToggleMute(): void {
     if (this.mediaState.muted) {
       this.mediaStateService.unmute();
     } else {
@@ -45,7 +45,7 @@ export class WatchPlayerControlsComponent implements OnInit {
     }
   }
 
-  onToggleFullscreen() {
+  onToggleFullscreen(): void {
     if (!this.mediaState.expanded) {
       this.mediaStateService.fullscreen();
     } else {

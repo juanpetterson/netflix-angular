@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NgForm, FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthService } from 'app/core/services/auth.service';
 import { Router } from '@angular/router';
 
@@ -9,8 +9,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./login-page.component.scss'],
 })
 export class LoginPageComponent implements OnInit {
-  form: FormGroup;
-  errorMessage: string;
+  public form: FormGroup;
+  public errorMessage: string;
 
   constructor(private authService: AuthService, private router: Router) {}
 
@@ -34,11 +34,6 @@ export class LoginPageComponent implements OnInit {
   }
 
   onSubmit() {
-    // const message = this.authService.signIn(
-    //   this.email.value,
-    //   this.password.value
-    // );
-
     this.authService.signIn(this.email.value, this.password.value).subscribe(
       (user) => {},
       (error) => {
