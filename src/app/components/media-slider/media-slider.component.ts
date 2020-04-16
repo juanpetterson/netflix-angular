@@ -22,22 +22,22 @@ export class MediaSliderComponent
   @Input() medias: Media[];
   @Input() listTitle: string;
   @Input() isOriginals: boolean;
-  activeMedia: Media;
-  showItems = 1;
-  sliderItems = [];
-  sliderTotalScroll = 0;
-  sliderTotalWidth = 0;
-  hoverItemIndex = -1;
-  hoverSlide = false;
-  translateX = 0;
-  showPrev = false;
-  showNext = true;
-  totalPages = [];
-  currentPage = 0;
-  totalMoved = 0;
+  public activeMedia: Media;
+  public hoverSlide = false;
+  public sliderItems = [];
+  public showPrev = false;
+  public showNext = true;
+  public totalPages = [];
+  public currentPage = 0;
+  private showItems = 1;
+  private sliderTotalScroll = 0;
+  private sliderTotalWidth = 0;
+  private hoverItemIndex = -1;
+  private translateX = 0;
+  private totalMoved = 0;
 
-  resizeObservable$: Observable<Event>;
-  resizeSubscription$: Subscription;
+  private resizeObservable$: Observable<Event>;
+  private resizeSubscription$: Subscription;
 
   constructor() {}
 

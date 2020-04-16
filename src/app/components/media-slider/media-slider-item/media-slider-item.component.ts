@@ -19,7 +19,7 @@ export class MediaSliderItemComponent implements OnInit, OnChanges {
   @Input() media: Media;
   @Input() activeMedia: Media;
   @Input() isOriginals: boolean;
-  active: boolean;
+  public active: boolean;
 
   constructor(private router: Router) {}
 

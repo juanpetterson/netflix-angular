@@ -15,6 +15,7 @@ import { WatchPlayerComponent } from './components/watch-player/watch-player.com
 import { WatchPageComponent } from './pages/watch-page/watch-page.component';
 import { WatchPlayerControlsComponent } from './components/watch-player/watch-player-controls/watch-player-controls.component';
 import { MediaSliderItemComponent } from './components/media-slider/media-slider-item/media-slider-item.component';
+import { MediaSliderDetailsComponent } from './components/media-slider/media-slider-details/media-slider-details.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { MediaSliderItemComponent } from './components/media-slider/media-slider
     WatchPageComponent,
     WatchPlayerControlsComponent,
     MediaSliderItemComponent,
+    MediaSliderDetailsComponent,
   ],
   imports: [
     BrowserModule,

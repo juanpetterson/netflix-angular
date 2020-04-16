@@ -5,10 +5,18 @@
   }"
 >
   <div
+    class="slider-item__background"
+    [style.opacity]="activeMedia && activeMedia.id != media.id ? '0.7' : '1'"
+  >
+    <img
+      class="slider-item__background-image"
+      [src]="isOriginals ? media.poster : media.thumbnail"
+    />
+  </div>
+  <div
     class="slider-item__content"
     [ngClass]="{
-      'slider-item__content--transparent': activeMedia,
-      'slider-item__content--no-delay': activeMedia
+      'slider-item__content--active-media': activeMedia
     }"
   >
     <div class="media-content">
@@ -62,7 +70,7 @@
           </div>
         </div>
         <div
-          class="media-content__details"
+          class="media-content__arrow-down"
           (click)="onShowDetails()"
           [style.visibility]="activeMedia && active ? 'hidden' : 'visible'"
         >
@@ -71,15 +79,9 @@
       </div>
     </div>
   </div>
-  <div class="slider-item__background">
-    <img
-      class="slider-item__background-image"
-      [src]="isOriginals ? media.poster : media.thumbnail"
-    />
-  </div>
 </div>
 <div
-  class="slider-item__arrow-container"
+  class="slider-item__active-arrow"
   [style.display]="active ? 'flex' : 'none'"
 >
   <div class="slider-item__arrow"></div>
