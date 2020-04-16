@@ -4,18 +4,18 @@ import { BehaviorSubject, Subscription } from 'rxjs';
 import { MediaService } from '../../core/services/media.service';
 import { Media } from 'app/models/media';
 import { MediaStorageService } from 'app/components/watch-player/services/media-storage.service';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-media-browser-page',
   templateUrl: './media-browser-page.component.html',
   styleUrls: ['./media-browser-page.component.scss'],
 })
-export class MediaBrowserPageComponent implements OnInit, OnDestroy {
+export class MediaBrowserPageComponent implements OnInit {
   // medias$ = new BehaviorSubject<Media[]>([]);
   medias: Media[];
   myMedias: Media[];
   mediasOriginals: Media[];
-  subscription: Subscription;
   billboardMedia: Media;
 
   constructor(
@@ -24,25 +24,13 @@ export class MediaBrowserPageComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    //deixas todos fetchs iguais
-    this.subscription = this.mediaService
-      .getMediasAsync()
-      .subscribe((response) => {
-        this.medias = response;
-      });
+    this.loadMedias();
+  }
 
-    this.loadBillboardMedia();
+  private loadMedias(): void {
+    this.billboardMedia = this.mediaService.getBillboardMedia();
+    this.medias = this.mediaService.getMedias();
     this.myMedias = this.storageService.getStoredMedias();
     this.mediasOriginals = this.mediaService.getMediasOriginals();
-
-    console.log(this.mediasOriginals);
-  }
-
-  ngOnDestroy() {
-    this.subscription.unsubscribe();
-  }
-
-  private loadBillboardMedia(): void {
-    this.billboardMedia = this.mediaService.getBillboardMedia();
   }
 }

@@ -183,20 +183,19 @@ export class MediaSliderComponent
     this.activeMedia = null;
   }
 
-  getHoverClass() {
-    if (this.hoverItemIndex === -1 || this.activeMedia || this.isOriginals) {
-      return '';
-    }
-
-    return {
-      'slider__item--hover': true,
-    };
+  canHover() {
+    return !(
+      this.hoverItemIndex === -1 ||
+      this.activeMedia ||
+      this.isOriginals
+    );
   }
 
   getTranformStyle(itemIndex: number): string {
-    if (this.hoverItemIndex === -1 || this.activeMedia || this.isOriginals) {
+    if (!this.canHover()) {
       return '';
     }
+
     const firstItemHover = this.isFirstItemIndex();
     const lastItemHover = this.isLastItemIndex();
     const baseScale = 2;

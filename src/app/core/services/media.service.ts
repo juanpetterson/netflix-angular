@@ -6,18 +6,17 @@ import medias from '../../../assets/data/medias.json';
 
 @Injectable({ providedIn: 'root' })
 export class MediaService {
-  // medias = JSON.parse(mediasJson);
   public constructor() {}
 
-  public getMediasAsync(): Observable<Media[]> {
-    return of(medias);
+  public getMedias(): any {
+    return medias.sort(() => Math.random() - 0.5);
   }
 
   public getMedia(mediaId: number): any {
     return medias.find((media) => media.id === mediaId);
   }
 
-  public getMedias(mediasIds: number[]) {
+  public getMediasByIds(mediasIds: number[]) {
     return medias.filter((media) => mediasIds.includes(media.id));
   }
 
@@ -26,6 +25,6 @@ export class MediaService {
   }
 
   public getBillboardMedia(): any {
-    return medias.find((media) => media.title === 'Money Heist');
+    return medias[Math.floor(Math.random() * medias.length)];
   }
 }

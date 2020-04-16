@@ -30,7 +30,7 @@
         *ngFor="let media of sliderItems; let i = index"
         [media]="media"
         [style.transform]="getTranformStyle(i)"
-        [ngClass]="getHoverClass()"
+        [ngClass]="{ 'slider__item--hover': canHover() }"
         [activeMedia]="activeMedia"
         [isOriginals]="isOriginals"
         (mouseenter)="onHoverItem(i)"
