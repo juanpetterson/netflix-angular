@@ -10,19 +10,19 @@
           <div class="account-page__row-section">
             MEMBERSHIP & BILLING
           </div>
-          <div class="account-page__info-container">
+          <div class="account-page__row-info">
             <div
-              class="account-page__info-item account-page__info-item--underlined"
+              class="account-page__row-item account-page__row-item--underlined"
             >
-              <div class="account-page__info-name">
+              <div class="account-page__row-item-name">
                 {{ loggedUser.email }}
               </div>
-              <div class="account-page__info-name">
+              <div class="account-page__row-item-name">
                 Password: ******
               </div>
             </div>
-            <div class="account-page__info-item">
-              <div class="account-page__info-name">
+            <div class="account-page__row-item">
+              <div class="account-page__row-item-name">
                 <i class="fab fa-cc-visa"> </i>
                 **** **** **** {{ loggedUser.creditCard }}
               </div>
@@ -33,9 +33,9 @@
           <div class="account-page__row-section">
             PLAN DETAILS
           </div>
-          <div class="account-page__info-container">
-            <div class="account-page__info-item">
-              <div class="account-page__info-name">
+          <div class="account-page__row-item-container">
+            <div class="account-page__row-item">
+              <div class="account-page__row-item-name">
                 {{ loggedUser.plan }}
               </div>
             </div>
@@ -45,9 +45,9 @@
           <div class="account-page__row-section">
             LAST WATCHED
           </div>
-          <div class="account-page__info-container">
-            <div class="account-page__info-item">
-              <div class="account-page__info-name">
+          <div class="account-page__row-item-container">
+            <div class="account-page__row-item">
+              <div class="account-page__row-item-name">
                 {{ lastWatchedMedias }}
               </div>
             </div>

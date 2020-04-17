@@ -36,13 +36,12 @@
     flex: 0 0 270px;
     margin-top: 10px;
   }
-  &__type-title {
-  }
 
-  &__info-container {
+  &__row-info {
     flex: 1;
   }
-  &__info-item {
+
+  &__row-item {
     padding-top: 10px;
     padding-bottom: 10px;
 
@@ -50,7 +49,8 @@
       border-bottom: 1px solid #999;
     }
   }
-  &__info-name {
+
+  &__row-item-name {
     margin-bottom: 10px;
   }
 }
