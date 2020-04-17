@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Media } from '../../models/media';
-import { Observable, of } from 'rxjs';
-// import medias from '../../medias';
-import medias from '../../../assets/data/medias.json';
+import { Media } from '../../shared/models/media';
+import medias from '../../../assets/data/medias';
 
 @Injectable({ providedIn: 'root' })
 export class MediaService {

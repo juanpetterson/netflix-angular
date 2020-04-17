@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable, throwError, of } from 'rxjs';
-import { User } from 'app/models/user';
+import { User } from 'app/shared/models/user';
 import { Storage } from '../store';
-// import users from '../models/users';
-import users from '../../../assets/data/users.json';
+import users from '../../../assets/data/users';
 @Injectable({
   providedIn: 'root',
 })
@@ -12,7 +11,6 @@ export class AuthService {
   isAuthenticated$ = new BehaviorSubject<User>(null);
   private loggedUser: User;
   private store = new Storage('@netflix');
-  // users = JSON.parse(usersJson);
 
   constructor(private router: Router) {}
 
