@@ -4,9 +4,6 @@
     <div class="media-slider__pages-count">
       <ul
         class="pages-count"
-        [ngClass]="{
-          hide: !hoverSlide || totalPages.length <= 1
-        }"
         [style.visibility]="showPagesCount ? 'visible' : 'hidden'"
       >
         <li
