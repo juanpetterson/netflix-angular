@@ -21,7 +21,7 @@
       <div class="details__buttons">
         <div
           class="details__button details__button--red"
-          routerLink="/watch/{{ activeMedia.id }}"
+          [routerLink]="['/watch', activeMedia.id]"
         >
           <i class="fas fa-play details__button-icon"></i>
           <span>PLAY</span>
@@ -43,29 +43,20 @@
       </div>
       <div class="details__starring">
         <span>Starring: </span>
-        <div
-          class="details__starring-item"
-          *ngFor="let starring of activeMedia.starring; let isLast = last"
-        >
-          {{ starring }}{{ isLast ? '' : ',' }}
+        <div class="details__starring-item">
+          {{ activeMedia.starring.join(', ') }}
         </div>
       </div>
       <div class="details__genres">
         <span>Genres: </span>
-        <div
-          class="details__genres-item"
-          *ngFor="let genre of activeMedia.genres; let isLast = last"
-        >
-          {{ genre }}{{ isLast ? '' : ',' }}
+        <div class="details__genres-item">
+          {{ activeMedia.genres.join(', ') }}
         </div>
       </div>
       <div class="details__tags">
         <span>This movie is: </span>
-        <div
-          class="details__tags-item"
-          *ngFor="let tag of activeMedia.tags; let isLast = last"
-        >
-          {{ tag }}{{ isLast ? '' : ',' }}
+        <div class="details__tags-item">
+          {{ activeMedia.tags.join(', ') }}
         </div>
       </div>
     </div>

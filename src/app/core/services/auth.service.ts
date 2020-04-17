@@ -9,7 +9,7 @@ import users from '../../../assets/data/users';
 })
 export class AuthService {
   isAuthenticated$ = new BehaviorSubject<User>(null);
-  private loggedUser: User;
+  // private loggedUser: User;
   private store = new Storage('@netflix');
 
   constructor(private router: Router) {}
@@ -48,17 +48,17 @@ export class AuthService {
     this.router.navigate(['/']);
   }
 
-  public getLoggedUser(): User {
-    const storedUser = this.store.get('user');
-    if (storedUser) {
-      return this.loggedUser;
-    } else {
-      return null;
-    }
-  }
+  // public getLoggedUser(): User {
+  //   const storedUser = this.store.get('user');
+  //   if (storedUser) {
+  //     return this.loggedUser;
+  //   } else {
+  //     return null;
+  //   }
+  // }
 
   private handleAuthentication(user: any) {
-    this.loggedUser = user;
+    this.isAuthenticated$.next(user);
     if (user) {
       this.store.set('user', user);
     } else {

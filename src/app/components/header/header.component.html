@@ -3,7 +3,10 @@
     <a href="/browse" class="header__logo-wrapper">
       <img src="../../../assets/logo.svg" class="header__logo" />
     </a>
-    <div class="header__navigation" *ngIf="loggedUser">
+    <div
+      class="header__navigation"
+      *ngIf="authService.isAuthenticated$ | async as loggedUser"
+    >
       <ul
         class="header__navigation-items"
         [style.visibility]="showNavigation ? 'visible' : 'hidden'"

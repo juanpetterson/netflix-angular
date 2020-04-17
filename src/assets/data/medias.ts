@@ -424,7 +424,7 @@ const medias: Media[] = [
       'TV Shows Based on Books',
       'Family Watch Together TV',
     ],
-    tags: [],
+    tags: ['Exciting'],
   },
   {
     id: 20,

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'app/core/services/auth.service';
 import { User } from 'app/shared/models/user';
 import { MediaStorageService } from 'app/core/services/media-storage.service';
+import { MediaService } from 'app/core/services/media.service';
 
 @Component({
   selector: 'app-account-page',
@@ -11,15 +12,20 @@ import { MediaStorageService } from 'app/core/services/media-storage.service';
 export class AccountPageComponent implements OnInit {
   public loggedUser: User;
   public lastWatchedMedias: string;
+  private storageService: MediaStorageService;
 
   constructor(
     private authService: AuthService,
-    private mediaStorageService: MediaStorageService
+    private mediaService: MediaService
   ) {}
 
   ngOnInit(): void {
-    this.loggedUser = this.authService.getLoggedUser();
-    this.lastWatchedMedias = this.mediaStorageService
+    this.authService.isAuthenticated$.subscribe((user) => {
+      this.loggedUser = user;
+      this.storageService = new MediaStorageService(this.mediaService, user);
+    });
+
+    this.lastWatchedMedias = this.storageService
       .getStoredMedias(3)
       .map((media) => media.title)
       .join(', ');

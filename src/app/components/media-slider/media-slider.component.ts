@@ -77,8 +77,8 @@ export class MediaSliderComponent
     this.slider.nativeElement.style.transform = `translateX(${this.translateX}px)`;
     this.totalMoved = 0;
 
-    this.showPrev = false;
-    this.showNext = true;
+    this.showPrev = this.currentPage > 0;
+    this.showNext = this.currentPage < this.totalPages.length - 1;
   }
 
   updateSliderState(): void {

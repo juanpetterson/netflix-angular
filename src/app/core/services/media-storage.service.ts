@@ -5,6 +5,7 @@ import { MediaService } from 'app/core/services/media.service';
 import { AuthService } from 'app/core/services/auth.service';
 import { StoredMedia } from '../../shared/models/stored-media';
 import { Media } from 'app/shared/models/media';
+import { User } from 'app/shared/models/user';
 
 @Injectable({
   providedIn: 'root',
@@ -12,33 +13,36 @@ import { Media } from 'app/shared/models/media';
 export class MediaStorageService {
   private store = new Storage('@netflix');
 
-  constructor(
-    private mediaService: MediaService,
-    private authService: AuthService
-  ) {}
+  constructor(private mediaService: MediaService, private loggedUser: User) {}
 
   getStoredMedias(lastMediasCount: number = 0): Media[] {
-    const loggedUser = this.authService.getLoggedUser();
-    const userMedias = this.store.get(loggedUser.email) || [];
+    const userMedias = this.store.get(this.loggedUser.email) || [];
 
     let storedMedias = userMedias
       .sort((m1: StoredMedia, m2: StoredMedia) => {
         return m2.updatedAt - m1.updatedAt;
       })
       .map((media) => {
-        return this.mediaService.getMedia(media.mediaId);
+        let storedMedia: Media;
+
+        this.mediaService.getMedia(media.mediaId).subscribe((resMedia) => {
+          storedMedia = resMedia;
+        });
+
+        return storedMedia;
       });
 
     if (lastMediasCount) {
       storedMedias = storedMedias.slice(0, lastMediasCount);
     }
 
+    console.log(storedMedias);
+
     return storedMedias;
   }
 
   getStoredMedia(mediaId: number): StoredMedia {
-    const loggedUser = this.authService.getLoggedUser();
-    const userMedias = this.store.get(loggedUser.email) || [];
+    const userMedias = this.store.get(this.loggedUser.email) || [];
 
     const storedMedia = userMedias.find((media) => {
       return media.mediaId === mediaId;
@@ -48,8 +52,7 @@ export class MediaStorageService {
   }
 
   updateStoredMedias(mediaState: MediaState): void {
-    const loggedUser = this.authService.getLoggedUser();
-    const userMedias = this.store.get(loggedUser.email) || [];
+    const userMedias = this.store.get(this.loggedUser.email) || [];
 
     const storedMedia: StoredMedia = userMedias.find((media: StoredMedia) => {
       return media.mediaId === mediaState.id;
@@ -66,6 +69,6 @@ export class MediaStorageService {
       };
       userMedias.push(userMedia);
     }
-    this.store.set(loggedUser.email, userMedias);
+    this.store.set(this.loggedUser.email, userMedias);
   }
 }

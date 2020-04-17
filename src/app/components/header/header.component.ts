@@ -16,7 +16,7 @@ import { User } from 'app/shared/models/user';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
 })
-export class HeaderComponent implements OnInit, AfterViewInit {
+export class HeaderComponent implements AfterViewInit {
   @ViewChild('header') headerEl: ElementRef;
   @ViewChild('dropdown') dropdown: ElementRef;
   @Input() backgroundColor = 'transparent';
@@ -35,11 +35,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     }
   }
 
-  constructor(private authService: AuthService) {}
-
-  ngOnInit() {
-    this.loggedUser = this.authService.getLoggedUser();
-  }
+  constructor(public authService: AuthService) {}
 
   ngAfterViewInit() {
     this.headerEl.nativeElement.classList.add(
