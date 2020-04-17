@@ -1,10 +1,13 @@
-<div class="header" #header [ngClass]="{ 'header--solid': isSolid }">
+<div class="header" #header>
   <div class="header__container">
     <a href="/browse" class="header__logo-wrapper">
       <img src="../../../assets/logo.svg" class="header__logo" />
     </a>
     <div class="header__navigation" *ngIf="loggedUser">
-      <ul class="header__navigation-items">
+      <ul
+        class="header__navigation-items"
+        [style.visibility]="showNavigation ? 'visible' : 'hidden'"
+      >
         <li class="header__navigation-item header__navigation-item--active">
           Home
         </li>
@@ -14,20 +17,25 @@
         <li class="header__navigation-item">My List</li>
       </ul>
       <div class="header__actions">
-        <div class="header__action">
-          <button class="header__action-button">
-            <i class="fas fa-search"></i>
-          </button>
-        </div>
-        <div class="header__action">
-          <button class="header__action-button">
-            <i class="fas fa-gift"></i>
-          </button>
-        </div>
-        <div class="header__action">
-          <button class="header__action-button">
-            <i class="fas fa-bell"></i>
-          </button>
+        <div
+          class="header__actions-wrapper"
+          [style.visibility]="showNavigation ? 'visible' : 'hidden'"
+        >
+          <div class="header__action">
+            <button class="header__action-button">
+              <i class="fas fa-search"></i>
+            </button>
+          </div>
+          <div class="header__action">
+            <button class="header__action-button">
+              <i class="fas fa-gift"></i>
+            </button>
+          </div>
+          <div class="header__action">
+            <button class="header__action-button">
+              <i class="fas fa-bell"></i>
+            </button>
+          </div>
         </div>
         <div class="header__action">
           <button class="header__action-button">

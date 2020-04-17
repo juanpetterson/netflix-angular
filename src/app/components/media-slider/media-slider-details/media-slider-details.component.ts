@@ -1,5 +1,5 @@
 import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
-import { Media } from 'app/models/media';
+import { Media } from 'app/shared/models/media';
 
 @Component({
   selector: 'app-media-slider-details',

@@ -6,7 +6,7 @@ import {
   EventEmitter,
   OnChanges,
 } from '@angular/core';
-import { Media } from 'app/models/media';
+import { Media } from 'app/shared/models/media';
 import { Router } from '@angular/router';
 
 @Component({

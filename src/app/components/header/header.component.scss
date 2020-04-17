@@ -2,16 +2,23 @@
   position: fixed;
   height: 65px;
   width: 100%;
-  background: linear-gradient(
-    to bottom,
-    rgba(0, 0, 0, 0.7) 10%,
-    rgba(0, 0, 0, 0) 100%
-  );
   z-index: 100;
   transition: background 500ms ease-out;
 
-  &--solid {
+  &--transparent {
+    background: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.7) 10%,
+      rgba(0, 0, 0, 0) 100%
+    );
+  }
+
+  &--dark {
     background: #141414;
+  }
+
+  &--black {
+    background: rgba(0, 0, 0, 0.97);
   }
 
   &__container {
@@ -63,6 +70,11 @@
         cursor: default;
       }
     }
+  }
+
+  &__actions-wrapper {
+    display: flex;
+    align-items: center;
   }
 
   &__actions {

@@ -8,7 +8,7 @@ import {
 } from '@angular/core';
 import { fromEvent, Subscription } from 'rxjs';
 import { throttleTime, delay } from 'rxjs/operators';
-import { Media } from 'app/models/media';
+import { Media } from 'app/shared/models/media';
 import {
   MediaState,
   EVENT_PLAY,

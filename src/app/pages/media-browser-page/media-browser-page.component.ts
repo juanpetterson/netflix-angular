@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { MediaService } from '../../core/services/media.service';
-import { Media } from 'app/models/media';
+import { Media } from 'app/shared/models/media';
 import { MediaStorageService } from 'app/core/services/media-storage.service';
 
 @Component({

@@ -1,0 +1,59 @@
+<app-header [backgroundColor]="'black'" [showNavigation]="false"></app-header>
+<div class="account-page">
+  <div class="account-page__container">
+    <div class="account-page__content">
+      <div class="account-page__title">
+        Account
+      </div>
+      <div class="account-page__panel">
+        <div class="account-page__panel-row">
+          <div class="account-page__row-section">
+            MEMBERSHIP & BILLING
+          </div>
+          <div class="account-page__info-container">
+            <div
+              class="account-page__info-item account-page__info-item--underlined"
+            >
+              <div class="account-page__info-name">
+                {{ loggedUser.email }}
+              </div>
+              <div class="account-page__info-name">
+                Password: ******
+              </div>
+            </div>
+            <div class="account-page__info-item">
+              <div class="account-page__info-name">
+                <i class="fab fa-cc-visa"> </i>
+                **** **** **** {{ loggedUser.creditCard }}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="account-page__panel-row">
+          <div class="account-page__row-section">
+            PLAN DETAILS
+          </div>
+          <div class="account-page__info-container">
+            <div class="account-page__info-item">
+              <div class="account-page__info-name">
+                {{ loggedUser.plan }}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="account-page__panel-row">
+          <div class="account-page__row-section">
+            LAST WATCHED
+          </div>
+          <div class="account-page__info-container">
+            <div class="account-page__info-item">
+              <div class="account-page__info-name">
+                {{ lastWatchedMedias }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

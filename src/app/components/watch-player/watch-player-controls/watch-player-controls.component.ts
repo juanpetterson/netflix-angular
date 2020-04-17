@@ -1,7 +1,7 @@
 import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
 import { MediaState } from '../models/media-state';
 import { MediaStateService } from '../services/media-state.service';
-import { Media } from 'app/models/media';
+import { Media } from 'app/shared/models/media';
 
 @Component({
   selector: 'app-watch-player-controls',

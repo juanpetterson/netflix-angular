@@ -9,7 +9,7 @@ import {
 } from '@angular/core';
 import { debounceTime } from 'rxjs/operators';
 import { Observable, Subscription, fromEvent } from 'rxjs';
-import { Media } from 'app/models/media';
+import { Media } from 'app/shared/models/media';
 
 @Component({
   selector: 'app-media-slider',
@@ -212,7 +212,7 @@ export class MediaSliderComponent
       return `scale(${baseScale})`;
     }
 
-    // item before
+    // previous item
     if (itemIndex < this.hoverItemIndex) {
       if (firstItemHover) {
         return 'translateX(0)';
@@ -223,7 +223,7 @@ export class MediaSliderComponent
       return `translateX(-${baseTranslate}%)`;
     }
 
-    // item after
+    // next item
     if (itemIndex > this.hoverItemIndex) {
       if (firstItemHover) {
         return `translateX(${baseTranslate * 2}%)`;
