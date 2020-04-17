@@ -29,6 +29,7 @@ export class MediaSliderComponent
   public showNext = true;
   public totalPages = [];
   public currentPage = 0;
+  public showPagesCount = false;
   private showItems = 1;
   private sliderTotalScroll = 0;
   private sliderTotalWidth = 0;
@@ -162,10 +163,12 @@ export class MediaSliderComponent
 
   onEnterSlider(): void {
     this.hoverSlide = true;
+    this.showPagesCount = this.totalPages.length > 1;
   }
 
   onLeaveSlider(): void {
     this.hoverSlide = false;
+    this.showPagesCount = false;
   }
 
   onHoverItem(index: number): void {

@@ -7,6 +7,7 @@
         [ngClass]="{
           hide: !hoverSlide || totalPages.length <= 1
         }"
+        [style.visibility]="showPagesCount ? 'visible' : 'hidden'"
       >
         <li
           class="pages-count__item"
@@ -46,9 +47,7 @@
     >
       <i
         class="fas fa-chevron-left"
-        [ngClass]="{
-          hide: !hoverSlide
-        }"
+        [style.visibility]="hoverSlide ? 'visible' : 'hidden'"
       ></i>
     </div>
     <div
@@ -59,9 +58,7 @@
     >
       <i
         class="fas fa-chevron-right"
-        [ngClass]="{
-          hide: !hoverSlide
-        }"
+        [style.visibility]="hoverSlide ? 'visible' : 'hidden'"
       ></i>
     </div>
   </div>
