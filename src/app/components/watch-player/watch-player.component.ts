@@ -24,7 +24,6 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { MediaService } from 'app/core/services/media.service';
 import { MediaStateService } from './services/media-state.service';
 import { MediaStorageService } from '../../core/services/media-storage.service';
-import { AuthService } from 'app/core/services/auth.service';
 
 @Component({
   selector: 'app-watch-player',
@@ -42,21 +41,16 @@ export class WatchPlayerComponent implements OnInit, AfterViewInit, OnDestroy {
   private subscriptions: Subscription[] = [];
   private player: HTMLVideoElement;
   private thread;
-  private storageService: MediaStorageService;
 
   constructor(
-    private authService: AuthService,
     private mediaService: MediaService,
     private mediaStateService: MediaStateService,
+    private storageService: MediaStorageService,
     private route: ActivatedRoute,
     private router: Router
   ) {}
 
   ngOnInit(): void {
-    this.authService.isAuthenticated$.subscribe((user) => {
-      this.storageService = new MediaStorageService(this.mediaService, user);
-    });
-
     this.route.params.subscribe((params: Params) => {
       const mediaId = +params.id;
       this.mediaService.getMedia(mediaId).subscribe((media) => {

@@ -12,17 +12,15 @@ import { MediaService } from 'app/core/services/media.service';
 export class AccountPageComponent implements OnInit {
   public loggedUser: User;
   public lastWatchedMedias: string;
-  private storageService: MediaStorageService;
 
   constructor(
     private authService: AuthService,
-    private mediaService: MediaService
+    private storageService: MediaStorageService
   ) {}
 
   ngOnInit(): void {
     this.authService.isAuthenticated$.subscribe((user) => {
       this.loggedUser = user;
-      this.storageService = new MediaStorageService(this.mediaService, user);
     });
 
     this.lastWatchedMedias = this.storageService

@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-
 import { MediaService } from '../../core/services/media.service';
 import { Media } from 'app/shared/models/media';
 import { MediaStorageService } from 'app/core/services/media-storage.service';
-import { AuthService } from 'app/core/services/auth.service';
 
 @Component({
   selector: 'app-media-browser-page',
@@ -15,18 +13,13 @@ export class MediaBrowserPageComponent implements OnInit {
   public myMedias: Media[];
   public mediasOriginals: Media[];
   public billboardMedia: Media;
-  private storageService: MediaStorageService;
 
   constructor(
-    private authService: AuthService,
-    private mediaService: MediaService
+    private mediaService: MediaService,
+    private storageService: MediaStorageService
   ) {}
 
   ngOnInit(): void {
-    this.authService.isAuthenticated$.subscribe((user) => {
-      this.storageService = new MediaStorageService(this.mediaService, user);
-    });
-
     this.loadMedias();
   }
 

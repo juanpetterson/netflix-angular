@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import { Storage } from '../store';
 import { MediaState } from '../../components/watch-player/models/media-state';
-import { MediaService } from 'app/core/services/media.service';
-import { AuthService } from 'app/core/services/auth.service';
+import { MediaService } from '../../core/services/media.service';
+import { Media } from '../../shared/models/media';
 import { StoredMedia } from '../../shared/models/stored-media';
-import { Media } from 'app/shared/models/media';
-import { User } from 'app/shared/models/user';
+import { User } from '../../shared/models/user';
+import { Storage } from '../store';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root',
@@ -13,10 +13,14 @@ import { User } from 'app/shared/models/user';
 export class MediaStorageService {
   private store = new Storage('@netflix');
 
-  constructor(private mediaService: MediaService, private loggedUser: User) {}
+  constructor(
+    private mediaService: MediaService,
+    private authService: AuthService
+  ) {}
 
-  getStoredMedias(lastMediasCount: number = 0): Media[] {
-    const userMedias = this.store.get(this.loggedUser.email) || [];
+  public getStoredMedias(lastMediasCount: number = 0): Media[] {
+    const loggedUser = this.authService.isAuthenticated$.value;
+    const userMedias = this.store.get(loggedUser.email) || [];
 
     let storedMedias = userMedias
       .sort((m1: StoredMedia, m2: StoredMedia) => {
@@ -36,13 +40,12 @@ export class MediaStorageService {
       storedMedias = storedMedias.slice(0, lastMediasCount);
     }
 
-    console.log(storedMedias);
-
     return storedMedias;
   }
 
-  getStoredMedia(mediaId: number): StoredMedia {
-    const userMedias = this.store.get(this.loggedUser.email) || [];
+  public getStoredMedia(mediaId: number): StoredMedia {
+    const loggedUser = this.authService.isAuthenticated$.value;
+    const userMedias = this.store.get(loggedUser.email) || [];
 
     const storedMedia = userMedias.find((media) => {
       return media.mediaId === mediaId;
@@ -51,8 +54,9 @@ export class MediaStorageService {
     return storedMedia;
   }
 
-  updateStoredMedias(mediaState: MediaState): void {
-    const userMedias = this.store.get(this.loggedUser.email) || [];
+  public updateStoredMedias(mediaState: MediaState): void {
+    const loggedUser = this.authService.isAuthenticated$.value;
+    const userMedias = this.store.get(loggedUser.email) || [];
 
     const storedMedia: StoredMedia = userMedias.find((media: StoredMedia) => {
       return media.mediaId === mediaState.id;
@@ -69,6 +73,6 @@ export class MediaStorageService {
       };
       userMedias.push(userMedia);
     }
-    this.store.set(this.loggedUser.email, userMedias);
+    this.store.set(loggedUser.email, userMedias);
   }
 }

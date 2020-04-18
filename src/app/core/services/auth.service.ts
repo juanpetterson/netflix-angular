@@ -1,15 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject, Observable, throwError, of } from 'rxjs';
-import { User } from 'app/shared/models/user';
-import { Storage } from '../store';
+import { BehaviorSubject, Observable } from 'rxjs';
 import users from '../../../assets/data/users';
+import { User } from '../../shared/models/user';
+import { Storage } from '../store';
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  isAuthenticated$ = new BehaviorSubject<User>(null);
-  // private loggedUser: User;
+  public isAuthenticated$ = new BehaviorSubject<User>(null);
   private store = new Storage('@netflix');
 
   constructor(private router: Router) {}
@@ -20,7 +19,7 @@ export class AuthService {
 
       if (!foundedUser) {
         throw new Error(
-          "Sorry, we can't find an account with this email address. Please try again."
+          `Sorry, we can't find an account with this email address. Please try again.`
         );
       }
 
@@ -47,15 +46,6 @@ export class AuthService {
     this.handleAuthentication(null);
     this.router.navigate(['/']);
   }
-
-  // public getLoggedUser(): User {
-  //   const storedUser = this.store.get('user');
-  //   if (storedUser) {
-  //     return this.loggedUser;
-  //   } else {
-  //     return null;
-  //   }
-  // }
 
   private handleAuthentication(user: any) {
     this.isAuthenticated$.next(user);

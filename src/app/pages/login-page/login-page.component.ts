@@ -34,13 +34,17 @@ export class LoginPageComponent implements OnInit {
   }
 
   onSubmit() {
+    if (!this.email.value || !this.password.value) {
+      return;
+    }
+
     this.authService.signIn(this.email.value, this.password.value).subscribe(
-      (user) => {},
+      (_) => {
+        this.router.navigate(['./browse']);
+      },
       (error) => {
         this.errorMessage = error.message;
       }
     );
-
-    this.router.navigate(['./browse']);
   }
 }

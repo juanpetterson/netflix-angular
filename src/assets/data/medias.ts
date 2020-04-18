@@ -58,7 +58,7 @@ const medias: Media[] = [
     billboard: 'assets/medias/ares/billboard.webp',
     mediaPath: 'assets/medias/ares/media.mp4',
     synopsis:
-      "Aiming to become part of Amsterdam's elite, an ambitious college student joins an exclusive society, unaware it's hiding a horrifying secret.",
+      'Aiming to become part of Amsterdam\'s elite, an ambitious college student joins an exclusive society, unaware it\'s hiding a horrifying secret.',
     maturity: 16,
     match: '68% Match',
     lastRelease: '2020',
@@ -143,7 +143,7 @@ const medias: Media[] = [
     billboard: 'assets/medias/how-to-fix-a-drug-scandal/billboard.webp',
     mediaPath: 'assets/medias/how-to-fix-a-drug-scandal/media.mp4',
     synopsis:
-      "Two drug lab chemists' shocking crimes cripple a state's judicial system and blur the lines of justice for lawyers, officials and thousands of inmates.",
+      'Two drug lab chemists\' shocking crimes cripple a state\'s judicial system and blur the lines of justice for lawyers, officials and thousands of inmates.',
     maturity: 18,
     match: 'New',
     lastRelease: '2020',
@@ -193,7 +193,7 @@ const medias: Media[] = [
     billboard: 'assets/medias/locke-and-key/billboard.webp',
     mediaPath: 'assets/medias/locke-and-key/media.mp4',
     synopsis:
-      "After their dad's murder, three siblings move with their mom to his ancestral estate, where they discover magical keys that unlock powers — and secrets.",
+      'After their dad\'s murder, three siblings move with their mom to his ancestral estate, where they discover magical keys that unlock powers — and secrets.',
     maturity: 16,
     match: '96% Match',
     lastRelease: '2020',
@@ -327,7 +327,7 @@ const medias: Media[] = [
     billboard: 'assets/medias/self-made/billboard.webp',
     mediaPath: 'assets/medias/self-made/media.mp4',
     synopsis:
-      "Aspiring to be more than a washerwoman, Sarah grows determined to sell Addie's hair product. But when she's cruelly rebuffed, the gloves come off.",
+      'Aspiring to be more than a washerwoman, Sarah grows determined to sell Addie\'s hair product. But when she\'s cruelly rebuffed, the gloves come off.',
     maturity: 16,
     match: '98% Match',
     lastRelease: '2020',
@@ -520,7 +520,7 @@ const medias: Media[] = [
     billboard: 'assets/medias/toy-boy/billboard.webp',
     mediaPath: 'assets/medias/toy-boy/media.mp4',
     synopsis:
-      "After seven years in a Málaga prison, a male stripper is released pending retrial and sets out to prove his lover framed him for her husband's murder.",
+      'After seven years in a Málaga prison, a male stripper is released pending retrial and sets out to prove his lover framed him for her husband\'s murder.',
     maturity: 18,
     match: '98% Match',
     lastRelease: '2019',
