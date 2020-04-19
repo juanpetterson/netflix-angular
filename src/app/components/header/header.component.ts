@@ -5,24 +5,26 @@ import {
   ViewChild,
   ElementRef,
   Input,
-  AfterContentInit,
   AfterViewInit,
+  OnDestroy,
 } from '@angular/core';
 import { AuthService } from 'app/core/services/auth.service';
 import { User } from 'app/shared/models/user';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
 })
-export class HeaderComponent implements AfterViewInit {
+export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('header') headerEl: ElementRef;
   @ViewChild('dropdown') dropdown: ElementRef;
   @Input() backgroundColor = 'transparent';
   @Input() showNavigation = true;
   public loggedUser: User;
   public hoverDropdown = false;
+  private subscription: Subscription;
 
   @HostListener('window:scroll')
   onWindowScroll() {
@@ -35,12 +37,22 @@ export class HeaderComponent implements AfterViewInit {
     }
   }
 
-  constructor(public authService: AuthService) {}
+  constructor(private authService: AuthService) {}
+
+  ngOnInit() {
+    this.subscription = this.authService.isAuthenticated$.subscribe((user) => {
+      this.loggedUser = user;
+    });
+  }
 
   ngAfterViewInit() {
     this.headerEl.nativeElement.classList.add(
       `header--${this.backgroundColor}`
     );
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
   onLogout() {
