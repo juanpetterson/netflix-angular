@@ -1,24 +1,39 @@
-import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  EventEmitter,
+  Output,
+  Input,
+  OnDestroy,
+} from '@angular/core';
 import { MediaState } from '../models/media-state';
 import { MediaStateService } from '../services/media-state.service';
 import { Media } from 'app/shared/models/media';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-watch-player-controls',
   templateUrl: './watch-player-controls.component.html',
   styleUrls: ['./watch-player-controls.component.scss'],
 })
-export class WatchPlayerControlsComponent implements OnInit {
+export class WatchPlayerControlsComponent implements OnInit, OnDestroy {
   @Output() mediaStateEvent = new EventEmitter<string>();
   @Input() media: Media;
   public mediaState: MediaState;
+  private subscription: Subscription;
 
   constructor(private mediaStateService: MediaStateService) {}
 
   ngOnInit(): void {
-    this.mediaStateService.mediaStateChanged.subscribe((state) => {
-      this.mediaState = state;
-    });
+    this.subscription = this.mediaStateService.mediaStateChanged.subscribe(
+      (state) => {
+        this.mediaState = state;
+      }
+    );
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
   onTogglePlaying(): void {

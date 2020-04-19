@@ -36,9 +36,7 @@ export class MediaSliderComponent
   private hoverItemIndex = -1;
   private translateX = 0;
   private totalMoved = 0;
-
-  private resizeObservable$: Observable<Event>;
-  private resizeSubscription$: Subscription;
+  private subscription: Subscription;
 
   constructor() {}
 
@@ -48,10 +46,9 @@ export class MediaSliderComponent
     this.updateTotalPages();
     this.showNext = this.totalPages.length > 1;
 
-    this.resizeObservable$ = fromEvent(window, 'resize');
-    this.resizeSubscription$ = this.resizeObservable$
+    this.subscription = fromEvent(window, 'resize')
       .pipe(debounceTime(500))
-      .subscribe((evt) => {
+      .subscribe((_) => {
         this.onWindowResize();
       });
   }
@@ -62,7 +59,7 @@ export class MediaSliderComponent
   }
 
   ngOnDestroy() {
-    this.resizeSubscription$.unsubscribe();
+    this.subscription.unsubscribe();
   }
 
   onWindowResize(): void {

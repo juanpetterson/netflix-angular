@@ -19,7 +19,7 @@ export type Spied<T> = {
 })
 class MockedHeaderComponent {}
 
-fdescribe('LoginPageComponent', () => {
+describe('LoginPageComponent', () => {
   let component: LoginPageComponent;
   let fixture: ComponentFixture<LoginPageComponent>;
   let de: DebugElement;

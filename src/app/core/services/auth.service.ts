@@ -15,21 +15,21 @@ export class AuthService {
 
   public signIn(username: string, password: string): Observable<User> {
     return new Observable((subscriber) => {
-      const foundedUser = users.find((user) => user.email === username);
+      const foundUser = users.find((user) => user.email === username);
 
-      if (!foundedUser) {
+      if (!foundUser) {
         throw new Error(
           `Sorry, we can't find an account with this email address. Please try again.`
         );
       }
 
-      if (foundedUser.password !== password) {
+      if (foundUser.password !== password) {
         throw new Error('Incorrect password. Please try again.');
       }
 
-      this.handleAuthentication(foundedUser);
+      this.handleAuthentication(foundUser);
 
-      subscriber.next(foundedUser);
+      subscriber.next(foundUser);
     });
   }
 
