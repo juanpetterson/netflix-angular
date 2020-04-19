@@ -24,7 +24,7 @@ export class AccountPageComponent implements OnInit {
     });
 
     this.lastWatchedMedias = this.storageService
-      .getStoredMedias(3)
+      .getStoredMedias(5)
       .map((media) => media.title)
       .join(', ');
   }
