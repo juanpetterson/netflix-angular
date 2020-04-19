@@ -11,6 +11,7 @@ import { Media } from 'app/shared/models/media';
   // tslint:disable-next-line: no-host-metadata-property
   host: { '(click)': 'onClick()' },
 })
+// tslint:disable-next-line: directive-class-suffix
 export class RouterLinkDirectiveStub {
   @Input('routerLink') linkParams: any;
   navigatedTo: any = null;
@@ -67,7 +68,7 @@ describe('BillboardComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('Should have the correct route for the media', () => {
+  it('should have the correct route for the media', () => {
     const routerLink = de
       .query(By.directive(RouterLinkDirectiveStub))
       .injector.get(RouterLinkDirectiveStub);
@@ -78,7 +79,7 @@ describe('BillboardComponent', () => {
     expect(routerLink.navigatedTo).toEqual(['/watch', media.id]);
   });
 
-  it('Should have the correct source image for the billboard', () => {
+  it('should have the correct source image for the billboard', () => {
     const image = de.query(By.css('.billboard__image'));
     image.nativeElement.click();
 

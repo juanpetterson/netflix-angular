@@ -1,10 +1,4 @@
-import {
-  async,
-  ComponentFixture,
-  TestBed,
-  fakeAsync,
-  tick,
-} from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { HeaderComponent } from './header.component';
 import { DebugElement } from '@angular/core';
@@ -38,7 +32,7 @@ describe('HeaderComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('Should show the logged user avatar when logged', () => {
+  it('should show the logged user avatar when logged', () => {
     const user = {
       id: 1,
       name: '',
@@ -56,12 +50,12 @@ describe('HeaderComponent', () => {
     expect(imageEl.nativeElement.src).toContain(user.avatar);
   });
 
-  it('Should dont show the header navigation when user not logged', () => {
+  it('should dont show the header navigation when user not logged', () => {
     const navigationEl = de.query(By.css('.header__navigation'));
     expect(navigationEl).toBeFalsy();
   });
 
-  it('Should header has the correct class based on the backgroundColor - Transparent', () => {
+  it('should header has the correct class based on the backgroundColor - Transparent', () => {
     component.backgroundColor = 'transparent';
     component.ngAfterViewInit();
     fixture.detectChanges();
@@ -71,7 +65,7 @@ describe('HeaderComponent', () => {
     expect(headerClassList).toContain('header--transparent');
   });
 
-  it('Should header has the correct class based on the backgroundColor - Dark', () => {
+  it('should header has the correct class based on the backgroundColor - Dark', () => {
     component.backgroundColor = 'dark';
     component.ngAfterViewInit();
     fixture.detectChanges();
@@ -81,7 +75,7 @@ describe('HeaderComponent', () => {
     expect(headerClassList).toContain('header--dark');
   });
 
-  it('Should header has the correct class based on the backgroundColor - Black', () => {
+  it('should header has the correct class based on the backgroundColor - Black', () => {
     component.backgroundColor = 'black';
     component.ngAfterViewInit();
     fixture.detectChanges();
