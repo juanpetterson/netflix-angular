@@ -6,6 +6,7 @@ export const EVENT_SEEKBACK = 'seekback';
 export const EVENT_SEEKFORWARD = 'seekforward';
 export const EVENT_FULLSCREEN = 'fullscreen';
 export const EVENT_FULLSCREEN_EXIT = 'fullscreenExit';
+export const EVENT_RESET = 'reset';
 
 export interface MediaState {
   id: number;

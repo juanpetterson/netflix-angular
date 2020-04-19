@@ -10,13 +10,14 @@ import {
   EVENT_FULLSCREEN_EXIT,
   EVENT_PAUSE,
   EVENT_UNMUTE,
+  EVENT_RESET,
 } from '../models/media-state';
 
 @Injectable({
   providedIn: 'root',
 })
 export class MediaStateService {
-  private mediaState: MediaState = {
+  private _initialState: MediaState = {
     id: 0,
     title: '',
     playing: false,
@@ -25,6 +26,8 @@ export class MediaStateService {
     duration: 0,
     currentTime: 0,
   };
+
+  private mediaState: MediaState = { ...this._initialState };
 
   mediaStateChanged = new BehaviorSubject<MediaState>(this.mediaState);
   mediaStateEvent = new Subject<string>();
@@ -77,5 +80,15 @@ export class MediaStateService {
     this.mediaState.expanded = false;
     this.mediaStateChanged.next(this.mediaState);
     this.mediaStateEvent.next(EVENT_FULLSCREEN_EXIT);
+  }
+
+  reset(): void {
+    this.mediaState = { ...this.initialState };
+    this.mediaStateChanged.next(this.mediaState);
+    this.mediaStateEvent.next(EVENT_RESET);
+  }
+
+  get initialState() {
+    return this._initialState;
   }
 }

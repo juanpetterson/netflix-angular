@@ -19,6 +19,7 @@ import {
   EVENT_PAUSE,
   EVENT_UNMUTE,
   EVENT_FULLSCREEN_EXIT,
+  EVENT_RESET,
 } from './models/media-state';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { MediaService } from 'app/core/services/media.service';
@@ -206,6 +207,11 @@ export class WatchPlayerComponent implements OnInit, AfterViewInit, OnDestroy {
         if (document.exitFullscreen) {
           document.exitFullscreen();
         }
+        break;
+      case EVENT_RESET:
+        this.player.pause();
+        this.player.muted = false;
+        this.player.currentTime = 0;
         break;
       default:
         break;
