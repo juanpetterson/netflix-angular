@@ -59,7 +59,9 @@ export class MediaSliderComponent
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe();
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
   }
 
   onWindowResize(): void {
