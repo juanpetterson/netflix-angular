@@ -102,7 +102,7 @@ describe('LoginPageComponent', () => {
 
     component.onSubmit();
 
-    expect(authService.signIn.calls.any()).toBeTruthy();
+    expect(authService.signIn.calls.all().length).toEqual(1);
     expect(navigate).toHaveBeenCalled();
   });
 });
