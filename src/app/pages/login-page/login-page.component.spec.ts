@@ -70,7 +70,7 @@ describe('LoginPageComponent', () => {
     expect(password.errors.required).toBeTruthy();
   });
 
-  it('should appear error message if throw and error when submit', () => {
+  it('should appear error message if throw an error when submit', () => {
     component.form.controls.email.setValue('my@email.com');
     component.form.controls.password.setValue('123456');
     expect(component.form.valid).toBeTruthy();

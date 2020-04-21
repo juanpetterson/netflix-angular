@@ -1,11 +1,4 @@
-import {
-  Component,
-  OnInit,
-  EventEmitter,
-  Output,
-  Input,
-  OnDestroy,
-} from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { MediaState } from '../models/media-state';
 import { MediaStateService } from '../services/media-state.service';
 import { Media } from 'app/shared/models/media';
@@ -17,7 +10,6 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./watch-player-controls.component.scss'],
 })
 export class WatchPlayerControlsComponent implements OnInit, OnDestroy {
-  @Output() mediaStateEvent = new EventEmitter<string>();
   @Input() media: Media;
   public mediaState: MediaState;
   private subscription: Subscription;
@@ -33,15 +25,17 @@ export class WatchPlayerControlsComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe();
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
   }
 
-  onTogglePlaying(): void {
-    if (this.mediaState.playing) {
-      this.mediaStateService.pause();
-    } else {
-      this.mediaStateService.play();
-    }
+  onPlay(): void {
+    this.mediaStateService.play();
+  }
+
+  onPause(): void {
+    this.mediaStateService.pause();
   }
 
   onSeekBack(): void {
@@ -52,19 +46,19 @@ export class WatchPlayerControlsComponent implements OnInit, OnDestroy {
     this.mediaStateService.seekForward();
   }
 
-  onToggleMute(): void {
-    if (this.mediaState.muted) {
-      this.mediaStateService.unmute();
-    } else {
-      this.mediaStateService.mute();
-    }
+  onMute(): void {
+    this.mediaStateService.mute();
   }
 
-  onToggleFullscreen(): void {
-    if (!this.mediaState.fullscreen) {
-      this.mediaStateService.fullscreen();
-    } else {
-      this.mediaStateService.fullscreenExit();
-    }
+  onUnmute(): void {
+    this.mediaStateService.unmute();
+  }
+
+  onFullscreen(): void {
+    this.mediaStateService.fullscreen();
+  }
+
+  onFullscreenExit(): void {
+    this.mediaStateService.fullscreenExit();
   }
 }

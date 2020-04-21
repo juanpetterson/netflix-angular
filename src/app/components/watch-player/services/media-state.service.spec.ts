@@ -19,8 +19,7 @@ describe('MediaStateService', () => {
   let stateChangeSpy: jasmine.Spy;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
-    service = TestBed.inject(MediaStateService);
+    service = new MediaStateService();
 
     stateEventSpy = spyOn(service.mediaStateEvent, 'next');
     stateChangeSpy = spyOn(service.mediaStateChanged, 'next');
