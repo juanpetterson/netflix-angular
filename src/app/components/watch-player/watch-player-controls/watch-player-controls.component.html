@@ -38,11 +38,11 @@
       <button class="controls__button" (click)="onToggleFullscreen()">
         <i
           class="fas fa-expand controls__button-icon"
-          *ngIf="!mediaState.expanded"
+          *ngIf="!mediaState.fullscreen"
         ></i>
         <i
           class="fas fa-compress controls__button-icon"
-          *ngIf="mediaState.expanded"
+          *ngIf="mediaState.fullscreen"
         ></i>
       </button>
     </div>

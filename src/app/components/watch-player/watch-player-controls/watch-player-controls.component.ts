@@ -61,7 +61,7 @@ export class WatchPlayerControlsComponent implements OnInit, OnDestroy {
   }
 
   onToggleFullscreen(): void {
-    if (!this.mediaState.expanded) {
+    if (!this.mediaState.fullscreen) {
       this.mediaStateService.fullscreen();
     } else {
       this.mediaStateService.fullscreenExit();

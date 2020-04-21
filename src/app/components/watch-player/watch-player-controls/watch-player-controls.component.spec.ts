@@ -2,15 +2,14 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { WatchPlayerControlsComponent } from './watch-player-controls.component';
 
-describe('WatchPlayerControlsComponent', () => {
+fdescribe('WatchPlayerControlsComponent', () => {
   let component: WatchPlayerControlsComponent;
   let fixture: ComponentFixture<WatchPlayerControlsComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ WatchPlayerControlsComponent ]
-    })
-    .compileComponents();
+      declarations: [WatchPlayerControlsComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

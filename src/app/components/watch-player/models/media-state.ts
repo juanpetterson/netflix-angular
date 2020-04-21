@@ -13,7 +13,7 @@ export interface MediaState {
   title: string;
   playing: boolean;
   muted: boolean;
-  expanded: boolean;
+  fullscreen: boolean;
   duration: number;
   currentTime: number;
 }

@@ -80,7 +80,7 @@ export class WatchPlayerComponent implements OnInit, AfterViewInit, OnDestroy {
     this.subscriptions.push(
       fromEvent(document, 'fullscreenchange').subscribe((_) => {
         if (!document.fullscreenElement) {
-          this.mediaState.expanded = false;
+          this.mediaState.fullscreen = false;
         }
       })
     );
@@ -173,7 +173,7 @@ export class WatchPlayerComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   onToggleFullscreen(): void {
-    if (!this.mediaState.expanded) {
+    if (!this.mediaState.fullscreen) {
       this.mediaStateService.fullscreen();
     } else {
       this.mediaStateService.fullscreenExit();

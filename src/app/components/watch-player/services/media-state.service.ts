@@ -22,7 +22,7 @@ export class MediaStateService {
     title: '',
     playing: false,
     muted: false,
-    expanded: false,
+    fullscreen: false,
     duration: 0,
     currentTime: 0,
   };
@@ -71,19 +71,23 @@ export class MediaStateService {
   }
 
   fullscreen(): void {
-    this.mediaState.expanded = true;
+    this.mediaState.fullscreen = true;
     this.mediaStateChanged.next(this.mediaState);
     this.mediaStateEvent.next(EVENT_FULLSCREEN);
   }
 
   fullscreenExit(): void {
-    this.mediaState.expanded = false;
+    this.mediaState.fullscreen = false;
     this.mediaStateChanged.next(this.mediaState);
     this.mediaStateEvent.next(EVENT_FULLSCREEN_EXIT);
   }
 
   reset(): void {
-    this.mediaState = { ...this.initialState };
+    this.mediaState.playing = this._initialState.playing;
+    this.mediaState.muted = this._initialState.muted;
+    this.mediaState.fullscreen = this._initialState.fullscreen;
+    this.mediaState.currentTime = this._initialState.currentTime;
+
     this.mediaStateChanged.next(this.mediaState);
     this.mediaStateEvent.next(EVENT_RESET);
   }
