@@ -15,9 +15,15 @@ import {
 describe('MediaStateService', () => {
   let service: MediaStateService;
 
+  let stateEventSpy: jasmine.Spy;
+  let stateChangeSpy: jasmine.Spy;
+
   beforeEach(() => {
     TestBed.configureTestingModule({});
     service = TestBed.inject(MediaStateService);
+
+    stateEventSpy = spyOn(service.mediaStateEvent, 'next');
+    stateChangeSpy = spyOn(service.mediaStateChanged, 'next');
   });
 
   it('should be created', () => {
@@ -29,9 +35,6 @@ describe('MediaStateService', () => {
   });
 
   it('should have the playing state equal to true when play is called and emmited the change event', () => {
-    spyOn(service.mediaStateEvent, 'next');
-    spyOn(service.mediaStateChanged, 'next');
-
     service.play();
     expect(service.mediaStateChanged.value.playing).toBeTruthy();
 
@@ -40,9 +43,6 @@ describe('MediaStateService', () => {
   });
 
   it('should have the playing state equal to false when pause is called and emmited the change event', () => {
-    spyOn(service.mediaStateEvent, 'next');
-    spyOn(service.mediaStateChanged, 'next');
-
     service.pause();
     expect(service.mediaStateChanged.value.playing).toBeFalsy();
 
@@ -51,9 +51,6 @@ describe('MediaStateService', () => {
   });
 
   it('should have the muted state equal to true when mute is called and emmited the change event', () => {
-    spyOn(service.mediaStateEvent, 'next');
-    spyOn(service.mediaStateChanged, 'next');
-
     service.mute();
     expect(service.mediaStateChanged.value.muted).toBeTruthy();
 
@@ -62,9 +59,6 @@ describe('MediaStateService', () => {
   });
 
   it('should have the muted state equal to false when unmute is called and emmited the change event', () => {
-    spyOn(service.mediaStateEvent, 'next');
-    spyOn(service.mediaStateChanged, 'next');
-
     service.unmute();
     expect(service.mediaStateChanged.value.muted).toBeFalsy();
 
@@ -73,9 +67,6 @@ describe('MediaStateService', () => {
   });
 
   it('should have the fullscreen state equal to true when fullscreen is called and emmited the change event', () => {
-    spyOn(service.mediaStateEvent, 'next');
-    spyOn(service.mediaStateChanged, 'next');
-
     service.fullscreen();
     expect(service.mediaStateChanged.value.fullscreen).toBeTruthy();
 
@@ -84,9 +75,6 @@ describe('MediaStateService', () => {
   });
 
   it('should have the fullscreen state equal to false when fullscreenExit is called and emmited the change event', () => {
-    spyOn(service.mediaStateEvent, 'next');
-    spyOn(service.mediaStateChanged, 'next');
-
     service.fullscreenExit();
     expect(service.mediaStateChanged.value.fullscreen).toBeFalsy();
 
@@ -97,9 +85,6 @@ describe('MediaStateService', () => {
   });
 
   it('should have the currentTime state 10s back when seekBack is called and emmited the change event', () => {
-    spyOn(service.mediaStateEvent, 'next');
-    spyOn(service.mediaStateChanged, 'next');
-
     service.seekBack();
     expect(service.mediaStateChanged.value.currentTime).toEqual(
       service.initialState.currentTime - 10
@@ -110,9 +95,6 @@ describe('MediaStateService', () => {
   });
 
   it('should have the currentTime state 10s forward when seekForward is called and emmited the change event', () => {
-    spyOn(service.mediaStateEvent, 'next');
-    spyOn(service.mediaStateChanged, 'next');
-
     service.seekForward();
     expect(service.mediaStateChanged.value.currentTime).toEqual(
       service.initialState.currentTime + 10
@@ -125,9 +107,6 @@ describe('MediaStateService', () => {
   });
 
   it('should have the initial state when reset is called', () => {
-    spyOn(service.mediaStateEvent, 'next');
-    spyOn(service.mediaStateChanged, 'next');
-
     service.play();
     service.mute();
 
