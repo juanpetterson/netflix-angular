@@ -6,21 +6,25 @@
         <div>{{ media.synopsis }}</div>
       </div>
       <div class="billboard__buttons">
-        <div
-          id="play"
-          class="billboard__button"
-          [routerLink]="['/watch', media.id]"
-        >
-          <div class="billboard__button-icon">
-            <i class="fas fa-play"></i>
-          </div>
-          <span>Play</span>
+        <div class="billboard__button-wrapper">
+          <button
+            id="play"
+            class="billboard__button"
+            [routerLink]="['/watch', media.id]"
+          >
+            <div class="billboard__button-icon">
+              <i class="fas fa-play"></i>
+            </div>
+            <span>Play</span>
+          </button>
         </div>
-        <div class="billboard__button">
-          <div class="billboard__button-icon billboard__button-icon--rounded">
-            <i class="fas fa-info"></i>
-          </div>
-          <span>More Info</span>
+        <div class="billboard__button-wrapper">
+          <button class="billboard__button">
+            <div class="billboard__button-icon billboard__button-icon--rounded">
+              <i class="fas fa-info"></i>
+            </div>
+            <span>More Info</span>
+          </button>
         </div>
       </div>
     </div>

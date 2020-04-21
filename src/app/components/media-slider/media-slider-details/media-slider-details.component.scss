@@ -117,15 +117,20 @@
     margin: 15px 0 20px 0;
   }
 
+  &__button-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
   &__button {
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: 1vw;
     font-weight: bold;
-    margin-right: 10px;
-    padding: 1.1vw 2vw;
-    height: 1.5vw;
+    margin-right: 1vw;
+    padding: 0 2vw;
     cursor: pointer;
     transition: transform 500ms ease;
 
@@ -135,14 +140,14 @@
 
     &--red {
       background-color: red;
-      border: 2px solid red;
     }
 
     &--bordered {
-      border: 2px solid white;
+      border: 1px solid #a8a8a8;
+      background-color: black;
 
       &:hover {
-        border: 2px solid #828282;
+        border: 1px solid #828282;
         background-color: rgba(35, 35, 35, 0.3);
       }
     }
