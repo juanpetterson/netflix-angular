@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { LoginPageComponent } from './login-page.component';
 import { AuthService } from 'app/core/services/auth.service';
-import { DebugElement, Component } from '@angular/core';
+import { DebugElement, Component, Input } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -17,7 +17,10 @@ export type Spied<T> = {
   selector: 'app-header',
   template: '',
 })
-class MockedHeaderComponent {}
+class MockedHeaderComponent {
+  @Input() backgroundColor = 'transparent';
+  @Input() showNavigation = true;
+}
 
 describe('LoginPageComponent', () => {
   let component: LoginPageComponent;
