@@ -6,24 +6,28 @@
     </div>
     <div class="media-browser__lists">
       <app-media-slider
-        *ngIf="myMedias"
+        *ngIf="myMedias.length > 0"
         [listTitle]="'Continue Watching'"
         [medias]="myMedias"
       ></app-media-slider>
       <app-media-slider
+        *ngIf="medias"
         [listTitle]="'Trending Now'"
         [medias]="medias"
       ></app-media-slider>
       <app-media-slider
+        *ngIf="mediasOriginals"
         [listTitle]="'NETFLIX ORIGINALS'"
         [medias]="mediasOriginals"
         [isOriginals]="true"
       ></app-media-slider>
       <app-media-slider
+        *ngIf="medias"
         [listTitle]="'New Releases'"
         [medias]="medias"
       ></app-media-slider>
       <app-media-slider
+        *ngIf="medias"
         [listTitle]="'Popular on Netflix'"
         [medias]="medias"
       ></app-media-slider>
