@@ -1,25 +1,124 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {
+  async,
+  ComponentFixture,
+  TestBed,
+  fakeAsync,
+  tick,
+} from '@angular/core/testing';
 
 import { WatchPlayerComponent } from './watch-player.component';
+import { DebugElement, Component, Input } from '@angular/core';
+import { Spied } from 'app/pages/login-page/login-page.component.spec';
+import { MediaService } from 'app/core/services/media.service';
+import { Media } from 'app/shared/models/media';
+import Medias from '../../../assets/data/medias';
+import { MediaStateService } from './services/media-state.service';
+import { MediaStorageService } from 'app/core/services/media-storage.service';
+import { Router, ActivatedRoute } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
+import { of } from 'rxjs';
+import { By } from '@angular/platform-browser';
+
+@Component({
+  selector: 'app-watch-player-controls',
+  template: '',
+})
+class MockedWatchPlayerControlsComponent {
+  @Input() media: Media;
+}
 
 describe('WatchPlayerComponent', () => {
   let component: WatchPlayerComponent;
   let fixture: ComponentFixture<WatchPlayerComponent>;
+  let de: DebugElement;
+  let mediaServiceSpy: Spied<MediaService>;
+  let storageServiceSpy: Spied<MediaStorageService>;
+  let mediaStateService: MediaStateService;
+  let MEDIAS: Media[];
+  let router: Router;
+  let activatedRoute: ActivatedRoute;
 
   beforeEach(async(() => {
+    MEDIAS = [...Medias];
+
+    mediaServiceSpy = jasmine.createSpyObj('MediaService', ['getMedia']);
+    storageServiceSpy = jasmine.createSpyObj('StorageService', [
+      'getStoredMedia',
+      'updateStoredMedias',
+    ]);
+
+    mediaServiceSpy.getMedia.and.returnValue(of(MEDIAS[0]));
+    storageServiceSpy.getStoredMedia.and.returnValue(null);
+
     TestBed.configureTestingModule({
-      declarations: [ WatchPlayerComponent ]
-    })
-    .compileComponents();
+      imports: [RouterTestingModule],
+      declarations: [WatchPlayerComponent, MockedWatchPlayerControlsComponent],
+      providers: [
+        { provide: MediaService, useValue: mediaServiceSpy },
+        { provide: MediaStorageService, useValue: storageServiceSpy },
+      ],
+    }).compileComponents();
   }));
 
   beforeEach(() => {
+    mediaStateService = TestBed.inject(MediaStateService);
+    router = TestBed.inject(Router);
+    activatedRoute = TestBed.inject(ActivatedRoute);
+
     fixture = TestBed.createComponent(WatchPlayerComponent);
     component = fixture.componentInstance;
+    de = fixture.debugElement;
     fixture.detectChanges();
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should initiate the player paused ', () => {
+    const player = de.query(By.css('#player'))
+      .nativeElement as HTMLVideoElement;
+
+    expect(player.paused).toBeTruthy();
+  });
+
+  it('should toggle player playing status when click on the video ', () => {
+    component.loading = false;
+    const player = de.query(By.css('#player'))
+      .nativeElement as HTMLVideoElement;
+
+    player.click();
+
+    expect(player.paused).toBeFalsy();
+  });
+
+  it('should toggle fullscreen when dobule click on the video', () => {
+    const componentSpy = spyOn(component, 'onToggleFullscreen');
+    const player = de.query(By.css('#player'));
+
+    player.triggerEventHandler('dblclick', new MouseEvent('dblclick'));
+
+    expect(componentSpy).toHaveBeenCalled();
+  });
+
+  it('should call onMediaStateChange when mediaStateEvent from MediaStateService emit', () => {
+    const componentSpy = spyOn(component, 'onMediaStateChange');
+    mediaStateService.mediaStateEvent.next(null);
+
+    expect(componentSpy).toHaveBeenCalled();
+  });
+
+  it('should retrieve the stored media', () => {
+    expect(storageServiceSpy.getStoredMedia).toHaveBeenCalled();
+  });
+
+  it('should call updateStoredMedias when player timeupdate change', () => {
+    const player = de.query(By.css('#player')).nativeElement as HTMLElement;
+
+    const timeUpdateEvent = new MediaStreamEvent('timeupdate', {});
+
+    player.dispatchEvent(timeUpdateEvent);
+
+    expect(storageServiceSpy.updateStoredMedias).toHaveBeenCalled();
   });
 });
