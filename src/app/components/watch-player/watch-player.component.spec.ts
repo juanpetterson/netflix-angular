@@ -115,7 +115,7 @@ describe('WatchPlayerComponent', () => {
   it('should call updateStoredMedias when player timeupdate change', () => {
     const player = de.query(By.css('#player')).nativeElement as HTMLElement;
 
-    const timeUpdateEvent = new MediaStreamEvent('timeupdate', {});
+    const timeUpdateEvent = new Event('timeupdate', {});
 
     player.dispatchEvent(timeUpdateEvent);
 
