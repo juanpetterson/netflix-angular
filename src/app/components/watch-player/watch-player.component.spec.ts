@@ -67,6 +67,7 @@ describe('WatchPlayerComponent', () => {
 
     fixture = TestBed.createComponent(WatchPlayerComponent);
     component = fixture.componentInstance;
+    component.loading = false;
     de = fixture.debugElement;
     fixture.detectChanges();
   });
@@ -82,11 +83,11 @@ describe('WatchPlayerComponent', () => {
     expect(player.paused).toBeTruthy();
   });
 
-  it('should toggle player playing status when click on the video ', () => {
-    component.loading = false;
+  it('should toggle player playing status when click on the video', () => {
     const player = de.query(By.css('#player'))
       .nativeElement as HTMLVideoElement;
 
+    player.muted = true;
     player.click();
 
     expect(player.paused).toBeFalsy();
@@ -120,5 +121,43 @@ describe('WatchPlayerComponent', () => {
     player.dispatchEvent(timeUpdateEvent);
 
     expect(storageServiceSpy.updateStoredMedias).toHaveBeenCalled();
+  });
+
+  it('should the progress be 100 when media ended', () => {
+    const player = de.query(By.css('#player')).nativeElement as HTMLElement;
+
+    const endedEvent = new Event('ended', {});
+
+    player.dispatchEvent(endedEvent);
+
+    expect(component.progress).toEqual(100);
+  });
+
+  it('should stop show loading when player canplay event is emitted', () => {
+    const player = de.query(By.css('#player')).nativeElement as HTMLElement;
+
+    const canPlayEvent = new Event('canplay', {});
+
+    player.dispatchEvent(canPlayEvent);
+
+    expect(component.loading).toBeFalsy();
+  });
+
+  it('should call onMouseStop when move the mouse', () => {
+    const componentSpy = spyOn(component, 'onMouseStop');
+    const mouseMoveEvent = new Event('mousemove', {});
+
+    window.dispatchEvent(mouseMoveEvent);
+
+    expect(componentSpy).toHaveBeenCalled();
+  });
+
+  it('should call onMouseStop when click on the window', () => {
+    const componentSpy = spyOn(component, 'onMouseStop');
+    const mouseDownEvent = new Event('mousedown', {});
+
+    window.dispatchEvent(mouseDownEvent);
+
+    expect(componentSpy).toHaveBeenCalled();
   });
 });
