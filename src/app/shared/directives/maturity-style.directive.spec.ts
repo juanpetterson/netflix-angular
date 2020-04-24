@@ -32,8 +32,9 @@ describe('MaturityColorDirective', () => {
 
   it('should have black background and white font color when have innerText equal or higher than 18', () => {
     component.innerText = '18';
-    const paragraph = de.query(By.css('p'));
     fixture.detectChanges();
+
+    const paragraph = de.query(By.css('p'));
 
     expect(paragraph.nativeElement.style.backgroundColor).toEqual(
       'rgb(19, 17, 17)'
@@ -43,8 +44,9 @@ describe('MaturityColorDirective', () => {
 
   it('should have red background and white font color when have innerText equal to 16', () => {
     component.innerText = '16';
-    const paragraph = de.query(By.css('p'));
     fixture.detectChanges();
+
+    const paragraph = de.query(By.css('p'));
 
     expect(paragraph.nativeElement.style.backgroundColor).toEqual(
       'rgb(215, 38, 45)'
@@ -53,8 +55,9 @@ describe('MaturityColorDirective', () => {
   });
   it('should have orange background and white font color when have innerText equal to 14', () => {
     component.innerText = '14';
-    const paragraph = de.query(By.css('p'));
     fixture.detectChanges();
+
+    const paragraph = de.query(By.css('p'));
 
     expect(paragraph.nativeElement.style.backgroundColor).toEqual(
       'rgb(231, 121, 43)'
@@ -63,8 +66,9 @@ describe('MaturityColorDirective', () => {
   });
   it('should have yellow background and black font color when have innerText equal to 12', () => {
     component.innerText = '12';
-    const paragraph = de.query(By.css('p'));
     fixture.detectChanges();
+
+    const paragraph = de.query(By.css('p'));
 
     expect(paragraph.nativeElement.style.backgroundColor).toEqual(
       'rgb(247, 199, 39)'
@@ -73,8 +77,9 @@ describe('MaturityColorDirective', () => {
   });
   it('should have blue background and white font color when have innerText equal to 10', () => {
     component.innerText = '10';
-    const paragraph = de.query(By.css('p'));
     fixture.detectChanges();
+
+    const paragraph = de.query(By.css('p'));
 
     expect(paragraph.nativeElement.style.backgroundColor).toEqual(
       'rgb(46, 136, 189)'
@@ -83,8 +88,9 @@ describe('MaturityColorDirective', () => {
   });
   it('should have green background and white font color when have innerText equal to L', () => {
     component.innerText = 'L';
-    const paragraph = de.query(By.css('p'));
     fixture.detectChanges();
+
+    const paragraph = de.query(By.css('p'));
 
     expect(paragraph.nativeElement.style.backgroundColor).toEqual(
       'rgb(0, 156, 76)'
