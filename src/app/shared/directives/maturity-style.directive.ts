@@ -15,23 +15,23 @@ export class MaturityStyleDirective implements AfterViewInit {
     let color = '';
 
     if (value >= 18) {
-      backgroundColor = '#131111';
-      color = '#ffffff';
+      backgroundColor = 'rgb(19, 17, 17)';
+      color = 'rgb(255, 255, 255)';
     } else if (value >= 16) {
-      backgroundColor = '#d7262d';
-      color = '#ffffff';
+      backgroundColor = 'rgb(215, 38, 45)';
+      color = 'rgb(255, 255, 255)';
     } else if (value >= 14) {
-      backgroundColor = '#e7792b';
-      color = '#ffffff';
+      backgroundColor = 'rgb(231, 121, 43)';
+      color = 'rgb(255, 255, 255)';
     } else if (value >= 12) {
-      backgroundColor = '#f7c727';
-      color = '#000000';
+      backgroundColor = 'rgb(247, 199, 39)';
+      color = 'rgb(0, 0, 0)';
     } else if (value >= 10) {
-      backgroundColor = '#2e88bd';
-      color = '#ffffff';
+      backgroundColor = 'rgb(46, 136, 189)';
+      color = 'rgb(255, 255, 255)';
     } else if (value === 'L') {
-      backgroundColor = '#009c4c';
-      color = '#ffffff';
+      backgroundColor = 'rgb(0, 156, 76)';
+      color = 'rgb(255, 255, 255)';
     }
 
     this.elRef.nativeElement.style.backgroundColor = backgroundColor;

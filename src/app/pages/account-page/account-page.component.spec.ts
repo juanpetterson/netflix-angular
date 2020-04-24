@@ -21,7 +21,7 @@ class MockedHeaderComponent {
   @Input() showNavigation = true;
 }
 
-fdescribe('AccountPageComponent', () => {
+describe('AccountPageComponent', () => {
   let component: AccountPageComponent;
   let fixture: ComponentFixture<AccountPageComponent>;
   let storageServiceSpy: Spied<MediaStorageService>;
