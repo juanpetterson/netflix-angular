@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'app/core/services/auth.service';
 import { User } from 'app/shared/models/user';
 import { MediaStorageService } from 'app/core/services/media-storage.service';
-import { MediaService } from 'app/core/services/media.service';
 
 @Component({
   selector: 'app-account-page',

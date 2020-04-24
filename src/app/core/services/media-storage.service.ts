@@ -3,7 +3,6 @@ import { MediaState } from '../../components/watch-player/models/media-state';
 import { MediaService } from '../../core/services/media.service';
 import { Media } from '../../shared/models/media';
 import { StoredMedia } from '../../shared/models/stored-media';
-import { User } from '../../shared/models/user';
 import { Storage } from '../store';
 import { AuthService } from './auth.service';
 
