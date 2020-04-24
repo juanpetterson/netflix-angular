@@ -1,6 +1,6 @@
 import { MaturityStyleDirective } from './maturity-style.directive';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { DebugElement, Component, HostListener } from '@angular/core';
+import { DebugElement, Component } from '@angular/core';
 import { By } from '@angular/platform-browser';
 
 @Component({
@@ -53,6 +53,7 @@ describe('MaturityColorDirective', () => {
     );
     expect(paragraph.nativeElement.style.color).toEqual('rgb(255, 255, 255)');
   });
+
   it('should have orange background and white font color when have innerText equal to 14', () => {
     component.innerText = '14';
     fixture.detectChanges();
@@ -64,6 +65,7 @@ describe('MaturityColorDirective', () => {
     );
     expect(paragraph.nativeElement.style.color).toEqual('rgb(255, 255, 255)');
   });
+
   it('should have yellow background and black font color when have innerText equal to 12', () => {
     component.innerText = '12';
     fixture.detectChanges();
@@ -75,6 +77,7 @@ describe('MaturityColorDirective', () => {
     );
     expect(paragraph.nativeElement.style.color).toEqual('rgb(0, 0, 0)');
   });
+
   it('should have blue background and white font color when have innerText equal to 10', () => {
     component.innerText = '10';
     fixture.detectChanges();
@@ -86,6 +89,7 @@ describe('MaturityColorDirective', () => {
     );
     expect(paragraph.nativeElement.style.color).toEqual('rgb(255, 255, 255)');
   });
+
   it('should have green background and white font color when have innerText equal to L', () => {
     component.innerText = 'L';
     fixture.detectChanges();
@@ -96,5 +100,17 @@ describe('MaturityColorDirective', () => {
       'rgb(0, 156, 76)'
     );
     expect(paragraph.nativeElement.style.color).toEqual('rgb(255, 255, 255)');
+  });
+
+  it('should have gray background and black font color when the innerText does not match any type', () => {
+    component.innerText = 'Not Match';
+    fixture.detectChanges();
+
+    const paragraph = de.query(By.css('p'));
+
+    expect(paragraph.nativeElement.style.backgroundColor).toEqual(
+      'rgb(200, 200, 200)'
+    );
+    expect(paragraph.nativeElement.style.color).toEqual('rgb(0, 0, 0)');
   });
 });

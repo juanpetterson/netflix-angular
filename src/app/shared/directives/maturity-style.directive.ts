@@ -32,6 +32,9 @@ export class MaturityStyleDirective implements AfterViewInit {
     } else if (value === 'L') {
       backgroundColor = 'rgb(0, 156, 76)';
       color = 'rgb(255, 255, 255)';
+    } else {
+      backgroundColor = 'rgb(200, 200, 200)';
+      color = 'rgb(0, 0, 0)';
     }
 
     this.elRef.nativeElement.style.backgroundColor = backgroundColor;
