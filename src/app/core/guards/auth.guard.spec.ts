@@ -7,7 +7,7 @@ import { AuthService } from '../services/auth.service';
 import { User } from 'app/shared/models/user';
 import Users from '../../../assets/data/users';
 
-fdescribe('AuthGuard', () => {
+describe('AuthGuard', () => {
   let guard: AuthGuard;
   let authService: AuthService;
   let routeStateMock: any;
