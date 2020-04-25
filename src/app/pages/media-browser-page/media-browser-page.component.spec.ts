@@ -1,7 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MediaBrowserPageComponent } from './media-browser-page.component';
-import { Spied } from '../login-page/login-page.component.spec';
 import { MediaService } from 'app/core/services/media.service';
 import { MediaStorageService } from 'app/core/services/media-storage.service';
 import { Media } from 'app/shared/models/media';
@@ -9,6 +8,10 @@ import Medias from '../../../assets/data/medias';
 import { of } from 'rxjs';
 import { Component, Input, DebugElement, Directive } from '@angular/core';
 import { By } from '@angular/platform-browser';
+
+export type Spied<T> = {
+  [Method in keyof T]: jasmine.Spy;
+};
 
 @Component({
   selector: 'app-header',

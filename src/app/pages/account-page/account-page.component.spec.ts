@@ -2,7 +2,6 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AccountPageComponent } from './account-page.component';
 import { User } from 'app/shared/models/user';
-import { Spied } from '../login-page/login-page.component.spec';
 import { AuthService } from 'app/core/services/auth.service';
 import { MediaStorageService } from 'app/core/services/media-storage.service';
 import { DebugElement, Component, Input } from '@angular/core';
@@ -11,6 +10,10 @@ import { Media } from 'app/shared/models/media';
 import { By } from '@angular/platform-browser';
 import Users from '../../../assets/data/users';
 import Medias from '../../../assets/data/medias';
+
+export type Spied<T> = {
+  [Method in keyof T]: jasmine.Spy;
+};
 
 @Component({
   selector: 'app-header',

@@ -2,7 +2,6 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { WatchPlayerComponent } from './watch-player.component';
 import { DebugElement, Component, Input } from '@angular/core';
-import { Spied } from 'app/pages/login-page/login-page.component.spec';
 import { MediaService } from 'app/core/services/media.service';
 import { Media } from 'app/shared/models/media';
 import Medias from '../../../assets/data/medias';
@@ -12,6 +11,10 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
 import { By } from '@angular/platform-browser';
+
+export type Spied<T> = {
+  [Method in keyof T]: jasmine.Spy;
+};
 
 @Component({
   selector: 'app-watch-player-controls',
