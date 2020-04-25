@@ -47,6 +47,13 @@ export class AuthService {
     this.router.navigate(['/']);
   }
 
+  public isLoggedIn() {
+    const storedUser = this.store.get('user');
+    const isAuthenticated = this.isAuthenticated$.value;
+
+    return !!storedUser && !!isAuthenticated;
+  }
+
   private handleAuthentication(user: any) {
     this.isAuthenticated$.next(user);
     if (user) {

@@ -7,7 +7,6 @@ import {
   UrlTree,
 } from '@angular/router';
 import { Observable } from 'rxjs';
-import { map, take } from 'rxjs/operators';
 import { AuthService } from '../services/auth.service';
 import { Storage } from '../store';
 
@@ -15,7 +14,7 @@ import { Storage } from '../store';
   providedIn: 'root',
 })
 export class AuthGuard implements CanActivate {
-  private store = new Storage('@netflix');
+  store = new Storage('@netflix');
 
   constructor(private authService: AuthService, private router: Router) {}
   public canActivate(
@@ -26,30 +25,23 @@ export class AuthGuard implements CanActivate {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    const storedUser = this.store.get('user');
+    const isAuthenticated = this.authService.isLoggedIn();
+    const isLogin = next.data.isLogin;
 
-    return this.authService.isAuthenticated$.pipe(
-      take(1),
-      map((user) => {
-        const isAuthenticated = !!user && !!storedUser;
-        const isLogin = next.data.isLogin;
+    if (isLogin && isAuthenticated) {
+      return this.router.createUrlTree(['/browse']);
+    }
 
-        if (isLogin && isAuthenticated) {
-          return this.router.createUrlTree(['/browse']);
-        }
+    if (isLogin && !isAuthenticated) {
+      return true;
+    }
 
-        if (isLogin && !isAuthenticated) {
-          return true;
-        }
+    if (isAuthenticated) {
+      return true;
+    }
 
-        if (isAuthenticated) {
-          return true;
-        }
+    this.authService.isAuthenticated$.next(null);
 
-        this.authService.isAuthenticated$.next(null);
-
-        return this.router.createUrlTree(['/']);
-      })
-    );
+    return this.router.createUrlTree(['/']);
   }
 }
