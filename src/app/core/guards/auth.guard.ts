@@ -8,14 +8,11 @@ import {
 } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AuthService } from '../services/auth.service';
-import { Storage } from '../store';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthGuard implements CanActivate {
-  store = new Storage('@netflix');
-
   constructor(private authService: AuthService, private router: Router) {}
   public canActivate(
     next: ActivatedRouteSnapshot,

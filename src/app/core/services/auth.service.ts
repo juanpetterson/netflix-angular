@@ -33,7 +33,7 @@ export class AuthService {
     });
   }
 
-  public autoLogin() {
+  public autoLogin(): void {
     const user = this.store.get('user');
 
     if (user) {
@@ -41,20 +41,20 @@ export class AuthService {
     }
   }
 
-  public logout() {
+  public logout(): void {
     this.store.remove('user');
     this.handleAuthentication(null);
     this.router.navigate(['/']);
   }
 
-  public isLoggedIn() {
+  public isLoggedIn(): boolean {
     const storedUser = this.store.get('user');
     const isAuthenticated = this.isAuthenticated$.value;
 
     return !!storedUser && !!isAuthenticated;
   }
 
-  private handleAuthentication(user: any) {
+  private handleAuthentication(user: User) {
     this.isAuthenticated$.next(user);
     if (user) {
       this.store.set('user', user);
