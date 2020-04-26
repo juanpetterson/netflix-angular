@@ -36,7 +36,7 @@ const routes = [
   },
 ];
 
-fdescribe('MediaSliderItemComponent', () => {
+describe('MediaSliderItemComponent', () => {
   let component: MediaSliderItemComponent;
   let fixture: ComponentFixture<MediaSliderItemComponent>;
   let de: DebugElement;
