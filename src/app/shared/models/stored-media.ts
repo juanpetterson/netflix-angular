@@ -1,5 +1,5 @@
 export class StoredMedia {
-  mediaId: number;
+  id: number;
   currentTime: number;
   updatedAt: number;
 }

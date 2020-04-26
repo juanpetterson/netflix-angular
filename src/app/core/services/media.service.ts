@@ -11,8 +11,8 @@ export class MediaService {
     return of(medias.sort(() => Math.random() - 0.5));
   }
 
-  public getMedia(mediaId: number): Observable<Media> {
-    return of(medias.find((media) => media.id === mediaId));
+  public getMedia(id: number): Observable<Media> {
+    return of(medias.find((media) => media.id === id));
   }
 
   public getMediasByIds(mediasIds: number[]): Observable<Media[]> {

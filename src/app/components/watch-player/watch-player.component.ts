@@ -53,8 +53,8 @@ export class WatchPlayerComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnInit(): void {
     this.route.params.subscribe((params: Params) => {
-      const mediaId = +params.id;
-      this.mediaService.getMedia(mediaId).subscribe((media) => {
+      const id = +params.id;
+      this.mediaService.getMedia(id).subscribe((media) => {
         this.media = media;
       });
 
@@ -105,7 +105,7 @@ export class WatchPlayerComponent implements OnInit, AfterViewInit, OnDestroy {
           this.mediaState.currentTime = (event.target as HTMLVideoElement).currentTime;
           this.progress =
             (this.player.currentTime / this.player.duration) * 100;
-          this.storageService.updateStoredMedias(this.mediaState);
+          this.storageService.updateStoredMedia(this.mediaState.id, this.mediaState.currentTime);
         })
     );
     this.subscriptions.push(

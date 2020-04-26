@@ -15,6 +15,12 @@
         [medias]="myMedias"
       ></app-media-slider>
       <app-media-slider
+        id="popular"
+        *ngIf="medias"
+        [listTitle]="'Popular on Netflix'"
+        [medias]="medias"
+      ></app-media-slider>
+      <app-media-slider
         id="trending"
         *ngIf="medias"
         [listTitle]="'Trending Now'"
@@ -31,12 +37,6 @@
         id="releases"
         *ngIf="medias"
         [listTitle]="'New Releases'"
-        [medias]="medias"
-      ></app-media-slider>
-      <app-media-slider
-        id="popular"
-        *ngIf="medias"
-        [listTitle]="'Popular on Netflix'"
         [medias]="medias"
       ></app-media-slider>
     </div>

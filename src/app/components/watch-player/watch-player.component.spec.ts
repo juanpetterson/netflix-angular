@@ -41,7 +41,7 @@ describe('WatchPlayerComponent', () => {
     mediaServiceSpy = jasmine.createSpyObj('MediaService', ['getMedia']);
     storageServiceSpy = jasmine.createSpyObj('StorageService', [
       'getStoredMedia',
-      'updateStoredMedias',
+      'updateStoredMedia',
     ]);
 
     mediaServiceSpy.getMedia.and.returnValue(of(MEDIAS[0]));
@@ -110,14 +110,14 @@ describe('WatchPlayerComponent', () => {
     expect(storageServiceSpy.getStoredMedia).toHaveBeenCalled();
   });
 
-  it('should call updateStoredMedias when player timeupdate change', () => {
+  it('should call updateStoredMedia when player timeupdate change', () => {
     const player = de.query(By.css('#player')).nativeElement as HTMLElement;
 
     const timeUpdateEvent = new Event('timeupdate', {});
 
     player.dispatchEvent(timeUpdateEvent);
 
-    expect(storageServiceSpy.updateStoredMedias).toHaveBeenCalled();
+    expect(storageServiceSpy.updateStoredMedia).toHaveBeenCalled();
   });
 
   it('should the progress be 100 when media ended', () => {
