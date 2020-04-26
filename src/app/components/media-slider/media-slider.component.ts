@@ -8,7 +8,7 @@ import {
   OnDestroy,
 } from '@angular/core';
 import { debounceTime } from 'rxjs/operators';
-import { Observable, Subscription, fromEvent } from 'rxjs';
+import { Subscription, fromEvent } from 'rxjs';
 import { Media } from 'app/shared/models/media';
 
 @Component({
@@ -107,6 +107,7 @@ export class MediaSliderComponent
 
   handlePrevious(): void {
     this.showNext = true;
+    this.currentPage--;
     let toTranslate = this.sliderTotalWidth - this.sliderTotalWidth * 0.08;
 
     const exceededPerPage = this.sliderItems.length % this.showItems;
@@ -130,13 +131,13 @@ export class MediaSliderComponent
     this.slider.nativeElement.style.transform = `translateX(${this.translateX}px)`;
 
     this.totalMoved -= this.showItems;
-    this.updateCurrentPage();
 
     this.showPrev = this.currentPage > 0;
   }
 
   handleNext(): void {
     this.showPrev = true;
+    this.currentPage++;
     const toTranslate = this.sliderTotalWidth - this.sliderTotalWidth * 0.08;
 
     if (
@@ -155,7 +156,6 @@ export class MediaSliderComponent
     this.slider.nativeElement.style.transform = `translateX(${this.translateX}px)`;
 
     this.totalMoved += this.showItems;
-    this.updateCurrentPage();
 
     this.showNext = this.currentPage < this.totalPages.length - 1;
   }
