@@ -8,7 +8,7 @@ const testEachForValue = (property: string, array: Array<any>) => {
   return array.every((item) => item[property]);
 };
 
-fdescribe('MediaService', () => {
+describe('MediaService', () => {
   let service: MediaService;
   let MEDIAS: Media[];
 
