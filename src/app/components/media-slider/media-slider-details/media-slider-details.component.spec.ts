@@ -1,11 +1,12 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MediaSliderDetailsComponent } from './media-slider-details.component';
-import { DebugElement, Directive, Input } from '@angular/core';
+import { DebugElement, Directive, Input, Component } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import Medias from '../../../../assets/data/medias';
 import { Media } from 'app/shared/models/media';
 import { RouterTestingModule } from '@angular/router/testing';
+import { WatchPlayerComponent } from 'app/components/watch-player/watch-player.component';
 
 @Directive({
   // tslint:disable-next-line: directive-selector
@@ -13,7 +14,7 @@ import { RouterTestingModule } from '@angular/router/testing';
   host: { '(click)': 'onClick()' },
 })
 // tslint:disable-next-line: directive-class-suffix
-export class RouterLinkDirectiveStub {
+class RouterLinkDirectiveStub {
   @Input('routerLink') linkParams: any;
   navigatedTo: any = null;
 

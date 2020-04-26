@@ -12,7 +12,7 @@ import Medias from '../../../assets/data/medias';
   host: { '(click)': 'onClick()' },
 })
 // tslint:disable-next-line: directive-class-suffix
-export class RouterLinkDirectiveStub {
+class RouterLinkDirectiveStub {
   @Input('routerLink') linkParams: any;
   navigatedTo: any = null;
 

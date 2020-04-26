@@ -6,8 +6,9 @@ import { DebugElement, Component, Input } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { BrowserModule, By } from '@angular/platform-browser';
+import { By } from '@angular/platform-browser';
 import { of, throwError } from 'rxjs';
+import { CommonModule } from '@angular/common';
 
 export type Spied<T> = {
   [Method in keyof T]: jasmine.Spy;
@@ -34,7 +35,7 @@ describe('LoginPageComponent', () => {
 
     TestBed.configureTestingModule({
       imports: [
-        BrowserModule,
+        CommonModule,
         FormsModule,
         ReactiveFormsModule,
         RouterTestingModule,
