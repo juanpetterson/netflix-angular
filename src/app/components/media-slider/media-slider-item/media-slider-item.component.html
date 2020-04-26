@@ -22,6 +22,7 @@
   >
     <div class="media-content">
       <div
+        id="media-content"
         [routerLink]="['/watch', media.id]"
         class="media-content__play-container"
         [style.visibility]="active ? 'visible' : 'hidden'"
@@ -35,7 +36,7 @@
           class="media-content__wrapper"
           [style.visibility]="activeMedia || isOriginals ? 'hidden' : 'visible'"
         >
-          <div class="media-content__infos" (click)="onPlayMedia()">
+          <div id="play" class="media-content__infos" (click)="onPlayMedia()">
             <div class="media-content__button media-content__button--big">
               <i class="fas fa-play"></i>
             </div>

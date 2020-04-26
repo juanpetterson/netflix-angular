@@ -29,7 +29,7 @@ export class MediaSliderItemComponent implements OnInit, OnChanges {
     this.active = this.activeMedia && this.activeMedia.id === this.media.id;
   }
 
-  onPlayMedia() {
+  onPlayMedia(): void {
     this.router.navigate(['/watch', this.media.id]);
   }
 
