@@ -105,7 +105,10 @@ export class WatchPlayerComponent implements OnInit, AfterViewInit, OnDestroy {
           this.mediaState.currentTime = (event.target as HTMLVideoElement).currentTime;
           this.progress =
             (this.player.currentTime / this.player.duration) * 100;
-          this.storageService.updateStoredMedia(this.mediaState.id, this.mediaState.currentTime);
+          this.storageService.updateStoredMedia(
+            this.mediaState.id,
+            this.mediaState.currentTime
+          );
         })
     );
     this.subscriptions.push(
@@ -129,7 +132,7 @@ export class WatchPlayerComponent implements OnInit, AfterViewInit, OnDestroy {
     });
   }
 
-  loadStoredMedia() {
+  loadStoredMedia(): void {
     const storedMedia = this.storageService.getStoredMedia(this.media.id);
     if (storedMedia) {
       this.mediaState.currentTime = storedMedia.currentTime;
@@ -180,7 +183,7 @@ export class WatchPlayerComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
-  onMediaStateChange(eventType: string) {
+  onMediaStateChange(eventType: string): void {
     switch (eventType) {
       case EVENT_PLAY:
         this.player.play();

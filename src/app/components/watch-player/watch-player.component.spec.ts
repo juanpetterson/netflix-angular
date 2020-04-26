@@ -80,16 +80,6 @@ describe('WatchPlayerComponent', () => {
     expect(player.paused).toBeTruthy();
   });
 
-  it('should toggle player playing status when click on the video', () => {
-    const player = de.query(By.css('#player'))
-      .nativeElement as HTMLVideoElement;
-
-    player.muted = true;
-    player.click();
-
-    expect(player.paused).toBeFalsy();
-  });
-
   it('should toggle fullscreen when dobule click on the video', () => {
     const componentSpy = spyOn(component, 'onToggleFullscreen');
     const player = de.query(By.css('#player'));

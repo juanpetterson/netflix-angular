@@ -23,6 +23,19 @@ class RouterLinkDirectiveStub {
   }
 }
 
+@Component({
+  selector: 'app-test',
+  template: '',
+})
+class TestComponent {}
+
+const routes = [
+  {
+    path: 'watch/:id',
+    component: TestComponent,
+  },
+];
+
 describe('MediaSliderDetailsComponent', () => {
   let component: MediaSliderDetailsComponent;
   let fixture: ComponentFixture<MediaSliderDetailsComponent>;
@@ -34,7 +47,7 @@ describe('MediaSliderDetailsComponent', () => {
 
     TestBed.configureTestingModule({
       declarations: [MediaSliderDetailsComponent, RouterLinkDirectiveStub],
-      imports: [RouterTestingModule.withRoutes([])],
+      imports: [RouterTestingModule.withRoutes(routes)],
     }).compileComponents();
   }));
 

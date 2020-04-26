@@ -40,7 +40,6 @@ describe('AuthService', () => {
   });
 
   it('should store the user at localStorage and isAuthenticated$ update when signIn is called with the correct credentials', (done) => {
-    // spyOn(service, 'signIn');
     const isAuthenticated$ = spyOn(service.isAuthenticated$, 'next');
 
     service.signIn(USER.email, USER.password).subscribe((user: User) => {

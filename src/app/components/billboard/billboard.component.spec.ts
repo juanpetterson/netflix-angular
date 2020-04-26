@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { DebugElement, Input, Directive } from '@angular/core';
+import { DebugElement, Input, Directive, Component } from '@angular/core';
 import { RouterTestingModule } from '@angular/router/testing';
 import { By } from '@angular/platform-browser';
 import { BillboardComponent } from './billboard.component';
@@ -21,6 +21,19 @@ class RouterLinkDirectiveStub {
   }
 }
 
+@Component({
+  selector: 'app-test',
+  template: '',
+})
+class TestComponent {}
+
+const routes = [
+  {
+    path: 'watch/:id',
+    component: TestComponent,
+  },
+];
+
 describe('BillboardComponent', () => {
   let component: BillboardComponent;
   let fixture: ComponentFixture<BillboardComponent>;
@@ -32,7 +45,7 @@ describe('BillboardComponent', () => {
 
     TestBed.configureTestingModule({
       declarations: [BillboardComponent, RouterLinkDirectiveStub],
-      imports: [RouterTestingModule.withRoutes([])],
+      imports: [RouterTestingModule.withRoutes(routes)],
     }).compileComponents();
   }));
 

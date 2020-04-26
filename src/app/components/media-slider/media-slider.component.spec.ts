@@ -23,7 +23,7 @@ class MediaSliderItemComponent {
   @Input() isOriginals: boolean;
 }
 
-fdescribe('MediaSliderComponent', () => {
+describe('MediaSliderComponent', () => {
   let component: MediaSliderComponent;
   let fixture: ComponentFixture<MediaSliderComponent>;
   let de: DebugElement;
