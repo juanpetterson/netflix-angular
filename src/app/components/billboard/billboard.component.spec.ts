@@ -29,7 +29,7 @@ describe('BillboardComponent', () => {
   let MEDIA: Media;
 
   beforeEach(async(() => {
-    MEDIA = { ...Medias[0] };
+    MEDIA = [...Medias][0];
 
     TestBed.configureTestingModule({
       declarations: [BillboardComponent, RouterLinkDirectiveStub],
@@ -56,13 +56,13 @@ describe('BillboardComponent', () => {
 
     const playButton = de.query(By.css('#play'));
     playButton.nativeElement.click();
+    fixture.detectChanges();
 
     expect(routerLink.navigatedTo).toEqual(['/watch', MEDIA.id]);
   });
 
   it('should have the correct source image for the billboard', () => {
     const image = de.query(By.css('.billboard__image'));
-    image.nativeElement.click();
 
     expect(image.nativeElement.src).toContain(MEDIA.billboard);
   });
