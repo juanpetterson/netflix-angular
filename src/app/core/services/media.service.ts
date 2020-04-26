@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
+import { Observable, of } from 'rxjs';
 import { Media } from '../../shared/models/media';
 import medias from '../../../assets/data/medias';
-import { Observable, of } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class MediaService {
@@ -13,10 +13,6 @@ export class MediaService {
 
   public getMedia(id: number): Observable<Media> {
     return of(medias.find((media) => media.id === id));
-  }
-
-  public getMediasByIds(mediasIds: number[]): Observable<Media[]> {
-    return of(medias.filter((media) => mediasIds.includes(media.id)));
   }
 
   public getMediasOriginals(): Observable<Media[]> {

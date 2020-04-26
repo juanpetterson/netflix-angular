@@ -11,7 +11,7 @@ export type Spied<T> = {
   [Method in keyof T]: jasmine.Spy;
 };
 
-fdescribe('MediaStorageService', () => {
+describe('MediaStorageService', () => {
   let service: MediaStorageService;
   let authServiceSpy: any;
   let mediaServiceSpy: Spied<MediaService>;
