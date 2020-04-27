@@ -29,8 +29,8 @@ export class MediaStateService {
 
   private mediaState: MediaState = { ...this._initialState };
 
-  mediaStateChanged = new BehaviorSubject<MediaState>(this.mediaState);
-  mediaStateEvent = new Subject<string>();
+  public mediaStateChanged = new BehaviorSubject<MediaState>(this.mediaState);
+  public mediaStateEvent = new Subject<string>();
 
   constructor() {}
 

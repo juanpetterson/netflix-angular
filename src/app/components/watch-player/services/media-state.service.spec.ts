@@ -1,4 +1,3 @@
-import { TestBed } from '@angular/core/testing';
 import { MediaStateService } from './media-state.service';
 import {
   EVENT_PLAY,

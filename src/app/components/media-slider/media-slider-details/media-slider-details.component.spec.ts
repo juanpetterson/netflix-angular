@@ -6,7 +6,6 @@ import { By } from '@angular/platform-browser';
 import Medias from '../../../../assets/data/medias';
 import { Media } from 'app/shared/models/media';
 import { RouterTestingModule } from '@angular/router/testing';
-import { WatchPlayerComponent } from 'app/components/watch-player/watch-player.component';
 
 @Directive({
   // tslint:disable-next-line: directive-selector
