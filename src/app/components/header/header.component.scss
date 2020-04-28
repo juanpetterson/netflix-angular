@@ -49,6 +49,10 @@
       align-items: center;
       justify-content: space-between;
       list-style-type: none;
+
+      @media all and (max-width: 800px) {
+        opacity: 0;
+      }
     }
 
     &-item {
