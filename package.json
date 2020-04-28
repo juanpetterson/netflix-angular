@@ -6,12 +6,12 @@
     "start": "ng serve",
     "build": "ng build --prod",
     "test": "ng test",
+    "test:silent": "ng test --watch=false --browsers=ChromeHeadless",
     "lint": "ng lint",
     "cypress:open": "cypress open",
     "cypress:run": "cypress run",
     "cypress": "concurrently \"ng serve\" \"cypress open\"",
-    "build-and-start:prod": "run-s build start:prod",
-    "e2e": "start-server-and-test build-and-start:prod http://localhost:4200 cypress:run"
+    "e2e": "start-server-and-test start http://localhost:4200 cypress:run"
   },
   "private": true,
   "dependencies": {
@@ -49,6 +49,7 @@
     "karma-jasmine-html-reporter": "^1.4.0",
     "karma-mocha-reporter": "^2.2.5",
     "protractor": "~5.4.0",
+    "start-server-and-test": "^1.11.0",
     "ts-node": "~7.0.0",
     "tslint": "~5.15.0",
     "typescript": "~3.8.3"

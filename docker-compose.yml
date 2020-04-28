@@ -3,7 +3,6 @@ version: '3.4'
 services:
   netflix-angular:
     image: netflix-angular
-    container_name: netflix-angular
     build:
       context: .
       dockerfile: Dockerfile
