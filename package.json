@@ -9,7 +9,9 @@
     "lint": "ng lint",
     "cypress:open": "cypress open",
     "cypress:run": "cypress run",
-    "cypress": "concurrently \"ng serve\" \"cypress open\""
+    "cypress": "concurrently \"ng serve\" \"cypress open\"",
+    "build-and-start:prod": "run-s build start:prod",
+    "e2e": "start-server-and-test build-and-start:prod http://localhost:4200 cypress:run"
   },
   "private": true,
   "dependencies": {
