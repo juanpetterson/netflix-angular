@@ -1,6 +1,8 @@
 # Netflix Angular
 > This project is a mini Netflix clone application made with Angular
 
+> ![Build Status](https://api.travis-ci.org/juanpetterson/netflix-angular.svg?branch=master)
+
 ## Table of contents
 * [Features](#features)
 * [Roadmap](#roadmap)
