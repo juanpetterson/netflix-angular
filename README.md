@@ -23,7 +23,7 @@
 ## Roadmap
 
 * Save to My List
-* Functional More Info button
+* Functional Billboard More Info button
 * Medias suggestion based on previous watches
 * Top 10
 	
@@ -70,7 +70,7 @@ docker-compose up
 Development version:
 
 ```bash
-docker-compose -f docker-compose-prod.yml up
+docker-compose -f docker-compose-dev.yml up
 ```
 The development version runs on port 4200, and the production on port 80.
 
