@@ -74,7 +74,7 @@ Development version:
 ```bash
 docker-compose -f docker-compose-dev.yml up
 ```
-The development version runs on port 4200, and the production on port 80.
+The development version runs on port 4200, and the production on port 8082.
 
 ## Build
 
