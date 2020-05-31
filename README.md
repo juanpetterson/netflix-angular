@@ -28,6 +28,7 @@
 * Functional Billboard More Info button
 * Medias suggestion based on previous watches
 * Top 10
+* Not found page
 	
 ## Built With
 
